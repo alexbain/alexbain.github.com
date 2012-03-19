@@ -4,7 +4,7 @@ title: "TTI: Time to Information"
 date: 2012-03-16 00:15
 comments: true
 categories: tti
-published: false
+published: true
 ---
 
 Information. Not long ago information was scarce. If you needed information you'd have to embark on a quest to seek it out. You'd go to a library or book store, search for a book, (hopefully) find one, and read it. Perhaps you were lucky and the first book you read had the information you needed. If you weren't lucky and you still had the drive to continue, you could try again with another book or resource. It could take days (or weeks) just to physically find the information needed. That does not include the time required to parse the information once in your possession. Information's physical location was a fundamental limitation to the speed with which information could be parsed and understood.
