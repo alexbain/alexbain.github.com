@@ -40,7 +40,7 @@ As this metric is primarily geared towards information retrieval over the intern
 * The relevancy of the information returned from a service when given a well formed query.
 * The usability of the interface presenting the information.
 
-Each of these aspects has a huge potential impact on TTI. If a service performs poorly enough in any of these categories I firmly believe improving upon it will provide a measurable benefit to user satisfaction. In the coming years, as the number of information services multiply, the services that provide well formatted, relevant, easy to use information will be the ones that succeed. We, as humans, simply will not spend time on services that do not place relevant information retrieval and presentation at the forefront of their business goals.
+Each of these aspects have a huge potential impact on TTI. If a service performs poorly enough in any of these categories I believe improving upon it will provide a benefit to user experience and satisfaction. In the coming years, as the number of information services multiply, I think that services which present well formatted, relevant, easy to understand information will have a competitive edge against those that do not.
 
 ## Measuring Time to Information
 
