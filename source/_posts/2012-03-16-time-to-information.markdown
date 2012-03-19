@@ -1,0 +1,57 @@
+---
+layout: post
+title: "TTI: Time to Information"
+date: 2012-03-16 00:15
+comments: true
+categories: tti
+published: false
+---
+
+Information. Not long ago information was scarce. If you needed information you'd have to embark on a quest to seek it out. You'd go to a library or book store, search for a book, (hopefully) find one, and read it. Perhaps you were lucky and the first book you read had the information you needed. If you weren't lucky and you still had the drive to continue, you could try again with another book or resource. It could take days (or weeks) just to physically find the information needed. That does not include the time required to parse the information once in your possession. Information's physical location was a fundamental limitation to the speed with which information could be parsed and understood.
+
+Then, late in the 20th century, something amazing happened. Information was liberated from books and became something that machines could parse. Information stored on machines could be called up and presented on our screens in a timescale measured by minutes or seconds, not days or weeks. You could store thousands of books on your computer and search through them at blazing speeds. Now, in the 21st century, information no longer needs to reside on a machine you own. Information can be found on any machine connected to the internet. The world's information is fast becoming a digital commodity that is accessible simply by moving our fingers across a keyboard. We are no longer obligated to go to the information - the information can be delivered directly to us, at any time, in high definition, at no cost. Information is now mobile.
+
+The astounding technological accomplishments that go into delivering information directly to your screen, while insurmountably fascinating, are not what this article is about. This article is about my personal explorations in developing a terminology that can adequately describe and measure the human ability to find and parse the information available to us.
+
+I don't claim to have any answers. I don't even claim to have developed a definitive terminology. I simply find this topic so fascinating that I can't help but ask the questions and try to answer them. With further research and trial and error I hope to develop a series of techniques and tools to allow for more efficient information retrieval, presentation, and parsing. **The ultimate goal of this pursuit is to find (or create) mental or technological hacks to minimize the time between a thought and knowledge**.
+
+So, with a goal clearly outlined, it's time to define a metric to measure progress towards the goal. Why define a metric? I firmly believe that unless you have a way to measure progress towards a goal, you'll be unable able to tell if you've succeeded at your task.
+
+## Defining Time to Information (TTI)
+
+The initial metric I've been using has been "Time to Information." I'm defining Time to Information (or TTI, as I'll refer to it from now on) as **the length of time between when you decide to seek out a piece of information and when you have processed enough information to consider the thought resolved**.
+
+### Time to Information: Within your control
+
+There are at least four factors involved in information retrieval that are in your direct control.
+
+* The amount of self control you have to stay focused on the task at hand.
+* The services you select to find your information.
+* The speed with which you can parse the information returned by the services.
+* The time it takes to process the parsed information and determine if it resolves your thought.
+
+### Time to Information: Outside of your control
+
+As this metric is primarily geared towards information retrieval over the internet, which relies heavily on third party services, it would be remiss not to at least articulate a few aspects of TTI that are not in your direct control.
+
+* The availability of the service.
+* The network latency between you and the service.
+* The quality of information the service contains.
+* The relevancy of the information returned from a service when given a well formed query.
+* The usability of the interface presenting the information.
+
+Each of these aspects has a huge potential impact on TTI. If a service performs poorly enough in any of these categories I firmly believe improving upon it will provide a measurable benefit to user satisfaction. In the coming years, as the number of information services multiply, the services that provide well formatted, relevant, easy to use information will be the ones that succeed. We, as humans, simply will not spend time on services that do not place relevant information retrieval and presentation at the forefront of their business goals.
+
+## Measuring Time to Information
+
+This is the next step. I need to develop a way where I can painlessly log the timestamp of the "start" of a thought and the timestamp where I've acquired enough information to call it resolved. I'll also need to find ways to categorize and represent these thoughts with data such as:
+
+* Device used
+* Tool or service used
+* An "ease of use" index to measure an overall quality of experience?
+* ???
+
+If you have any suggestions or ideas on the kind of data that would be relevant in this exploration please get in touch. 
+
+I do have an initial idea to start logging this data. I'll post that idea as well as some initial findings in the coming weeks as I find time.
+
