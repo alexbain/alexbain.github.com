@@ -3,7 +3,7 @@ layout: post
 title: "Adventures with Microprocessors"
 date: 2012-02-03 08:17
 comments: true
-categories: arduino, ez430
+categories: [arduino, ez430]
 ---
 
 I've always been fascinated by embedded systems but haven't taken the time

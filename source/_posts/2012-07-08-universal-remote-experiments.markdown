@@ -3,7 +3,7 @@ layout: post
 title: "Universal remote experiments"
 date: 2012-07-08 09:51
 comments: true
-categories: arduino, raspberrypi, electronics
+categories: [arduino, raspberrypi, electronics]
 ---
 
 Over the past few months I've decided to teach myself a bit about embedded

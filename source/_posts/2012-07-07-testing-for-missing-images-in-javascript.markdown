@@ -3,7 +3,7 @@ layout: post
 title: "Testing for missing images in JavaScript"
 date: 2012-07-07 23:08
 comments: true
-categories: javascript, tip
+categories: [javascript, tip]
 ---
 
 Recently I had to determine if an image URL was properly rendering or not. Since

@@ -3,7 +3,7 @@ layout: post
 title: "Undefined macro: AC_PROG_LIBTOOL"
 date: 2012-07-07 23:00
 comments: true
-categories: linux, tip
+categories: [linux, tip]
 ---
 
 While trying to install LIRC on my RaspberryPi I ran into this error:
