@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: html5 | alexba.in]]></title>
+  <link href="http://alexbain.github.com/blog/categories/html5/atom.xml" rel="self"/>
+  <link href="http://alexbain.github.com/"/>
+  <updated>2012-10-16T12:51:42-07:00</updated>
+  <id>http://alexbain.github.com/</id>
+  <author>
+    <name><![CDATA[Alex Bain]]></name>
+    <email><![CDATA[alex@alexba.in]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[User agent stylesheets and border-box]]></title>
+    <link href="http://alexbain.github.com/blog/2012/10/16/user-agent-stylesheets-and-border-box/"/>
+    <updated>2012-10-16T12:38:00-07:00</updated>
+    <id>http://alexbain.github.com/blog/2012/10/16/user-agent-stylesheets-and-border-box</id>
+    <content type="html"><![CDATA[<p>Recently I was trying to troubleshoot why all of the inputs on a project had
+<code>box-sizing: border-box</code> applied to them. It turns out that a user agent
+stylesheet rule that I don't normally see was being applied to all input elements.
+This user agent stylesheet rule was being applied in Chrome, Firefox, and Safari.</p>
+
+<p>Here is the <code>user agent stylesheet</code> rule that was being applied:</p>
+
+<pre><code>input:not([type="image"]), textarea {
+  box-sizing: border-box;
+}
+</code></pre>
+
+<p>After some troubleshooting it turns out this rule was being applied due
+to a typo in the DOCTYPE for the project. After changing the DOCTYPE back
+to the correct HTML5 doctype (<code>&lt;!doctype html&gt;</code>) everything loaded correctly.</p>
+]]></content>
+  </entry>
+  
+</feed>
