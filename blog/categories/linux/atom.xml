@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: linux | alexba.in]]></title>
+  <link href="http://alexbain.github.com/blog/categories/linux/atom.xml" rel="self"/>
+  <link href="http://alexbain.github.com/"/>
+  <updated>2012-10-16T12:28:43-07:00</updated>
+  <id>http://alexbain.github.com/</id>
+  <author>
+    <name><![CDATA[Alex Bain]]></name>
+    <email><![CDATA[alex@alexba.in]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Undefined macro: AC_PROG_LIBTOOL]]></title>
+    <link href="http://alexbain.github.com/blog/2012/07/07/undefined-macro-ac-prog-libtool/"/>
+    <updated>2012-07-07T23:00:00-07:00</updated>
+    <id>http://alexbain.github.com/blog/2012/07/07/undefined-macro-ac-prog-libtool</id>
+    <content type="html"><![CDATA[<p>While trying to install LIRC on my RaspberryPi I ran into this error:</p>
+
+<p><code>configure.ac:24: error: possibly undefined macro: AC_PROG_LIBTOOL</code></p>
+
+<p>The solution that worked for me (on Debian Wheezy) was:</p>
+
+<p><code>sudo apt-get install libtools</code></p>
+
+<p>Hope that helps someone else out there.</p>
+]]></content>
+  </entry>
+  
+</feed>

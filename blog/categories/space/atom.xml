@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: space | alexba.in]]></title>
+  <link href="http://alexbain.github.com/blog/categories/space/atom.xml" rel="self"/>
+  <link href="http://alexbain.github.com/"/>
+  <updated>2012-10-16T12:28:43-07:00</updated>
+  <id>http://alexbain.github.com/</id>
+  <author>
+    <name><![CDATA[Alex Bain]]></name>
+    <email><![CDATA[alex@alexba.in]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[ArduSat: Doing it.]]></title>
+    <link href="http://alexbain.github.com/blog/2012/07/14/ardusat-doing-it/"/>
+    <updated>2012-07-14T11:26:00-07:00</updated>
+    <id>http://alexbain.github.com/blog/2012/07/14/ardusat-doing-it</id>
+    <content type="html"><![CDATA[<p>I've been enamored with space for as long as I can remember. The barrier of entry
+for space/satellites, however, has always been a bit outside of the individual's grasp.</p>
+
+<p>Until now. The other day I stumbled across an amazing Kickstarter project -
+the <a href="http://www.kickstarter.com/projects/575960623/ardusat-your-arduino-experiment-in-space">ArduSat</a>. The goal of the project is to be the first open platform for
+individuals to design and run their own space experiments. Yup. That's right.
+For $325 you can now run your own space experiments.</p>
+
+<p>For the first time you can get access to a satellite and execute whatever code
+you like to gather data, run experiments, or otherwise just take photos from space.
+It's an amazing idea and one I'm proud to say I'm a backer of.</p>
+
+<p>I haven't decided what to do with the time yet. Since photography is such
+a passion of mine, however, I'd love to find some way to analyze the surroundings,
+determine if something interesting is happening, and start taking photographs. Given
+that the user has good control over the camera I was thinking that some HDR shots
+might end up being beautiful.</p>
+
+<p>Hopefully my output from this will be a beautiful print I can hang in my home
+to remember the first (of many, I can only hope) time I was able to run code in space.</p>
+]]></content>
+  </entry>
+  
+</feed>

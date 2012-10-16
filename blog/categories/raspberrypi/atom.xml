@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: raspberrypi | alexba.in]]></title>
+  <link href="http://alexbain.github.com/blog/categories/raspberrypi/atom.xml" rel="self"/>
+  <link href="http://alexbain.github.com/"/>
+  <updated>2012-10-16T12:28:43-07:00</updated>
+  <id>http://alexbain.github.com/</id>
+  <author>
+    <name><![CDATA[Alex Bain]]></name>
+    <email><![CDATA[alex@alexba.in]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Universal remote experiments]]></title>
+    <link href="http://alexbain.github.com/blog/2012/07/08/universal-remote-experiments/"/>
+    <updated>2012-07-08T09:51:00-07:00</updated>
+    <id>http://alexbain.github.com/blog/2012/07/08/universal-remote-experiments</id>
+    <content type="html"><![CDATA[<p>Over the past few months I've decided to teach myself a bit about embedded
+microcontrollers and electronics. I've never worked with hardware before and,
+after a bit of Googling, found an amazing Maker / Open Hardware movement going
+on that I could leverage to help bootstrap my ideas.</p>
+
+<p>Since I've found the best way to motivate myself is with a concrete project I
+decided that, for my first project, I wanted to build a universal remote that I
+could control from my phone. I have a Harmony remote, which I use regularly,
+but it's limited by line of sight and requires customization through a
+cumbersome software interface.</p>
+
+<p>My initial requirements were:</p>
+
+<ul>
+<li>Must be small enough to place discreetly in the room</li>
+<li>Must be WiFi enabled</li>
+<li>Must have great IR range and coverage</li>
+<li>Must be able to learn existing commands</li>
+<li>Must have a responsive web interface</li>
+</ul>
+
+
+<h4>Version 1: Arduino</h4>
+
+<p>The first prototype I built was using an <a href="http://arduino.cc">Arduino Uno</a> microcontroller along with
+<a href="http://www.arcfn.com/2009/08/multi-protocol-infrared-remote-library.html">Ken Shirriff's</a> multi protocol IR library. I had wired a 940nm IR LED to one
+of the Arduino's pins and was able to get about two feet of range out of it.</p>
+
+<p>Next, I extended the code and attached a <a href="http://www.sparkfun.com/products/10822">Roving Networks RN-XV</a> WiFi chip to
+my project so it was WiFi enabled. So far so good. I could now send or receive
+IR commands (relatively well, it wasn't perfect) over Wifi with about a two foot
+range for the IR signal. I also had to hard code the WiFi credentials which meant
+the device wasn't very portable, but at least it worked. This was version 1.1.</p>
+
+<p>Version 1.2 was an updated hardware schematic that added a 2N2222 transistor to
+the mix. Using a transistor meant that the output from the Arduino's pin was not
+trying to power the LED but just telling a transitor to switch current on and off.
+Since the transistor switches current significantly better than the output
+pin of the Arduino I was able to extend the range for the IR blaster to about 15ft.
+This change was inspired by open source schematics like <a href="http://www.ladyada.net/images/tvbgone/schematic.jpg">TV-B-Gone</a>.</p>
+
+<p>Version 1.3 was to be the version with the web interface. This was where I realized
+the limitations of the Arduino platform. I could not easily run a WiFi libray,
+an IR library, and a web server off of an 8bit micro controller. I simply didn't
+have the resources.</p>
+
+<p>I had considered a few alternatives:</p>
+
+<ul>
+<li>Run a webserver on my laptop and just send commands to/from the Arduino</li>
+<li>Run a webserver on the internet and relay commands that way</li>
+<li>Purchase a device like a <a href="http://raspberrypi.org/">RaspberryPi</a> or <a href="http://beagleboard.org/bone/">Beaglebone</a> and run the web
+server on that device. Communicate with the Arduino perhaps via XBee or over WiFi.</li>
+</ul>
+
+
+<p>Ultimately I decided that adding a second device increased the complexity of the
+project beyond what I wanted. So, I scrapped the idea of using an Arduino and I'm
+starting over with a <a href="http://raspberrypi.org/">RaspberryPi</a>.</p>
+
+<h4>Version 2: RaspberryPi</h4>
+
+<p>The <a href="http://raspberrypi.org/">RaspberryPi</a> is a completely different beast than the <a href="http://arduino.cc">Arduino</a>. The <a href="http://raspberrypi.org/">RaspberryPi</a>
+is about as powerful as a mobile phone. It's got an ARM processor,
+ethernet port, RAM, SD card for storage, and a bunch of <a href="http://en.wikipedia.org/wiki/General_Purpose_Input/Output">GPIO</a> pins for a hardware
+interface.</p>
+
+<p>So first up was finding an IR software package (designed for a Linux OS) that
+could handle the transmission and receiving of IR signals. This lead me to
+<a href="http://www.lirc.org/">LIRC</a> - the Linux Infrared Remote Control project. This project has been
+around for a while, has a bunch of hardware schematics available (sending and
+receiving) for it, and is open source. Perfect.</p>
+
+<p>This lead me to getting LIRC working on my RaspberryPi. Luckily a chap who goes
+by the name <a href="http://aron.ws/projects/lirc_rpi/">ar0n</a> has already opened a <a href="https://github.com/raspberrypi/linux/pull/38">pull request</a> that adds preliminary
+LIRC support to the RaspberryPi linux kernel.</p>
+
+<p>So, at this very moment, I am attempting to recompile the RaspberryPi linux kernel
+with LIRC support. Once this step is done I'll wire up some hardware to test
+sending and receiving. Once that works I should be back to "adding a web platform"
+which will be significantly easier when powered by an entire Linux stack.</p>
+
+<p>I'll post another update down the road once I've gotten this step working.</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: ruby | alexba.in]]></title>
+  <link href="http://alexbain.github.com/blog/categories/ruby/atom.xml" rel="self"/>
+  <link href="http://alexbain.github.com/"/>
+  <updated>2012-10-16T12:28:43-07:00</updated>
+  <id>http://alexbain.github.com/</id>
+  <author>
+    <name><![CDATA[Alex Bain]]></name>
+    <email><![CDATA[alex@alexba.in]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Native gem extensions failing to install]]></title>
+    <link href="http://alexbain.github.com/blog/2012/10/16/native-gem-extensions-failing-to-install/"/>
+    <updated>2012-10-16T12:23:00-07:00</updated>
+    <id>http://alexbain.github.com/blog/2012/10/16/native-gem-extensions-failing-to-install</id>
+    <content type="html"><![CDATA[<p>Recently I've had trouble installing native gem extensions on my OSX 10.8.2 laptop.
+It appears that some gems are specifically looking for <code>/usr/bin/gcc-4.2</code> and
+fail to compile if that's missing. When I checked <code>/usr/bin</code> I could only find
+<code>/usr/bin/gcc</code>.</p>
+
+<p>I tried creating a symlink to <code>gcc-4.2</code> and everything installed correctly:</p>
+
+<pre><code>sudo ln -s /usr/bin/gcc /usr/bin/gcc-4.2
+</code></pre>
+
+<p>Hope this helps someone!</p>
+]]></content>
+  </entry>
+  
+</feed>

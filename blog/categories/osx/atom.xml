@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: osx | alexba.in]]></title>
+  <link href="http://alexbain.github.com/blog/categories/osx/atom.xml" rel="self"/>
+  <link href="http://alexbain.github.com/"/>
+  <updated>2012-10-16T12:28:43-07:00</updated>
+  <id>http://alexbain.github.com/</id>
+  <author>
+    <name><![CDATA[Alex Bain]]></name>
+    <email><![CDATA[alex@alexba.in]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Opening Chrome from the OSX terminal]]></title>
+    <link href="http://alexbain.github.com/blog/2012/03/23/open-chrome-from-terminal/"/>
+    <updated>2012-03-23T11:15:00-07:00</updated>
+    <id>http://alexbain.github.com/blog/2012/03/23/open-chrome-from-terminal</id>
+    <content type="html"><![CDATA[<p>Have you ever wanted to open an HTML file in Chrome, directly from the OSX terminal? I have. Here's how to do it:</p>
+
+<ul>
+<li>Open <code>~/.bash_profile</code> in your editor of choice.</li>
+<li>Append this to the bottom of your <code>~/.bash_profile</code>:</li>
+</ul>
+
+
+<p>``` bash .bash_profile</p>
+
+<pre><code>  chrome () {
+    open -a "/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome" "$1"
+  }
+</code></pre>
+
+<p>```</p>
+
+<ul>
+<li>Save and close the file.</li>
+<li>Run <code>source ~/.bash_profile</code> from the terminal to reload it.</li>
+<li>Enjoy being able to type things like <code>chrome index.html</code> from the terminal.</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

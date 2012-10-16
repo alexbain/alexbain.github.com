@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: javascript | alexba.in]]></title>
+  <link href="http://alexbain.github.com/blog/categories/javascript/atom.xml" rel="self"/>
+  <link href="http://alexbain.github.com/"/>
+  <updated>2012-10-16T12:28:43-07:00</updated>
+  <id>http://alexbain.github.com/</id>
+  <author>
+    <name><![CDATA[Alex Bain]]></name>
+    <email><![CDATA[alex@alexba.in]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Testing for missing images in JavaScript]]></title>
+    <link href="http://alexbain.github.com/blog/2012/07/07/testing-for-missing-images-in-javascript/"/>
+    <updated>2012-07-07T23:08:00-07:00</updated>
+    <id>http://alexbain.github.com/blog/2012/07/07/testing-for-missing-images-in-javascript</id>
+    <content type="html"><![CDATA[<p>Recently I had to determine if an image URL was properly rendering or not. Since
+this image URL was provided by a user there was a chance that it had been
+deleted or moved since they first set it. In that case I wanted to show a
+different image - perhaps a "missing user" image - rather than just an empty
+box.</p>
+
+<p>My solution was to bind a callback to the <code>onerror</code> event that fires on an
+<code>Image</code> object if the image source could not be loaded. By binding a callback
+to this error I was able to replace a missing image with an image of my choice.</p>
+
+<p>Here's a sample implementation that binds a callback onto the <code>onerror</code> event:</p>
+
+<p>``` javascript</p>
+
+<p>var checkForMissingImage = function (url, callback) {</p>
+
+<p>  // Create an Image object in memory
+  var img = new Image();</p>
+
+<p>  // Bind the callback to the onerror event
+  img.onerror = function() {</p>
+
+<pre><code>callback();
+</code></pre>
+
+<p>  };</p>
+
+<p>  // Set the src of the image to the url provided
+  img.src = url;</p>
+
+<p>};</p>
+
+<p>```</p>
+
+<p>Here's an example that involves replacing all images with class userpic on a page.</p>
+
+<p>``` html</p>
+
+<!-- Userpic that will render as a missing image and needs replacing -->
+
+
+<p><img src="http://brokenhost.com/does_not_exist.png" class="userpic" /></p>
+
+<!-- Userpic that will render properly -->
+
+
+<p><img src="http://placekitten.com.s3.amazonaws.com/homepage-samples/200/287.jpg" class="userpic" /></p>
+
+<p>```</p>
+
+<p>``` javascript</p>
+
+<p>$(function() {</p>
+
+<p>  // Define a custom image to replace all missing images with
+  var replacementImage = 'http://placekitten.com.s3.amazonaws.com/homepage-samples/408/287.jpg';</p>
+
+<p>  // Find all userpics on the page
+  $('.userpic').each(function (i, userpic) {</p>
+
+<pre><code>// Create a cached reference of this userpic
+var $userpic = $(userpic);
+
+// Get the source of the userpic
+var src = $userpic.attr('src');
+
+// Check to see if this image still exists. If it does not exist, execute
+// the callback function and replace it.
+checkForMissingImage(src, function() {
+
+  // Update the missing image with our replacement image.
+  $userpic.attr('src', replacementImage);
+
+});
+</code></pre>
+
+<p>  });</p>
+
+<p>});</p>
+
+<p>```</p>
+
+<p>As <code>onerror</code> support isn't universal across every browser this should be
+considered a visual enhancement for users with modern browsers.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[JavaScript Equivalence Operators]]></title>
+    <link href="http://alexbain.github.com/blog/2012/01/05/javascript-equivalence-operators/"/>
+    <updated>2012-01-05T22:06:00-08:00</updated>
+    <id>http://alexbain.github.com/blog/2012/01/05/javascript-equivalence-operators</id>
+    <content type="html"><![CDATA[<p>JavaScript has two sets of equivalence operators. One set is type converting
+while the other set is strict.</p>
+
+<p>Here's a quick example that demonstrates these two types of operators:</p>
+
+<p>``` javascript Equivalence operators in JavaScript</p>
+
+<blockquote><p>var a = 4;
+4
+var b = 4;
+4
+var c = "4";
+"4"
+a == b
+true
+a === b
+true
+a == c
+true
+// fails due to type mismatch
+a === c
+false
+```</p></blockquote>
+
+<p>The key point is noting that while <code>a == c</code> is true, <code>a === c</code> is false.</p>
+
+<p>Why? When using the <code>==</code> operator the string <code>"4"</code> is type cast into a <code>4</code>
+which is compared to <code>4</code>. As <code>4</code> is equivalent to <code>4</code>, this evaluates to true.</p>
+
+<p>However, when using the <code>===</code> operator the string <code>"4"</code> is directly compared to the
+number <code>4</code>. This fails because a <code>String</code> is not equivalent to a <code>Number</code>.</p>
+
+<p>Here are the specific rules that the JavaScript interpreter follows:</p>
+
+<blockquote><p>If either operand is a number or a boolean, the operands are converted to
+numbers if possible; else if either operand is a string, the other operand is
+converted to a string if possible. If both operands are objects, then
+JavaScript compares internal references which are equal when operands refer
+to the same object in memory.
+<a href="https://developer.mozilla.org/en/JavaScript/Reference/Operators/Comparison_Operators">Mozilla Developer Network</a></p></blockquote>
+
+<p>So, if you're ever trying to figure out why a comparison is evaluating to
+true when it should be evaluating to false, double check that you're not
+accidentally type casting one of the operands.</p>
+
+<p>Want to dive deeper? Check out these articles for even more information:</p>
+
+<ul>
+<li><a href="http://www.w3schools.com/Js/js_comparisons.asp">W3CSchools - JavaScript Comparison and Logical Operators</a></li>
+<li><a href="https://developer.mozilla.org/en/JavaScript/Reference/Operators/Comparison_Operators">MDN - Comparison operators</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

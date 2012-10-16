@@ -1,112 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
 
-<!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>alexba.in</title>
-  <meta name="author" content="Alex Bain">
-
-  
-  <meta name="description" content="Recently I&#8217;ve had trouble installing native gem extensions on my OSX 10.8.2 laptop.
-It appears that some gems are specifically looking for /usr &hellip;">
-  
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><![CDATA[alexba.in]]></title>
+  <link href="http://alexbain.github.com/atom.xml" rel="self"/>
+  <link href="http://alexbain.github.com/"/>
+  <updated>2012-10-16T12:28:43-07:00</updated>
+  <id>http://alexbain.github.com/</id>
+  <author>
+    <name><![CDATA[Alex Bain]]></name>
+    <email><![CDATA[alex@alexba.in]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
 
   
-  <link rel="canonical" href="http://alexbain.github.com/">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="http://feeds.feedburner.com/alexbain" rel="alternate" title="alexba.in" type="application/atom+xml">
-  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-25918073-1']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-
-
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">alexba.in</a></h1>
-  
-    <h2>A collection of thoughts on technology, cognitive science, and life.</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="http://feeds.feedburner.com/alexbain" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:alexbain.github.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul class="main-navigation">
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div class="blog-index">
-  
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/10/16/native-gem-extensions-failing-to-install/">Native Gem Extensions Failing to Install</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-10-16T12:23:00-07:00" pubdate data-updated="true">Oct 16<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Recently I&#8217;ve had trouble installing native gem extensions on my OSX 10.8.2 laptop.
+  <entry>
+    <title type="html"><![CDATA[Native gem extensions failing to install]]></title>
+    <link href="http://alexbain.github.com/blog/2012/10/16/native-gem-extensions-failing-to-install/"/>
+    <updated>2012-10-16T12:23:00-07:00</updated>
+    <id>http://alexbain.github.com/blog/2012/10/16/native-gem-extensions-failing-to-install</id>
+    <content type="html"><![CDATA[<p>Recently I&#8217;ve had trouble installing native gem extensions on my OSX 10.8.2 laptop.
 It appears that some gems are specifically looking for <code>/usr/bin/gcc-4.2</code> and
 fail to compile if that&#8217;s missing. When I checked <code>/usr/bin</code> I could only find
 <code>/usr/bin/gcc</code>.</p>
@@ -117,42 +29,15 @@ fail to compile if that&#8217;s missing. When I checked <code>/usr/bin</code> I 
 </code></pre>
 
 <p>Hope this helps someone!</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/07/14/ardusat-doing-it/">ArduSat: Doing It.</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-07-14T11:26:00-07:00" pubdate data-updated="true">Jul 14<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I&#8217;ve been enamored with space for as long as I can remember. The barrier of entry
+  <entry>
+    <title type="html"><![CDATA[ArduSat: Doing it.]]></title>
+    <link href="http://alexbain.github.com/blog/2012/07/14/ardusat-doing-it/"/>
+    <updated>2012-07-14T11:26:00-07:00</updated>
+    <id>http://alexbain.github.com/blog/2012/07/14/ardusat-doing-it</id>
+    <content type="html"><![CDATA[<p>I&#8217;ve been enamored with space for as long as I can remember. The barrier of entry
 for space/satellites, however, has always been a bit outside of the individual&#8217;s grasp.</p>
 
 <p>Until now. The other day I stumbled across an amazing Kickstarter project -
@@ -172,42 +57,15 @@ might end up being beautiful.</p>
 
 <p>Hopefully my output from this will be a beautiful print I can hang in my home
 to remember the first (of many, I can only hope) time I was able to run code in space.</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/07/08/universal-remote-experiments/">Universal Remote Experiments</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-07-08T09:51:00-07:00" pubdate data-updated="true">Jul 8<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Over the past few months I&#8217;ve decided to teach myself a bit about embedded
+  <entry>
+    <title type="html"><![CDATA[Universal remote experiments]]></title>
+    <link href="http://alexbain.github.com/blog/2012/07/08/universal-remote-experiments/"/>
+    <updated>2012-07-08T09:51:00-07:00</updated>
+    <id>http://alexbain.github.com/blog/2012/07/08/universal-remote-experiments</id>
+    <content type="html"><![CDATA[<p>Over the past few months I&#8217;ve decided to teach myself a bit about embedded
 microcontrollers and electronics. I&#8217;ve never worked with hardware before and,
 after a bit of Googling, found an amazing Maker / Open Hardware movement going
 on that I could leverage to help bootstrap my ideas.</p>
@@ -290,42 +148,15 @@ sending and receiving. Once that works I should be back to &#8220;adding a web p
 which will be significantly easier when powered by an entire Linux stack.</p>
 
 <p>I&#8217;ll post another update down the road once I&#8217;ve gotten this step working.</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/07/07/testing-for-missing-images-in-javascript/">Testing for Missing Images in JavaScript</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-07-07T23:08:00-07:00" pubdate data-updated="true">Jul 7<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Recently I had to determine if an image URL was properly rendering or not. Since
+  <entry>
+    <title type="html"><![CDATA[Testing for missing images in JavaScript]]></title>
+    <link href="http://alexbain.github.com/blog/2012/07/07/testing-for-missing-images-in-javascript/"/>
+    <updated>2012-07-07T23:08:00-07:00</updated>
+    <id>http://alexbain.github.com/blog/2012/07/07/testing-for-missing-images-in-javascript</id>
+    <content type="html"><![CDATA[<p>Recently I had to determine if an image URL was properly rendering or not. Since
 this image URL was provided by a user there was a chance that it had been
 deleted or moved since they first set it. In that case I wanted to show a
 different image - perhaps a &#8220;missing user&#8221; image - rather than just an empty
@@ -442,42 +273,15 @@ to this error I was able to replace a missing image with an image of my choice.<
 
 <p>As <code>onerror</code> support isn&#8217;t universal across every browser this should be
 considered a visual enhancement for users with modern browsers.</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/07/07/undefined-macro-ac-prog-libtool/">Undefined Macro: AC_PROG_LIBTOOL</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-07-07T23:00:00-07:00" pubdate data-updated="true">Jul 7<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>While trying to install LIRC on my RaspberryPi I ran into this error:</p>
+  <entry>
+    <title type="html"><![CDATA[Undefined macro: AC_PROG_LIBTOOL]]></title>
+    <link href="http://alexbain.github.com/blog/2012/07/07/undefined-macro-ac-prog-libtool/"/>
+    <updated>2012-07-07T23:00:00-07:00</updated>
+    <id>http://alexbain.github.com/blog/2012/07/07/undefined-macro-ac-prog-libtool</id>
+    <content type="html"><![CDATA[<p>While trying to install LIRC on my RaspberryPi I ran into this error:</p>
 
 <p><code>configure.ac:24: error: possibly undefined macro: AC_PROG_LIBTOOL</code></p>
 
@@ -486,42 +290,15 @@ considered a visual enhancement for users with modern browsers.</p>
 <p><code>sudo apt-get install libtools</code></p>
 
 <p>Hope that helps someone else out there.</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/03/23/open-chrome-from-terminal/">Opening Chrome From the OSX Terminal</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-03-23T11:15:00-07:00" pubdate data-updated="true">Mar 23<span>rd</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Have you ever wanted to open an HTML file in Chrome, directly from the OSX terminal? I have. Here&#8217;s how to do it:</p>
+  <entry>
+    <title type="html"><![CDATA[Opening Chrome from the OSX terminal]]></title>
+    <link href="http://alexbain.github.com/blog/2012/03/23/open-chrome-from-terminal/"/>
+    <updated>2012-03-23T11:15:00-07:00</updated>
+    <id>http://alexbain.github.com/blog/2012/03/23/open-chrome-from-terminal</id>
+    <content type="html"><![CDATA[<p>Have you ever wanted to open an HTML file in Chrome, directly from the OSX terminal? I have. Here&#8217;s how to do it:</p>
 
 <ul>
 <li>Open <code>~/.bash_profile</code> in your editor of choice.</li>
@@ -544,42 +321,15 @@ considered a visual enhancement for users with modern browsers.</p>
 <li>Enjoy being able to type things like <code>chrome index.html</code> from the terminal.</li>
 </ul>
 
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/03/16/time-to-information/">TTI: Time to Information</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-03-16T00:15:00-07:00" pubdate data-updated="true">Mar 16<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Information. Not long ago information was scarce. If you needed information you&#8217;d have to embark on a quest to seek it out. You&#8217;d go to a library or book store, search for a book, (hopefully) find one, and read it. Perhaps you were lucky and the first book you read had the information you needed. If you weren&#8217;t lucky and you still had the drive to continue, you could try again with another book or resource. It could take days (or weeks) just to physically find the information needed. That does not include the time required to parse the information once in your possession. Information&#8217;s physical location was a fundamental limitation to the speed with which information could be parsed and understood.</p>
+  <entry>
+    <title type="html"><![CDATA[TTI: Time to Information]]></title>
+    <link href="http://alexbain.github.com/blog/2012/03/16/time-to-information/"/>
+    <updated>2012-03-16T00:15:00-07:00</updated>
+    <id>http://alexbain.github.com/blog/2012/03/16/time-to-information</id>
+    <content type="html"><![CDATA[<p>Information. Not long ago information was scarce. If you needed information you&#8217;d have to embark on a quest to seek it out. You&#8217;d go to a library or book store, search for a book, (hopefully) find one, and read it. Perhaps you were lucky and the first book you read had the information you needed. If you weren&#8217;t lucky and you still had the drive to continue, you could try again with another book or resource. It could take days (or weeks) just to physically find the information needed. That does not include the time required to parse the information once in your possession. Information&#8217;s physical location was a fundamental limitation to the speed with which information could be parsed and understood.</p>
 
 <p>Then, late in the 20th century, something amazing happened. Information was liberated from books and became something that machines could parse. Information stored on machines could be called up and presented on our screens in a timescale measured by minutes or seconds, not days or weeks. You could store thousands of books on your computer and search through them at blazing speeds. Now, in the 21st century, information no longer needs to reside on a machine you own. Information can be found on any machine connected to the internet. The world&#8217;s information is fast becoming a digital commodity that is accessible simply by moving our fingers across a keyboard. We are no longer obligated to go to the information - the information can be delivered directly to us, at any time, in high definition, at no cost. Information is now mobile.</p>
 
@@ -635,42 +385,15 @@ considered a visual enhancement for users with modern browsers.</p>
 <p>If you have any suggestions or ideas on the kind of data that would be relevant in this exploration please get in touch.</p>
 
 <p>I do have an initial idea to start logging this data. I&#8217;ll post that idea as well as some initial findings in the coming weeks as I find time.</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/02/03/adventures-with-microprocessors/">Adventures With Microprocessors</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-02-03T08:17:00-08:00" pubdate data-updated="true">Feb 3<span>rd</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I&#8217;ve always been fascinated by embedded systems but haven&#8217;t taken the time
+  <entry>
+    <title type="html"><![CDATA[Adventures with Microprocessors]]></title>
+    <link href="http://alexbain.github.com/blog/2012/02/03/adventures-with-microprocessors/"/>
+    <updated>2012-02-03T08:17:00-08:00</updated>
+    <id>http://alexbain.github.com/blog/2012/02/03/adventures-with-microprocessors</id>
+    <content type="html"><![CDATA[<p>I&#8217;ve always been fascinated by embedded systems but haven&#8217;t taken the time
 to dive into them or hack on &#8216;em. Over the past few weeks, however, the <a href="http://arduino.cc/" title="Arduino">Arduino</a>
 platform caught my eye and I&#8217;ve started reading about it and understanding
 what it&#8217;s capable of.</p>
@@ -695,42 +418,15 @@ them here once it&#8217;s up and running.</p>
 
 <p>If you&#8217;re curious, check out the <a href="https://github.com/alexbain/TI-Chronos-eZ430-to-WebSockets" title="TI eZ430 -&gt; WebSockets">Ruby script</a> that gets the watch talking
 with <a href="http://pusher.com" title="Pusher">Pusher.com</a>.</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/01/05/javascript-equivalence-operators/">JavaScript Equivalence Operators</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-01-05T22:06:00-08:00" pubdate data-updated="true">Jan 5<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>JavaScript has two sets of equivalence operators. One set is type converting
+  <entry>
+    <title type="html"><![CDATA[JavaScript Equivalence Operators]]></title>
+    <link href="http://alexbain.github.com/blog/2012/01/05/javascript-equivalence-operators/"/>
+    <updated>2012-01-05T22:06:00-08:00</updated>
+    <id>http://alexbain.github.com/blog/2012/01/05/javascript-equivalence-operators</id>
+    <content type="html"><![CDATA[<p>JavaScript has two sets of equivalence operators. One set is type converting
 while the other set is strict.</p>
 
 <p>Here&#8217;s a quick example that demonstrates these two types of operators:</p>
@@ -796,42 +492,15 @@ accidentally type casting one of the operands.</p>
 <li><a href="https://developer.mozilla.org/en/JavaScript/Reference/Operators/Comparison_Operators">MDN - Comparison operators</a></li>
 </ul>
 
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/12/23/first-post/">First Post</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-12-23T12:29:00-08:00" pubdate data-updated="true">Dec 23<span>rd</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Hi!</p>
+  <entry>
+    <title type="html"><![CDATA[First Post]]></title>
+    <link href="http://alexbain.github.com/blog/2011/12/23/first-post/"/>
+    <updated>2011-12-23T12:29:00-08:00</updated>
+    <id>http://alexbain.github.com/blog/2011/12/23/first-post</id>
+    <content type="html"><![CDATA[<p>Hi!</p>
 
 <p>I&#8217;ve started this blog to document the things I find of interest in the realm of
 front end web development (JavaScript, CSS3, HTML5), Ruby on Rails, and Cognitive Science.</p>
@@ -856,150 +525,7 @@ it&#8217;s a fantastic option.</p>
 <p>Want to look under the hood? Feel free to explore the <a href="https://github.com/alexbain/alexbain.github.com" title="alexbain.github.com source code">source code</a>.</p>
 
 <p>Thanks for stopping by. Please subscribe to the <a href="http://feeds.feedburner.com/alexbain" title="RSS feed">RSS feed</a> to follow future updates.</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
-</div>
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2012/10/16/native-gem-extensions-failing-to-install/">Native gem extensions failing to install</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/07/14/ardusat-doing-it/">ArduSat: Doing it.</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/07/08/universal-remote-experiments/">Universal remote experiments</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/07/07/testing-for-missing-images-in-javascript/">Testing for missing images in JavaScript</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/07/07/undefined-macro-ac-prog-libtool/">Undefined macro: AC_PROG_LIBTOOL</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>GitHub Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  
-  <a href="https://github.com/alexbain">@alexbain</a> on GitHub
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'alexbain',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
-
-
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("alexsbain", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/alexsbain" class="twitter-follow-button" data-show-count="false">Follow @alexsbain</a>
-  
-</section>
-
-
-<section>
-  <h1>On Delicious</h1>
-  <div id="delicious"></div>
-  <script type="text/javascript" src="http://feeds.delicious.com/v2/json/alexsbain?count=3&amp;sort=date&amp;callback=renderDeliciousLinks"></script>
-  <p><a href="http://delicious.com/alexsbain">My Delicious Bookmarks &raquo;</a></p>
-</section>
-
-
-
-
-  
-</aside>
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Alex Bain -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
-  
-
-<script type="text/javascript">
-      var disqus_shortname = 'alexbain';
-      
-        
-        var disqus_script = 'count.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
-
-
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
-</html>
+</feed>

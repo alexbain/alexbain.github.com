@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: news | alexba.in]]></title>
+  <link href="http://alexbain.github.com/blog/categories/news/atom.xml" rel="self"/>
+  <link href="http://alexbain.github.com/"/>
+  <updated>2012-10-16T12:28:43-07:00</updated>
+  <id>http://alexbain.github.com/</id>
+  <author>
+    <name><![CDATA[Alex Bain]]></name>
+    <email><![CDATA[alex@alexba.in]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[First Post]]></title>
+    <link href="http://alexbain.github.com/blog/2011/12/23/first-post/"/>
+    <updated>2011-12-23T12:29:00-08:00</updated>
+    <id>http://alexbain.github.com/blog/2011/12/23/first-post</id>
+    <content type="html"><![CDATA[<p>Hi!</p>
+
+<p>I've started this blog to document the things I find of interest in the realm of
+front end web development (JavaScript, CSS3, HTML5), Ruby on Rails, and Cognitive Science.</p>
+
+<p>My hope is that you'll find some of these posts either interesting or educational.</p>
+
+<p><strong>This blog is powered by:</strong></p>
+
+<ul>
+<li><a href="http://octopress.org" title="Octopress">Octopress</a></li>
+<li><a href="http://pages.github.com" title="GitHub Pages">GitHub Pages</a></li>
+</ul>
+
+
+<p>Considering Octopress? I'd recommend it. My first impressions of <a href="http://octopress.org" title="Octopress">Octopress</a>
+are very positive. It's easy to setup, easy to configure, and very customizable.
+As long as you're comfortable with the command line, <a href="http://daringfireball.net/projects/markdown/" title="Markdown">Markdown</a>, and <a href="http://github.com" title="GitHub">GitHub</a>,
+it's a fantastic option.</p>
+
+<p>As time goes on I'll be implementing some theme/front end tweaks I have in mind.</p>
+
+<p>Want to look under the hood? Feel free to explore the <a href="https://github.com/alexbain/alexbain.github.com" title="alexbain.github.com source code">source code</a>.</p>
+
+<p>Thanks for stopping by. Please subscribe to the <a href="http://feeds.feedburner.com/alexbain" title="RSS feed">RSS feed</a> to follow future updates.</p>
+]]></content>
+  </entry>
+  
+</feed>
