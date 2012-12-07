@@ -2,60 +2,64 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://alexbain.github.com/blog/2011/12/23/first-post/</loc>
-        <lastmod>2012-10-16T12:34:48-07:00</lastmod>
+        <lastmod>2012-10-16T13:05:02-07:00</lastmod>
     </url>
     <url>
         <loc>http://alexbain.github.com/blog/2012/01/05/javascript-equivalence-operators/</loc>
-        <lastmod>2012-10-16T12:34:48-07:00</lastmod>
+        <lastmod>2012-10-16T13:05:02-07:00</lastmod>
     </url>
     <url>
         <loc>http://alexbain.github.com/blog/2012/02/03/adventures-with-microprocessors/</loc>
-        <lastmod>2012-10-16T12:34:48-07:00</lastmod>
+        <lastmod>2012-10-16T13:05:02-07:00</lastmod>
     </url>
     <url>
         <loc>http://alexbain.github.com/blog/2012/03/16/time-to-information/</loc>
-        <lastmod>2012-10-16T12:34:48-07:00</lastmod>
+        <lastmod>2012-10-16T13:05:02-07:00</lastmod>
     </url>
     <url>
         <loc>http://alexbain.github.com/blog/2012/03/23/open-chrome-from-terminal/</loc>
-        <lastmod>2012-10-16T12:34:48-07:00</lastmod>
+        <lastmod>2012-10-16T13:05:02-07:00</lastmod>
     </url>
     <url>
         <loc>http://alexbain.github.com/blog/2012/07/07/undefined-macro-ac-prog-libtool/</loc>
-        <lastmod>2012-10-16T12:34:48-07:00</lastmod>
+        <lastmod>2012-10-16T13:05:02-07:00</lastmod>
     </url>
     <url>
         <loc>
             http://alexbain.github.com/blog/2012/07/07/testing-for-missing-images-in-javascript/
         </loc>
-        <lastmod>2012-10-16T12:34:48-07:00</lastmod>
+        <lastmod>2012-10-16T13:05:02-07:00</lastmod>
     </url>
     <url>
         <loc>http://alexbain.github.com/blog/2012/07/08/universal-remote-experiments/</loc>
-        <lastmod>2012-10-16T12:34:48-07:00</lastmod>
+        <lastmod>2012-10-16T13:05:02-07:00</lastmod>
     </url>
     <url>
         <loc>http://alexbain.github.com/blog/2012/07/14/ardusat-doing-it/</loc>
-        <lastmod>2012-10-16T12:34:48-07:00</lastmod>
+        <lastmod>2012-10-16T13:05:02-07:00</lastmod>
     </url>
     <url>
         <loc>
             http://alexbain.github.com/blog/2012/10/16/native-gem-extensions-failing-to-install/
         </loc>
-        <lastmod>2012-10-16T12:34:48-07:00</lastmod>
+        <lastmod>2012-10-16T13:05:02-07:00</lastmod>
     </url>
     <url>
         <loc>
             http://alexbain.github.com/blog/2012/10/16/user-agent-stylesheets-and-border-box/
         </loc>
-        <lastmod>2012-10-16T12:51:07-07:00</lastmod>
+        <lastmod>2012-10-16T13:05:02-07:00</lastmod>
+    </url>
+    <url>
+        <loc>http://alexbain.github.com/blog/2012/12/07/spreadsheets-to-websites/</loc>
+        <lastmod>2012-12-07T10:41:11-08:00</lastmod>
     </url>
     <url>
         <loc>http://alexbain.github.com/blog/archives/</loc>
-        <lastmod>2012-10-16T12:51:07-07:00</lastmod>
+        <lastmod>2012-12-07T10:41:11-08:00</lastmod>
     </url>
     <url>
         <loc>http://alexbain.github.com/</loc>
-        <lastmod>2012-10-16T12:51:07-07:00</lastmod>
+        <lastmod>2012-12-07T10:41:11-08:00</lastmod>
     </url>
 </urlset>
