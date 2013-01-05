@@ -9,8 +9,7 @@
   <meta name="author" content="Alex Bain">
 
   
-  <meta name="description" content="This morning I came across a two interesting JavaScript libraries designed to help
-make Google Spreadsheets a data source for websites. Given how &hellip;">
+  <meta name="description" content="I recently had the opportunity to purchase and setup a second RaspberryPi system. Here&#8217;s a very brief shopping list and collection of links to &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +76,131 @@ make Google Spreadsheets a data source for websites. Given how &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/01/04/raspberrypi-quickstart/">RaspberryPi Quickstart</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-04T20:08:00-08:00" pubdate data-updated="true">Jan 4<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/01/04/raspberrypi-quickstart/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I recently had the opportunity to purchase and setup a second RaspberryPi system. Here&#8217;s a very brief shopping list and collection of links to get your own RaspberryPi system setup.</p>
+
+<h3>Parts List</h3>
+
+<ul>
+<li><a href="http://www.amazon.com/gp/product/B009SQQF9C/ref=oh_details_o01_s00_i01">RaspberryPi</a> - 512MB version</li>
+<li><a href="http://www.amazon.com/gp/product/B008TCUXLW/ref=oh_details_o01_s01_i01">Enclosure for the RaspberryPi</a> - Clear and contains cutous for all of the ports + GPIO pins.</li>
+<li><a href="http://www.amazon.com/gp/product/B003X26PMO/ref=oh_details_o01_s01_i02">WiFi Card</a> - Drivers are included in the latest Raspbian distribution.</li>
+<li><a href="http://www.amazon.com/gp/product/B003VNKNEG/ref=oh_details_o01_s01_i03">8GB Class 10 SD card</a> - Class 10 cards have a fast read / write speed.</li>
+<li><a href="http://www.amazon.com/gp/product/B003ES5ZSW/ref=oh_details_o01_s00_i00">USB A to USB MicroB cable</a> - The &#8216;power cable&#8217; for the RaspberryPi</li>
+<li><a href="http://www.amazon.com/gp/product/B005CG2ATQ/ref=oh_details_o01_s01_i00">USB power supply</a> - High powered USB power supply to drive the RaspberryPi + WiFi card.</li>
+<li><a href="http://www.amazon.com/AmazonBasics-High-Speed-HDMI-Cable-Meters/dp/B003L1ZYYM">HDMI cable</a> - HDMI cable to connect to HDTV / monitor.</li>
+</ul>
+
+
+<h3>Setting up the SD card</h3>
+
+<ol>
+<li>Download the latest <a href="http://www.raspberrypi.org/downloads">Rasbian linux image</a>.</li>
+<li>Setup the SD card by following the <a href="http://elinux.org/RPi_Easy_SD_Card_Setup">RPi Easy SD Card Setup</a> guide.</li>
+</ol>
+
+
+<h3>Booting it all up</h3>
+
+<p>Plug everything in, boot up the system. If you&#8217;re planning to SSH into the RaspberryPi via Ethernet (instead of using a keyboard/mouse/monitor) you&#8217;ll have to log into your router and determine what it&#8217;s IP address is.</p>
+
+<h3>Setting up the WiFi</h3>
+
+<p>Assuming everything booted up okay, you&#8217;re ready to setup the wireless. To setup the wireless card to connect to your WPA/WPA2 secured wireless network, edit <code>/etc/network/interfaces</code> and add this to the bottom of the file. You may need to remove some existing configuration for <code>wlan0</code>.</p>
+
+<pre><code>allow-hotplug wlan0
+auto wlan0
+iface wlan0 inet dhcp
+    wpa-ssid YOUR_SSID
+    wpa-psk YOUR_PASSWORD
+</code></pre>
+
+<p>Save this file, and run:</p>
+
+<pre><code>sudo ifdown wlan0
+sudo ifup wlan0
+</code></pre>
+
+<p>Run <code>ifconfig</code> and you should see that <code>wlan0</code> has an IP address.</p>
+
+<h3>Setting up NTP</h3>
+
+<p>Accurate time is useful.</p>
+
+<pre><code>sudo apt-get install ntpdate
+sudo ntpdate -u ntp.ubuntu.com
+</code></pre>
+
+<h3>Updating Raspbian OS</h3>
+
+<p>After everything is setup you&#8217;ll probably want to update Raspbian to the latest packages and version.</p>
+
+<pre><code>sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get dist-upgrade
+</code></pre>
+
+<h3>Updating the RaspberryPi&#8217;s firmware</h3>
+
+<p>To update the firmware to the latest version, we&#8217;ll use <a href="https://www.github.com/Hexxeh/rpi-update">Hexxeh&#8217;s rpi-update script</a>.</p>
+
+<pre><code>sudo apt-get install git-core
+sudo wget http://goo.gl/1BOfJ -O /usr/bin/rpi-update &amp;&amp; sudo chmod +x /usr/bin/rpi-update
+sudo rpi-update
+</code></pre>
+
+<h3>You&#8217;re done!</h3>
+
+<p>At this point you should be completely setup and operational.</p>
+
+<p>If you had any troubles with this please let me know in the comments.</p>
+
+<h3>More reading</h3>
+
+<p>Here are some resources to do further reading:</p>
+
+<ul>
+<li><a href="http://elinux.org/RPi_Community">http://elinux.org/RPi_Community</a></li>
+<li><a href="http://www.raspberrypi.org/phpBB3/">http://www.raspberrypi.org/phpBB3/</a></li>
+<li>Should I add a link here? Let me know.</li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -767,68 +891,6 @@ considered a visual enhancement for users with modern browsers.</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/02/03/adventures-with-microprocessors/">Adventures With Microprocessors</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-02-03T08:17:00-08:00" pubdate data-updated="true">Feb 3<span>rd</span>, 2012</time>
-        
-         | <a href="/blog/2012/02/03/adventures-with-microprocessors/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I&#8217;ve always been fascinated by embedded systems but haven&#8217;t taken the time
-to dive into them or hack on &#8216;em. Over the past few weeks, however, the <a href="http://arduino.cc/" title="Arduino">Arduino</a>
-platform caught my eye and I&#8217;ve started reading about it and understanding
-what it&#8217;s capable of.</p>
-
-<p>My verdict? It seems like the perfect introductory platform to start measureing
-sensor data. So, last night I took the plunge and purchased the <a href="http://www.sparkfun.com/products/10173" title="Sparkfun Inventor's Kit">Inventor&#8217;s Kit</a>
-from <a href="http://www.sparkfun.com/" title="Sparkfun electronics">Sparkfun electronics</a>. It should arrive next week (right before I
-leave for France!). I&#8217;ll take some unboxing shots when it arrives. I can&#8217;t
-wait to experiment with it and start hacking together some novel ideas. I plan
-to post all of the code I write in a GitHub repo for others to grab and run with.</p>
-
-<p>However, to get my feet wet, I busted out a <a href="https://estore.ti.com/eZ430-Chronos-433-eZ430-Chronos-Wireless-Watch-Development-Tool-P1734.aspx" title="TI eZ430 Chronos">TI eZ430 Chronos watch</a> that my
-good friend Jeff gave me a while back and started playing around with it&#8217;s
-default firmware. I&#8217;m not able to do anything too exciting yet, since I don&#8217;t
-have the firmware reprogrammer, but I was able to capture some of the button
-events from the watch and route them out to <a href="http://pusher.com" title="Pusher">Pusher.com</a>, a free WebSockets
-API.</p>
-
-<p>The next step is to write a Chrome extension that watches for those WebSockets
-events and does something interesting. I&#8217;ve got a few ideas and I&#8217;ll post about
-them here once it&#8217;s up and running.</p>
-
-<p>If you&#8217;re curious, check out the <a href="https://github.com/alexbain/TI-Chronos-eZ430-to-WebSockets" title="TI eZ430 -&gt; WebSockets">Ruby script</a> that gets the watch talking
-with <a href="http://pusher.com" title="Pusher">Pusher.com</a>.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -844,6 +906,10 @@ with <a href="http://pusher.com" title="Pusher">Pusher.com</a>.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/01/04/raspberrypi-quickstart/">RaspberryPi Quickstart</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/12/07/spreadsheets-to-websites/">Spreadsheets to Websites</a>
       </li>
     
@@ -857,10 +923,6 @@ with <a href="http://pusher.com" title="Pusher">Pusher.com</a>.</p>
     
       <li class="post">
         <a href="/blog/2012/07/14/ardusat-doing-it/">ArduSat: Doing it.</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/07/08/universal-remote-experiments/">Universal remote experiments</a>
       </li>
     
   </ul>
@@ -938,7 +1000,7 @@ with <a href="http://pusher.com" title="Pusher">Pusher.com</a>.</p>
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Alex Bain -
+  Copyright &copy; 2013 - Alex Bain -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

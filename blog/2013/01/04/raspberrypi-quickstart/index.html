@@ -5,12 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>User agent stylesheets and border-box - alexba.in</title>
+  <title>RaspberryPi Quickstart - alexba.in</title>
   <meta name="author" content="Alex Bain">
 
   
-  <meta name="description" content="Recently I was trying to troubleshoot why all of the inputs on a project had
-box-sizing: border-box applied to them. It turns out that a user agent &hellip;">
+  <meta name="description" content="I recently had the opportunity to purchase and setup a second RaspberryPi system. Here&#8217;s a very brief shopping list and collection of links to &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +18,7 @@ box-sizing: border-box applied to them. It turns out that a user agent &hellip;"
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://alexbain.github.com/blog/2012/10/16/user-agent-stylesheets-and-border-box/">
+  <link rel="canonical" href="http://alexbain.github.com/blog/2013/01/04/raspberrypi-quickstart/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -80,7 +79,7 @@ box-sizing: border-box applied to them. It turns out that a user agent &hellip;"
   
   <header>
     
-      <h1 class="entry-title">User Agent Stylesheets and Border-box</h1>
+      <h1 class="entry-title">RaspberryPi Quickstart</h1>
     
     
       <p class="meta">
@@ -96,7 +95,7 @@ box-sizing: border-box applied to them. It turns out that a user agent &hellip;"
   
 
 
-<time datetime="2012-10-16T12:38:00-07:00" pubdate data-updated="true">Oct 16<span>th</span>, 2012</time>
+<time datetime="2013-01-04T20:08:00-08:00" pubdate data-updated="true">Jan 4<span>th</span>, 2013</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -105,21 +104,94 @@ box-sizing: border-box applied to them. It turns out that a user agent &hellip;"
   </header>
 
 
-<div class="entry-content"><p>Recently I was trying to troubleshoot why all of the inputs on a project had
-<code>box-sizing: border-box</code> applied to them. It turns out that a user agent
-stylesheet rule that I don&#8217;t normally see was being applied to all input elements.
-This user agent stylesheet rule was being applied in Chrome, Firefox, and Safari.</p>
+<div class="entry-content"><p>I recently had the opportunity to purchase and setup a second RaspberryPi system. Here&#8217;s a very brief shopping list and collection of links to get your own RaspberryPi system setup.</p>
 
-<p>Here is the <code>user agent stylesheet</code> rule that was being applied:</p>
+<h3>Parts List</h3>
 
-<pre><code>input:not([type="image"]), textarea {
-  box-sizing: border-box;
-}
+<ul>
+<li><a href="http://www.amazon.com/gp/product/B009SQQF9C/ref=oh_details_o01_s00_i01">RaspberryPi</a> - 512MB version</li>
+<li><a href="http://www.amazon.com/gp/product/B008TCUXLW/ref=oh_details_o01_s01_i01">Enclosure for the RaspberryPi</a> - Clear and contains cutous for all of the ports + GPIO pins.</li>
+<li><a href="http://www.amazon.com/gp/product/B003X26PMO/ref=oh_details_o01_s01_i02">WiFi Card</a> - Drivers are included in the latest Raspbian distribution.</li>
+<li><a href="http://www.amazon.com/gp/product/B003VNKNEG/ref=oh_details_o01_s01_i03">8GB Class 10 SD card</a> - Class 10 cards have a fast read / write speed.</li>
+<li><a href="http://www.amazon.com/gp/product/B003ES5ZSW/ref=oh_details_o01_s00_i00">USB A to USB MicroB cable</a> - The &#8216;power cable&#8217; for the RaspberryPi</li>
+<li><a href="http://www.amazon.com/gp/product/B005CG2ATQ/ref=oh_details_o01_s01_i00">USB power supply</a> - High powered USB power supply to drive the RaspberryPi + WiFi card.</li>
+<li><a href="http://www.amazon.com/AmazonBasics-High-Speed-HDMI-Cable-Meters/dp/B003L1ZYYM">HDMI cable</a> - HDMI cable to connect to HDTV / monitor.</li>
+</ul>
+
+
+<h3>Setting up the SD card</h3>
+
+<ol>
+<li>Download the latest <a href="http://www.raspberrypi.org/downloads">Rasbian linux image</a>.</li>
+<li>Setup the SD card by following the <a href="http://elinux.org/RPi_Easy_SD_Card_Setup">RPi Easy SD Card Setup</a> guide.</li>
+</ol>
+
+
+<h3>Booting it all up</h3>
+
+<p>Plug everything in, boot up the system. If you&#8217;re planning to SSH into the RaspberryPi via Ethernet (instead of using a keyboard/mouse/monitor) you&#8217;ll have to log into your router and determine what it&#8217;s IP address is.</p>
+
+<h3>Setting up the WiFi</h3>
+
+<p>Assuming everything booted up okay, you&#8217;re ready to setup the wireless. To setup the wireless card to connect to your WPA/WPA2 secured wireless network, edit <code>/etc/network/interfaces</code> and add this to the bottom of the file. You may need to remove some existing configuration for <code>wlan0</code>.</p>
+
+<pre><code>allow-hotplug wlan0
+auto wlan0
+iface wlan0 inet dhcp
+    wpa-ssid YOUR_SSID
+    wpa-psk YOUR_PASSWORD
 </code></pre>
 
-<p>After some troubleshooting it turns out this rule was being applied due
-to a typo in the DOCTYPE for the project. After changing the DOCTYPE back
-to the correct HTML5 doctype (<code>&lt;!doctype html&gt;</code>) everything loaded correctly.</p>
+<p>Save this file, and run:</p>
+
+<pre><code>sudo ifdown wlan0
+sudo ifup wlan0
+</code></pre>
+
+<p>Run <code>ifconfig</code> and you should see that <code>wlan0</code> has an IP address.</p>
+
+<h3>Setting up NTP</h3>
+
+<p>Accurate time is useful.</p>
+
+<pre><code>sudo apt-get install ntpdate
+sudo ntpdate -u ntp.ubuntu.com
+</code></pre>
+
+<h3>Updating Raspbian OS</h3>
+
+<p>After everything is setup you&#8217;ll probably want to update Raspbian to the latest packages and version.</p>
+
+<pre><code>sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get dist-upgrade
+</code></pre>
+
+<h3>Updating the RaspberryPi&#8217;s firmware</h3>
+
+<p>To update the firmware to the latest version, we&#8217;ll use <a href="https://www.github.com/Hexxeh/rpi-update">Hexxeh&#8217;s rpi-update script</a>.</p>
+
+<pre><code>sudo apt-get install git-core
+sudo wget http://goo.gl/1BOfJ -O /usr/bin/rpi-update &amp;&amp; sudo chmod +x /usr/bin/rpi-update
+sudo rpi-update
+</code></pre>
+
+<h3>You&#8217;re done!</h3>
+
+<p>At this point you should be completely setup and operational.</p>
+
+<p>If you had any troubles with this please let me know in the comments.</p>
+
+<h3>More reading</h3>
+
+<p>Here are some resources to do further reading:</p>
+
+<ul>
+<li><a href="http://elinux.org/RPi_Community">http://elinux.org/RPi_Community</a></li>
+<li><a href="http://www.raspberrypi.org/phpBB3/">http://www.raspberrypi.org/phpBB3/</a></li>
+<li>Should I add a link here? Let me know.</li>
+</ul>
+
 </div>
 
 
@@ -142,12 +214,12 @@ to the correct HTML5 doctype (<code>&lt;!doctype html&gt;</code>) everything loa
   
 
 
-<time datetime="2012-10-16T12:38:00-07:00" pubdate data-updated="true">Oct 16<span>th</span>, 2012</time>
+<time datetime="2013-01-04T20:08:00-08:00" pubdate data-updated="true">Jan 4<span>th</span>, 2013</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/css/'>css</a>, <a class='category' href='/blog/categories/html5/'>html5</a>
+    <a class='category' href='/blog/categories/raspberrypi/'>raspberrypi</a>
   
 </span>
 
@@ -156,7 +228,7 @@ to the correct HTML5 doctype (<code>&lt;!doctype html&gt;</code>) everything loa
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://alexbain.github.com/blog/2012/10/16/user-agent-stylesheets-and-border-box/" data-via="alexsbain" data-counturl="http://alexbain.github.com/blog/2012/10/16/user-agent-stylesheets-and-border-box/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://alexbain.github.com/blog/2013/01/04/raspberrypi-quickstart/" data-via="alexsbain" data-counturl="http://alexbain.github.com/blog/2013/01/04/raspberrypi-quickstart/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -169,10 +241,8 @@ to the correct HTML5 doctype (<code>&lt;!doctype html&gt;</code>) everything loa
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2012/10/16/native-gem-extensions-failing-to-install/" title="Previous Post: Native gem extensions failing to install">&laquo; Native gem extensions failing to install</a>
+        <a class="basic-alignment left" href="/blog/2012/12/07/spreadsheets-to-websites/" title="Previous Post: Spreadsheets to Websites">&laquo; Spreadsheets to Websites</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2012/12/07/spreadsheets-to-websites/" title="Next Post: Spreadsheets to Websites">Spreadsheets to Websites &raquo;</a>
       
     </p>
   </footer>
@@ -300,8 +370,8 @@ to the correct HTML5 doctype (<code>&lt;!doctype html&gt;</code>) everything loa
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://alexbain.github.com/blog/2012/10/16/user-agent-stylesheets-and-border-box/';
-        var disqus_url = 'http://alexbain.github.com/blog/2012/10/16/user-agent-stylesheets-and-border-box/';
+        var disqus_identifier = 'http://alexbain.github.com/blog/2013/01/04/raspberrypi-quickstart/';
+        var disqus_url = 'http://alexbain.github.com/blog/2013/01/04/raspberrypi-quickstart/';
         var disqus_script = 'embed.js';
       
     (function () {
