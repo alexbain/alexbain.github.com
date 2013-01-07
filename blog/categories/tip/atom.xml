@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: tip | alexba.in]]></title>
-  <link href="http://alexbain.github.com/blog/categories/tip/atom.xml" rel="self"/>
-  <link href="http://alexbain.github.com/"/>
-  <updated>2013-01-06T17:26:33-08:00</updated>
-  <id>http://alexbain.github.com/</id>
+  <link href="http://alexba.in/blog/categories/tip/atom.xml" rel="self"/>
+  <link href="http://alexba.in/"/>
+  <updated>2013-01-06T19:12:38-08:00</updated>
+  <id>http://alexba.in/</id>
   <author>
     <name><![CDATA[Alex Bain]]></name>
     <email><![CDATA[alex@alexba.in]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Testing for missing images in JavaScript]]></title>
-    <link href="http://alexbain.github.com/blog/2012/07/07/testing-for-missing-images-in-javascript/"/>
+    <link href="http://alexba.in/blog/2012/07/07/testing-for-missing-images-in-javascript/"/>
     <updated>2012-07-07T23:08:00-07:00</updated>
-    <id>http://alexbain.github.com/blog/2012/07/07/testing-for-missing-images-in-javascript</id>
+    <id>http://alexba.in/blog/2012/07/07/testing-for-missing-images-in-javascript</id>
     <content type="html"><![CDATA[<p>Recently I had to determine if an image URL was properly rendering or not. Since
 this image URL was provided by a user there was a chance that it had been
 deleted or moved since they first set it. In that case I wanted to show a
@@ -107,9 +107,9 @@ considered a visual enhancement for users with modern browsers.</p>
   
   <entry>
     <title type="html"><![CDATA[Undefined macro: AC_PROG_LIBTOOL]]></title>
-    <link href="http://alexbain.github.com/blog/2012/07/07/undefined-macro-ac-prog-libtool/"/>
+    <link href="http://alexba.in/blog/2012/07/07/undefined-macro-ac-prog-libtool/"/>
     <updated>2012-07-07T23:00:00-07:00</updated>
-    <id>http://alexbain.github.com/blog/2012/07/07/undefined-macro-ac-prog-libtool</id>
+    <id>http://alexba.in/blog/2012/07/07/undefined-macro-ac-prog-libtool</id>
     <content type="html"><![CDATA[<p>While trying to install LIRC on my RaspberryPi I ran into this error:</p>
 
 <p><code>configure.ac:24: error: possibly undefined macro: AC_PROG_LIBTOOL</code></p>

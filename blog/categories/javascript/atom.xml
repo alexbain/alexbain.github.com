@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: javascript | alexba.in]]></title>
-  <link href="http://alexbain.github.com/blog/categories/javascript/atom.xml" rel="self"/>
-  <link href="http://alexbain.github.com/"/>
-  <updated>2013-01-06T17:26:33-08:00</updated>
-  <id>http://alexbain.github.com/</id>
+  <link href="http://alexba.in/blog/categories/javascript/atom.xml" rel="self"/>
+  <link href="http://alexba.in/"/>
+  <updated>2013-01-06T19:12:38-08:00</updated>
+  <id>http://alexba.in/</id>
   <author>
     <name><![CDATA[Alex Bain]]></name>
     <email><![CDATA[alex@alexba.in]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Spreadsheets to Websites]]></title>
-    <link href="http://alexbain.github.com/blog/2012/12/07/spreadsheets-to-websites/"/>
+    <link href="http://alexba.in/blog/2012/12/07/spreadsheets-to-websites/"/>
     <updated>2012-12-07T10:29:00-08:00</updated>
-    <id>http://alexbain.github.com/blog/2012/12/07/spreadsheets-to-websites</id>
+    <id>http://alexba.in/blog/2012/12/07/spreadsheets-to-websites</id>
     <content type="html"><![CDATA[<p>This morning I came across a two interesting JavaScript libraries designed to help
 make Google Spreadsheets a data source for websites. Given how simple it is to
 get started creating a spreadsheet it seems like a great way to make that data
@@ -45,9 +45,9 @@ auto save by Google.</p></blockquote>
   
   <entry>
     <title type="html"><![CDATA[Testing for missing images in JavaScript]]></title>
-    <link href="http://alexbain.github.com/blog/2012/07/07/testing-for-missing-images-in-javascript/"/>
+    <link href="http://alexba.in/blog/2012/07/07/testing-for-missing-images-in-javascript/"/>
     <updated>2012-07-07T23:08:00-07:00</updated>
-    <id>http://alexbain.github.com/blog/2012/07/07/testing-for-missing-images-in-javascript</id>
+    <id>http://alexba.in/blog/2012/07/07/testing-for-missing-images-in-javascript</id>
     <content type="html"><![CDATA[<p>Recently I had to determine if an image URL was properly rendering or not. Since
 this image URL was provided by a user there was a chance that it had been
 deleted or moved since they first set it. In that case I wanted to show a
@@ -137,9 +137,9 @@ considered a visual enhancement for users with modern browsers.</p>
   
   <entry>
     <title type="html"><![CDATA[JavaScript Equivalence Operators]]></title>
-    <link href="http://alexbain.github.com/blog/2012/01/05/javascript-equivalence-operators/"/>
+    <link href="http://alexba.in/blog/2012/01/05/javascript-equivalence-operators/"/>
     <updated>2012-01-05T22:06:00-08:00</updated>
-    <id>http://alexbain.github.com/blog/2012/01/05/javascript-equivalence-operators</id>
+    <id>http://alexba.in/blog/2012/01/05/javascript-equivalence-operators</id>
     <content type="html"><![CDATA[<p>JavaScript has two sets of equivalence operators. One set is type converting
 while the other set is strict.</p>
 

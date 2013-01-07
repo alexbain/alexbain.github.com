@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: raspberrypi | alexba.in]]></title>
-  <link href="http://alexbain.github.com/blog/categories/raspberrypi/atom.xml" rel="self"/>
-  <link href="http://alexbain.github.com/"/>
-  <updated>2013-01-06T17:26:33-08:00</updated>
-  <id>http://alexbain.github.com/</id>
+  <link href="http://alexba.in/blog/categories/raspberrypi/atom.xml" rel="self"/>
+  <link href="http://alexba.in/"/>
+  <updated>2013-01-06T19:12:38-08:00</updated>
+  <id>http://alexba.in/</id>
   <author>
     <name><![CDATA[Alex Bain]]></name>
     <email><![CDATA[alex@alexba.in]]></email>
@@ -15,14 +15,14 @@
   
   <entry>
     <title type="html"><![CDATA[Setting up LIRC on the RaspberryPi]]></title>
-    <link href="http://alexbain.github.com/blog/2013/01/06/setting-up-lirc-on-the-raspberrypi/"/>
+    <link href="http://alexba.in/blog/2013/01/06/setting-up-lirc-on-the-raspberrypi/"/>
     <updated>2013-01-06T08:38:00-08:00</updated>
-    <id>http://alexbain.github.com/blog/2013/01/06/setting-up-lirc-on-the-raspberrypi</id>
+    <id>http://alexba.in/blog/2013/01/06/setting-up-lirc-on-the-raspberrypi</id>
     <content type="html"><![CDATA[<h3>Preface</h3>
 
 <p>In July 2012 I wrote a post called <a href="/blog/2012/07/08/universal-remote-experiments/">Universal remote experiments</a> about creating a web controlled universal remote from the electronics up. The first platform I started with was an Arduino Uno. After much experimentation I learned that asking an Arduino to maintain a WiFi connection, maintain a TCP socket with a host computer, and send/receive IR signals was a bit much. With the limited memory and storage I had a hard time managing memory and keeping the system stable. I was, however, able to build a functional prototype:</p>
 
-<p><img src="http://alexbain.github.com/images/posts/arduino-ir.jpg" class="center" /></p>
+<p><img src="http://alexba.in/images/posts/arduino-ir.jpg" class="center" /></p>
 
 <p>At the end of that post I had decided to rebuild the project on a RaspberryPi. I chose the RaspberryPi because I wanted a single device to host a web server in addition to being able to handle the IR transmitting and receiving. Given that the RaspberryPi runs Linux I could rely on it's stable TCP/IP implementation and use open source software packages like nginx and NodeJS to build a web application.</p>
 
@@ -120,7 +120,7 @@ sudo /etc/init.d/lirc start
 
 <p>Here's a picture of my RaspberryPi with all of the components wired up and working:</p>
 
-<p><img src="http://alexbain.github.com/images/posts/raspberrypi-ir.jpg" class="center" /></p>
+<p><img src="http://alexba.in/images/posts/raspberrypi-ir.jpg" class="center" /></p>
 
 <h3>Testing the IR receiver</h3>
 
@@ -219,9 +219,9 @@ irsend SEND_ONCE yamaha KEY_VOLUMEDOWN
   
   <entry>
     <title type="html"><![CDATA[RaspberryPi Quickstart]]></title>
-    <link href="http://alexbain.github.com/blog/2013/01/04/raspberrypi-quickstart/"/>
+    <link href="http://alexba.in/blog/2013/01/04/raspberrypi-quickstart/"/>
     <updated>2013-01-04T20:08:00-08:00</updated>
-    <id>http://alexbain.github.com/blog/2013/01/04/raspberrypi-quickstart</id>
+    <id>http://alexba.in/blog/2013/01/04/raspberrypi-quickstart</id>
     <content type="html"><![CDATA[<p>I recently had the opportunity to purchase and setup a second RaspberryPi system. Here's a very brief shopping list and collection of links to get your own RaspberryPi system setup.</p>
 
 <h3>Parts List</h3>
@@ -315,9 +315,9 @@ sudo rpi-update
   
   <entry>
     <title type="html"><![CDATA[Universal remote experiments]]></title>
-    <link href="http://alexbain.github.com/blog/2012/07/08/universal-remote-experiments/"/>
+    <link href="http://alexba.in/blog/2012/07/08/universal-remote-experiments/"/>
     <updated>2012-07-08T09:51:00-07:00</updated>
-    <id>http://alexbain.github.com/blog/2012/07/08/universal-remote-experiments</id>
+    <id>http://alexba.in/blog/2012/07/08/universal-remote-experiments</id>
     <content type="html"><![CDATA[<p>Over the past few months I've decided to teach myself a bit about embedded
 microcontrollers and electronics. I've never worked with hardware before and,
 after a bit of Googling, found an amazing Maker / Open Hardware movement going

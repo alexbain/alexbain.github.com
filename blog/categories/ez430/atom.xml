@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: ez430 | alexba.in]]></title>
-  <link href="http://alexbain.github.com/blog/categories/ez430/atom.xml" rel="self"/>
-  <link href="http://alexbain.github.com/"/>
-  <updated>2013-01-06T17:26:33-08:00</updated>
-  <id>http://alexbain.github.com/</id>
+  <link href="http://alexba.in/blog/categories/ez430/atom.xml" rel="self"/>
+  <link href="http://alexba.in/"/>
+  <updated>2013-01-06T19:12:38-08:00</updated>
+  <id>http://alexba.in/</id>
   <author>
     <name><![CDATA[Alex Bain]]></name>
     <email><![CDATA[alex@alexba.in]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Adventures with Microprocessors]]></title>
-    <link href="http://alexbain.github.com/blog/2012/02/03/adventures-with-microprocessors/"/>
+    <link href="http://alexba.in/blog/2012/02/03/adventures-with-microprocessors/"/>
     <updated>2012-02-03T08:17:00-08:00</updated>
-    <id>http://alexbain.github.com/blog/2012/02/03/adventures-with-microprocessors</id>
+    <id>http://alexba.in/blog/2012/02/03/adventures-with-microprocessors</id>
     <content type="html"><![CDATA[<p>I've always been fascinated by embedded systems but haven't taken the time
 to dive into them or hack on 'em. Over the past few weeks, however, the <a href="http://arduino.cc/" title="Arduino">Arduino</a>
 platform caught my eye and I've started reading about it and understanding

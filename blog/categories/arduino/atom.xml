@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: arduino | alexba.in]]></title>
-  <link href="http://alexbain.github.com/blog/categories/arduino/atom.xml" rel="self"/>
-  <link href="http://alexbain.github.com/"/>
-  <updated>2013-01-06T17:26:33-08:00</updated>
-  <id>http://alexbain.github.com/</id>
+  <link href="http://alexba.in/blog/categories/arduino/atom.xml" rel="self"/>
+  <link href="http://alexba.in/"/>
+  <updated>2013-01-06T19:12:38-08:00</updated>
+  <id>http://alexba.in/</id>
   <author>
     <name><![CDATA[Alex Bain]]></name>
     <email><![CDATA[alex@alexba.in]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[ArduSat: Doing it.]]></title>
-    <link href="http://alexbain.github.com/blog/2012/07/14/ardusat-doing-it/"/>
+    <link href="http://alexba.in/blog/2012/07/14/ardusat-doing-it/"/>
     <updated>2012-07-14T11:26:00-07:00</updated>
-    <id>http://alexbain.github.com/blog/2012/07/14/ardusat-doing-it</id>
+    <id>http://alexba.in/blog/2012/07/14/ardusat-doing-it</id>
     <content type="html"><![CDATA[<p>I've been enamored with space for as long as I can remember. The barrier of entry
 for space/satellites, however, has always been a bit outside of the individual's grasp.</p>
 
@@ -43,9 +43,9 @@ to remember the first (of many, I can only hope) time I was able to run code in 
   
   <entry>
     <title type="html"><![CDATA[Universal remote experiments]]></title>
-    <link href="http://alexbain.github.com/blog/2012/07/08/universal-remote-experiments/"/>
+    <link href="http://alexba.in/blog/2012/07/08/universal-remote-experiments/"/>
     <updated>2012-07-08T09:51:00-07:00</updated>
-    <id>http://alexbain.github.com/blog/2012/07/08/universal-remote-experiments</id>
+    <id>http://alexba.in/blog/2012/07/08/universal-remote-experiments</id>
     <content type="html"><![CDATA[<p>Over the past few months I've decided to teach myself a bit about embedded
 microcontrollers and electronics. I've never worked with hardware before and,
 after a bit of Googling, found an amazing Maker / Open Hardware movement going
@@ -134,9 +134,9 @@ which will be significantly easier when powered by an entire Linux stack.</p>
   
   <entry>
     <title type="html"><![CDATA[Adventures with Microprocessors]]></title>
-    <link href="http://alexbain.github.com/blog/2012/02/03/adventures-with-microprocessors/"/>
+    <link href="http://alexba.in/blog/2012/02/03/adventures-with-microprocessors/"/>
     <updated>2012-02-03T08:17:00-08:00</updated>
-    <id>http://alexbain.github.com/blog/2012/02/03/adventures-with-microprocessors</id>
+    <id>http://alexba.in/blog/2012/02/03/adventures-with-microprocessors</id>
     <content type="html"><![CDATA[<p>I've always been fascinated by embedded systems but haven't taken the time
 to dive into them or hack on 'em. Over the past few weeks, however, the <a href="http://arduino.cc/" title="Arduino">Arduino</a>
 platform caught my eye and I've started reading about it and understanding

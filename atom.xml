@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[alexba.in]]></title>
-  <link href="http://alexbain.github.com/atom.xml" rel="self"/>
-  <link href="http://alexbain.github.com/"/>
-  <updated>2013-01-06T17:26:33-08:00</updated>
-  <id>http://alexbain.github.com/</id>
+  <link href="http://alexba.in/atom.xml" rel="self"/>
+  <link href="http://alexba.in/"/>
+  <updated>2013-01-06T19:12:38-08:00</updated>
+  <id>http://alexba.in/</id>
   <author>
     <name><![CDATA[Alex Bain]]></name>
     <email><![CDATA[alex@alexba.in]]></email>
@@ -15,14 +15,14 @@
   
   <entry>
     <title type="html"><![CDATA[Setting up LIRC on the RaspberryPi]]></title>
-    <link href="http://alexbain.github.com/blog/2013/01/06/setting-up-lirc-on-the-raspberrypi/"/>
+    <link href="http://alexba.in/blog/2013/01/06/setting-up-lirc-on-the-raspberrypi/"/>
     <updated>2013-01-06T08:38:00-08:00</updated>
-    <id>http://alexbain.github.com/blog/2013/01/06/setting-up-lirc-on-the-raspberrypi</id>
+    <id>http://alexba.in/blog/2013/01/06/setting-up-lirc-on-the-raspberrypi</id>
     <content type="html"><![CDATA[<h3>Preface</h3>
 
-<p>In July 2012 I wrote a post called <a href="http://alexbain.github.com/blog/2012/07/08/universal-remote-experiments/">Universal remote experiments</a> about creating a web controlled universal remote from the electronics up. The first platform I started with was an Arduino Uno. After much experimentation I learned that asking an Arduino to maintain a WiFi connection, maintain a TCP socket with a host computer, and send/receive IR signals was a bit much. With the limited memory and storage I had a hard time managing memory and keeping the system stable. I was, however, able to build a functional prototype:</p>
+<p>In July 2012 I wrote a post called <a href="http://alexba.in/blog/2012/07/08/universal-remote-experiments/">Universal remote experiments</a> about creating a web controlled universal remote from the electronics up. The first platform I started with was an Arduino Uno. After much experimentation I learned that asking an Arduino to maintain a WiFi connection, maintain a TCP socket with a host computer, and send/receive IR signals was a bit much. With the limited memory and storage I had a hard time managing memory and keeping the system stable. I was, however, able to build a functional prototype:</p>
 
-<p><img src="http://alexbain.github.com/images/posts/arduino-ir.jpg" class="center" /></p>
+<p><img src="http://alexba.in/images/posts/arduino-ir.jpg" class="center" /></p>
 
 <p>At the end of that post I had decided to rebuild the project on a RaspberryPi. I chose the RaspberryPi because I wanted a single device to host a web server in addition to being able to handle the IR transmitting and receiving. Given that the RaspberryPi runs Linux I could rely on it&#8217;s stable TCP/IP implementation and use open source software packages like nginx and NodeJS to build a web application.</p>
 
@@ -36,7 +36,7 @@
 
 <p>Getting LIRC setup on the RaspberryPi is significantly easier now than it was six months ago.</p>
 
-<p>You must be running on the latest firmware and OS for this guide to work. If you&#8217;re new to the RaspberryPi, or you haven&#8217;t upgraded to the latest firmware and OS, I recommend following my <a href="http://alexbain.github.com/blog/2013/01/04/raspberrypi-quickstart/">RaspberryPi Quickstart</a> guide to get your RaspberryPi up and running on the latest OS and firmware.</p>
+<p>You must be running on the latest firmware and OS for this guide to work. If you&#8217;re new to the RaspberryPi, or you haven&#8217;t upgraded to the latest firmware and OS, I recommend following my <a href="http://alexba.in/blog/2013/01/04/raspberrypi-quickstart/">RaspberryPi Quickstart</a> guide to get your RaspberryPi up and running on the latest OS and firmware.</p>
 
 <p>First, we&#8217;ll need to install and configure LIRC to run on the RaspberryPi:</p>
 
@@ -120,7 +120,7 @@ sudo /etc/init.d/lirc start
 
 <p>Here&#8217;s a picture of my RaspberryPi with all of the components wired up and working:</p>
 
-<p><img src="http://alexbain.github.com/images/posts/raspberrypi-ir.jpg" class="center" /></p>
+<p><img src="http://alexba.in/images/posts/raspberrypi-ir.jpg" class="center" /></p>
 
 <h3>Testing the IR receiver</h3>
 
@@ -219,9 +219,9 @@ irsend SEND_ONCE yamaha KEY_VOLUMEDOWN
   
   <entry>
     <title type="html"><![CDATA[RaspberryPi Quickstart]]></title>
-    <link href="http://alexbain.github.com/blog/2013/01/04/raspberrypi-quickstart/"/>
+    <link href="http://alexba.in/blog/2013/01/04/raspberrypi-quickstart/"/>
     <updated>2013-01-04T20:08:00-08:00</updated>
-    <id>http://alexbain.github.com/blog/2013/01/04/raspberrypi-quickstart</id>
+    <id>http://alexba.in/blog/2013/01/04/raspberrypi-quickstart</id>
     <content type="html"><![CDATA[<p>I recently had the opportunity to purchase and setup a second RaspberryPi system. Here&#8217;s a very brief shopping list and collection of links to get your own RaspberryPi system setup.</p>
 
 <h3>Parts List</h3>
@@ -315,9 +315,9 @@ sudo rpi-update
   
   <entry>
     <title type="html"><![CDATA[Spreadsheets to Websites]]></title>
-    <link href="http://alexbain.github.com/blog/2012/12/07/spreadsheets-to-websites/"/>
+    <link href="http://alexba.in/blog/2012/12/07/spreadsheets-to-websites/"/>
     <updated>2012-12-07T10:29:00-08:00</updated>
-    <id>http://alexbain.github.com/blog/2012/12/07/spreadsheets-to-websites</id>
+    <id>http://alexba.in/blog/2012/12/07/spreadsheets-to-websites</id>
     <content type="html"><![CDATA[<p>This morning I came across a two interesting JavaScript libraries designed to help
 make Google Spreadsheets a data source for websites. Given how simple it is to
 get started creating a spreadsheet it seems like a great way to make that data
@@ -345,9 +345,9 @@ auto save by Google.</p></blockquote>
   
   <entry>
     <title type="html"><![CDATA[User agent stylesheets and border-box]]></title>
-    <link href="http://alexbain.github.com/blog/2012/10/16/user-agent-stylesheets-and-border-box/"/>
+    <link href="http://alexba.in/blog/2012/10/16/user-agent-stylesheets-and-border-box/"/>
     <updated>2012-10-16T12:38:00-07:00</updated>
-    <id>http://alexbain.github.com/blog/2012/10/16/user-agent-stylesheets-and-border-box</id>
+    <id>http://alexba.in/blog/2012/10/16/user-agent-stylesheets-and-border-box</id>
     <content type="html"><![CDATA[<p>Recently I was trying to troubleshoot why all of the inputs on a project had
 <code>box-sizing: border-box</code> applied to them. It turns out that a user agent
 stylesheet rule that I don&#8217;t normally see was being applied to all input elements.
@@ -368,9 +368,9 @@ to the correct HTML5 doctype (<code>&lt;!doctype html&gt;</code>) everything loa
   
   <entry>
     <title type="html"><![CDATA[Native gem extensions failing to install]]></title>
-    <link href="http://alexbain.github.com/blog/2012/10/16/native-gem-extensions-failing-to-install/"/>
+    <link href="http://alexba.in/blog/2012/10/16/native-gem-extensions-failing-to-install/"/>
     <updated>2012-10-16T12:23:00-07:00</updated>
-    <id>http://alexbain.github.com/blog/2012/10/16/native-gem-extensions-failing-to-install</id>
+    <id>http://alexba.in/blog/2012/10/16/native-gem-extensions-failing-to-install</id>
     <content type="html"><![CDATA[<p>Recently I&#8217;ve had trouble installing native gem extensions on my OSX 10.8.2 laptop.
 It appears that some gems are specifically looking for <code>/usr/bin/gcc-4.2</code> and
 fail to compile if that&#8217;s missing. When I checked <code>/usr/bin</code> I could only find
@@ -387,9 +387,9 @@ fail to compile if that&#8217;s missing. When I checked <code>/usr/bin</code> I 
   
   <entry>
     <title type="html"><![CDATA[ArduSat: Doing it.]]></title>
-    <link href="http://alexbain.github.com/blog/2012/07/14/ardusat-doing-it/"/>
+    <link href="http://alexba.in/blog/2012/07/14/ardusat-doing-it/"/>
     <updated>2012-07-14T11:26:00-07:00</updated>
-    <id>http://alexbain.github.com/blog/2012/07/14/ardusat-doing-it</id>
+    <id>http://alexba.in/blog/2012/07/14/ardusat-doing-it</id>
     <content type="html"><![CDATA[<p>I&#8217;ve been enamored with space for as long as I can remember. The barrier of entry
 for space/satellites, however, has always been a bit outside of the individual&#8217;s grasp.</p>
 
@@ -415,9 +415,9 @@ to remember the first (of many, I can only hope) time I was able to run code in 
   
   <entry>
     <title type="html"><![CDATA[Universal remote experiments]]></title>
-    <link href="http://alexbain.github.com/blog/2012/07/08/universal-remote-experiments/"/>
+    <link href="http://alexba.in/blog/2012/07/08/universal-remote-experiments/"/>
     <updated>2012-07-08T09:51:00-07:00</updated>
-    <id>http://alexbain.github.com/blog/2012/07/08/universal-remote-experiments</id>
+    <id>http://alexba.in/blog/2012/07/08/universal-remote-experiments</id>
     <content type="html"><![CDATA[<p>Over the past few months I&#8217;ve decided to teach myself a bit about embedded
 microcontrollers and electronics. I&#8217;ve never worked with hardware before and,
 after a bit of Googling, found an amazing Maker / Open Hardware movement going
@@ -506,9 +506,9 @@ which will be significantly easier when powered by an entire Linux stack.</p>
   
   <entry>
     <title type="html"><![CDATA[Testing for missing images in JavaScript]]></title>
-    <link href="http://alexbain.github.com/blog/2012/07/07/testing-for-missing-images-in-javascript/"/>
+    <link href="http://alexba.in/blog/2012/07/07/testing-for-missing-images-in-javascript/"/>
     <updated>2012-07-07T23:08:00-07:00</updated>
-    <id>http://alexbain.github.com/blog/2012/07/07/testing-for-missing-images-in-javascript</id>
+    <id>http://alexba.in/blog/2012/07/07/testing-for-missing-images-in-javascript</id>
     <content type="html"><![CDATA[<p>Recently I had to determine if an image URL was properly rendering or not. Since
 this image URL was provided by a user there was a chance that it had been
 deleted or moved since they first set it. In that case I wanted to show a
@@ -631,9 +631,9 @@ considered a visual enhancement for users with modern browsers.</p>
   
   <entry>
     <title type="html"><![CDATA[Undefined macro: AC_PROG_LIBTOOL]]></title>
-    <link href="http://alexbain.github.com/blog/2012/07/07/undefined-macro-ac-prog-libtool/"/>
+    <link href="http://alexba.in/blog/2012/07/07/undefined-macro-ac-prog-libtool/"/>
     <updated>2012-07-07T23:00:00-07:00</updated>
-    <id>http://alexbain.github.com/blog/2012/07/07/undefined-macro-ac-prog-libtool</id>
+    <id>http://alexba.in/blog/2012/07/07/undefined-macro-ac-prog-libtool</id>
     <content type="html"><![CDATA[<p>While trying to install LIRC on my RaspberryPi I ran into this error:</p>
 
 <p><code>configure.ac:24: error: possibly undefined macro: AC_PROG_LIBTOOL</code></p>
@@ -648,9 +648,9 @@ considered a visual enhancement for users with modern browsers.</p>
   
   <entry>
     <title type="html"><![CDATA[Opening Chrome from the OSX terminal]]></title>
-    <link href="http://alexbain.github.com/blog/2012/03/23/open-chrome-from-terminal/"/>
+    <link href="http://alexba.in/blog/2012/03/23/open-chrome-from-terminal/"/>
     <updated>2012-03-23T11:15:00-07:00</updated>
-    <id>http://alexbain.github.com/blog/2012/03/23/open-chrome-from-terminal</id>
+    <id>http://alexba.in/blog/2012/03/23/open-chrome-from-terminal</id>
     <content type="html"><![CDATA[<p>Have you ever wanted to open an HTML file in Chrome, directly from the OSX terminal? I have. Here&#8217;s how to do it:</p>
 
 <ul>
@@ -679,9 +679,9 @@ considered a visual enhancement for users with modern browsers.</p>
   
   <entry>
     <title type="html"><![CDATA[TTI: Time to Information]]></title>
-    <link href="http://alexbain.github.com/blog/2012/03/16/time-to-information/"/>
+    <link href="http://alexba.in/blog/2012/03/16/time-to-information/"/>
     <updated>2012-03-16T00:15:00-07:00</updated>
-    <id>http://alexbain.github.com/blog/2012/03/16/time-to-information</id>
+    <id>http://alexba.in/blog/2012/03/16/time-to-information</id>
     <content type="html"><![CDATA[<p>Information. Not long ago information was scarce. If you needed information you&#8217;d have to embark on a quest to seek it out. You&#8217;d go to a library or book store, search for a book, (hopefully) find one, and read it. Perhaps you were lucky and the first book you read had the information you needed. If you weren&#8217;t lucky and you still had the drive to continue, you could try again with another book or resource. It could take days (or weeks) just to physically find the information needed. That does not include the time required to parse the information once in your possession. Information&#8217;s physical location was a fundamental limitation to the speed with which information could be parsed and understood.</p>
 
 <p>Then, late in the 20th century, something amazing happened. Information was liberated from books and became something that machines could parse. Information stored on machines could be called up and presented on our screens in a timescale measured by minutes or seconds, not days or weeks. You could store thousands of books on your computer and search through them at blazing speeds. Now, in the 21st century, information no longer needs to reside on a machine you own. Information can be found on any machine connected to the internet. The world&#8217;s information is fast becoming a digital commodity that is accessible simply by moving our fingers across a keyboard. We are no longer obligated to go to the information - the information can be delivered directly to us, at any time, in high definition, at no cost. Information is now mobile.</p>
@@ -743,9 +743,9 @@ considered a visual enhancement for users with modern browsers.</p>
   
   <entry>
     <title type="html"><![CDATA[Adventures with Microprocessors]]></title>
-    <link href="http://alexbain.github.com/blog/2012/02/03/adventures-with-microprocessors/"/>
+    <link href="http://alexba.in/blog/2012/02/03/adventures-with-microprocessors/"/>
     <updated>2012-02-03T08:17:00-08:00</updated>
-    <id>http://alexbain.github.com/blog/2012/02/03/adventures-with-microprocessors</id>
+    <id>http://alexba.in/blog/2012/02/03/adventures-with-microprocessors</id>
     <content type="html"><![CDATA[<p>I&#8217;ve always been fascinated by embedded systems but haven&#8217;t taken the time
 to dive into them or hack on &#8216;em. Over the past few weeks, however, the <a href="http://arduino.cc/" title="Arduino">Arduino</a>
 platform caught my eye and I&#8217;ve started reading about it and understanding
@@ -776,9 +776,9 @@ with <a href="http://pusher.com" title="Pusher">Pusher.com</a>.</p>
   
   <entry>
     <title type="html"><![CDATA[JavaScript Equivalence Operators]]></title>
-    <link href="http://alexbain.github.com/blog/2012/01/05/javascript-equivalence-operators/"/>
+    <link href="http://alexba.in/blog/2012/01/05/javascript-equivalence-operators/"/>
     <updated>2012-01-05T22:06:00-08:00</updated>
-    <id>http://alexbain.github.com/blog/2012/01/05/javascript-equivalence-operators</id>
+    <id>http://alexba.in/blog/2012/01/05/javascript-equivalence-operators</id>
     <content type="html"><![CDATA[<p>JavaScript has two sets of equivalence operators. One set is type converting
 while the other set is strict.</p>
 
@@ -850,9 +850,9 @@ accidentally type casting one of the operands.</p>
   
   <entry>
     <title type="html"><![CDATA[First Post]]></title>
-    <link href="http://alexbain.github.com/blog/2011/12/23/first-post/"/>
+    <link href="http://alexba.in/blog/2011/12/23/first-post/"/>
     <updated>2011-12-23T12:29:00-08:00</updated>
-    <id>http://alexbain.github.com/blog/2011/12/23/first-post</id>
+    <id>http://alexba.in/blog/2011/12/23/first-post</id>
     <content type="html"><![CDATA[<p>Hi!</p>
 
 <p>I&#8217;ve started this blog to document the things I find of interest in the realm of

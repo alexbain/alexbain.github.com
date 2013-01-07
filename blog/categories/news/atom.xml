@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: news | alexba.in]]></title>
-  <link href="http://alexbain.github.com/blog/categories/news/atom.xml" rel="self"/>
-  <link href="http://alexbain.github.com/"/>
-  <updated>2013-01-06T17:26:33-08:00</updated>
-  <id>http://alexbain.github.com/</id>
+  <link href="http://alexba.in/blog/categories/news/atom.xml" rel="self"/>
+  <link href="http://alexba.in/"/>
+  <updated>2013-01-06T19:12:38-08:00</updated>
+  <id>http://alexba.in/</id>
   <author>
     <name><![CDATA[Alex Bain]]></name>
     <email><![CDATA[alex@alexba.in]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[First Post]]></title>
-    <link href="http://alexbain.github.com/blog/2011/12/23/first-post/"/>
+    <link href="http://alexba.in/blog/2011/12/23/first-post/"/>
     <updated>2011-12-23T12:29:00-08:00</updated>
-    <id>http://alexbain.github.com/blog/2011/12/23/first-post</id>
+    <id>http://alexba.in/blog/2011/12/23/first-post</id>
     <content type="html"><![CDATA[<p>Hi!</p>
 
 <p>I've started this blog to document the things I find of interest in the realm of

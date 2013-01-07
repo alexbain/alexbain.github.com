@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: osx | alexba.in]]></title>
-  <link href="http://alexbain.github.com/blog/categories/osx/atom.xml" rel="self"/>
-  <link href="http://alexbain.github.com/"/>
-  <updated>2013-01-06T17:26:33-08:00</updated>
-  <id>http://alexbain.github.com/</id>
+  <link href="http://alexba.in/blog/categories/osx/atom.xml" rel="self"/>
+  <link href="http://alexba.in/"/>
+  <updated>2013-01-06T19:12:38-08:00</updated>
+  <id>http://alexba.in/</id>
   <author>
     <name><![CDATA[Alex Bain]]></name>
     <email><![CDATA[alex@alexba.in]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Opening Chrome from the OSX terminal]]></title>
-    <link href="http://alexbain.github.com/blog/2012/03/23/open-chrome-from-terminal/"/>
+    <link href="http://alexba.in/blog/2012/03/23/open-chrome-from-terminal/"/>
     <updated>2012-03-23T11:15:00-07:00</updated>
-    <id>http://alexbain.github.com/blog/2012/03/23/open-chrome-from-terminal</id>
+    <id>http://alexba.in/blog/2012/03/23/open-chrome-from-terminal</id>
     <content type="html"><![CDATA[<p>Have you ever wanted to open an HTML file in Chrome, directly from the OSX terminal? I have. Here's how to do it:</p>
 
 <ul>

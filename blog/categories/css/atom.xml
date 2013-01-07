@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: css | alexba.in]]></title>
-  <link href="http://alexbain.github.com/blog/categories/css/atom.xml" rel="self"/>
-  <link href="http://alexbain.github.com/"/>
-  <updated>2013-01-06T17:26:33-08:00</updated>
-  <id>http://alexbain.github.com/</id>
+  <link href="http://alexba.in/blog/categories/css/atom.xml" rel="self"/>
+  <link href="http://alexba.in/"/>
+  <updated>2013-01-06T19:12:38-08:00</updated>
+  <id>http://alexba.in/</id>
   <author>
     <name><![CDATA[Alex Bain]]></name>
     <email><![CDATA[alex@alexba.in]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[User agent stylesheets and border-box]]></title>
-    <link href="http://alexbain.github.com/blog/2012/10/16/user-agent-stylesheets-and-border-box/"/>
+    <link href="http://alexba.in/blog/2012/10/16/user-agent-stylesheets-and-border-box/"/>
     <updated>2012-10-16T12:38:00-07:00</updated>
-    <id>http://alexbain.github.com/blog/2012/10/16/user-agent-stylesheets-and-border-box</id>
+    <id>http://alexba.in/blog/2012/10/16/user-agent-stylesheets-and-border-box</id>
     <content type="html"><![CDATA[<p>Recently I was trying to troubleshoot why all of the inputs on a project had
 <code>box-sizing: border-box</code> applied to them. It turns out that a user agent
 stylesheet rule that I don't normally see was being applied to all input elements.

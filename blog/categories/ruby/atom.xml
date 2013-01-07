@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: ruby | alexba.in]]></title>
-  <link href="http://alexbain.github.com/blog/categories/ruby/atom.xml" rel="self"/>
-  <link href="http://alexbain.github.com/"/>
-  <updated>2013-01-06T17:26:33-08:00</updated>
-  <id>http://alexbain.github.com/</id>
+  <link href="http://alexba.in/blog/categories/ruby/atom.xml" rel="self"/>
+  <link href="http://alexba.in/"/>
+  <updated>2013-01-06T19:12:38-08:00</updated>
+  <id>http://alexba.in/</id>
   <author>
     <name><![CDATA[Alex Bain]]></name>
     <email><![CDATA[alex@alexba.in]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Native gem extensions failing to install]]></title>
-    <link href="http://alexbain.github.com/blog/2012/10/16/native-gem-extensions-failing-to-install/"/>
+    <link href="http://alexba.in/blog/2012/10/16/native-gem-extensions-failing-to-install/"/>
     <updated>2012-10-16T12:23:00-07:00</updated>
-    <id>http://alexbain.github.com/blog/2012/10/16/native-gem-extensions-failing-to-install</id>
+    <id>http://alexba.in/blog/2012/10/16/native-gem-extensions-failing-to-install</id>
     <content type="html"><![CDATA[<p>Recently I've had trouble installing native gem extensions on my OSX 10.8.2 laptop.
 It appears that some gems are specifically looking for <code>/usr/bin/gcc-4.2</code> and
 fail to compile if that's missing. When I checked <code>/usr/bin</code> I could only find
