@@ -1,0 +1,530 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Setting up LIRC on the RaspberryPi - alexba.in</title>
+  <meta name="author" content="Alex Bain">
+
+  
+  <meta name="description" content="Preface In July 2012 I wrote a post called Universal remote experiments about creating a web controlled universal remote from the electronics up. The &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://alexbain.github.com/blog/2013/01/06/setting-up-lirc-on-the-raspberrypi/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/alexbain" rel="alternate" title="alexba.in" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-25918073-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">alexba.in</a></h1>
+  
+    <h2>A collection of thoughts on technology, cognitive science, and life.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/alexbain" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:alexbain.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Setting Up LIRC on the RaspberryPi</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-06T08:38:00-08:00" pubdate data-updated="true">Jan 6<span>th</span>, 2013</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h3>Preface</h3>
+
+<p>In July 2012 I wrote a post called <a href="/blog/2012/07/08/universal-remote-experiments/">Universal remote experiments</a> about creating a web controlled universal remote from the electronics up. The first platform I started with was an Arduino Uno. After much experimentation I learned that asking an Arduino to maintain a WiFi connection, maintain a TCP socket with a host computer, and send/receive IR signals was a bit much. With the limited memory and storage I had a hard time managing memory and keeping the system stable. I was, however, able to build a functional prototype:</p>
+
+<p><img src="/images/posts/arduino-ir.jpg" class="center" /></p>
+
+<p>At the end of that post I had decided to rebuild the project on a RaspberryPi. I chose the RaspberryPi because I wanted a single device to host a web server in addition to being able to handle the IR transmitting and receiving. Given that the RaspberryPi runs Linux I could rely on it&#8217;s stable TCP/IP implementation and use open source software packages like nginx and NodeJS to build a web application.</p>
+
+<p>This post will serve as &#8216;part two&#8217; of that project and cover how to install and configure LIRC on a RaspberryPi.</p>
+
+<h3>LIRC - Linux Infrared Remote Control</h3>
+
+<p><a href="http://www.lirc.org/">LIRC</a> is a mature and stable open source library that provides the ability to send and receive IR commands. Thanks to the contributions of <a href="http://aron.ws/">ar0n</a>, LIRC support is now included by default in the latest version of Raspbian OS. If you&#8217;d like to see the details of the RaspberryPi GPIO integration check out the <a href="https://github.com/raspberrypi/linux/pull/152">pull request</a> he opened for it a while back.</p>
+
+<h3>Setting up LIRC on the RaspberryPi</h3>
+
+<p>Getting LIRC setup on the RaspberryPi is significantly easier now than it was six months ago.</p>
+
+<p>You must be running on the latest firmware and OS for this guide to work. If you&#8217;re new to the RaspberryPi, or you haven&#8217;t upgraded to the latest firmware and OS, I recommend following my <a href="/blog/2013/01/04/raspberrypi-quickstart/">RaspberryPi Quickstart</a> guide to get your RaspberryPi up and running on the latest OS and firmware.</p>
+
+<p>First, we&#8217;ll need to install and configure LIRC to run on the RaspberryPi:</p>
+
+<pre><code>sudo apt-get install lirc
+</code></pre>
+
+<p>You have to modify two files before you can start testing the receiver and IR LED. I modified these files based on a thread I found on the RaspberryPi forums. If you would like to read more about these changes please check out the <a href="http://www.raspberrypi.org/phpBB3/viewtopic.php?f=45&amp;t=7798&amp;start=100">LIRC GPIO driver for homebrew adapter</a> thread. In particular, read through the posts by <a href="http://www.raspberrypi.org/phpBB3/memberlist.php?mode=viewprofile&amp;u=16815">rudiratlos</a> on page five, as he posts his configuration files.</p>
+
+<p>Add this to your <code>/etc/modules</code> file:</p>
+
+<pre><code>lirc_dev
+lirc_rpi gpio_in_pin=23 gpio_out_pin=22
+</code></pre>
+
+<p>Change your <code>/etc/lirc/hardware.conf</code> file to:</p>
+
+<pre><code>########################################################
+# /etc/lirc/hardware.conf
+#
+# Arguments which will be used when launching lircd
+LIRCD_ARGS="--uinput"
+
+# Don't start lircmd even if there seems to be a good config file
+# START_LIRCMD=false
+
+# Don't start irexec, even if a good config file seems to exist.
+# START_IREXEC=false
+
+# Try to load appropriate kernel modules
+LOAD_MODULES=true
+
+# Run "lircd --driver=help" for a list of supported drivers.
+DRIVER="default"
+# usually /dev/lirc0 is the correct setting for systems using udev
+DEVICE="/dev/lirc0"
+MODULES="lirc_rpi"
+
+# Default configuration files for your hardware if any
+LIRCD_CONF=""
+LIRCMD_CONF=""
+########################################################
+</code></pre>
+
+<p>Now restart <code>lircd</code> so it picks up these changes:</p>
+
+<pre><code>sudo /etc/init.d/lirc stop
+sudo /etc/init.d/lirc start
+</code></pre>
+
+<h3>Wiring up the IR transceiver</h3>
+
+<p>To send and receive IR signals from your RaspberryPi you&#8217;ll need to wire up an IR LED and an IR receiver and tell LIRC where to find them. Here are the parts I purchased for my own project:</p>
+
+<ul>
+<li><a href="https://www.adafruit.com/products/387">940nm IR LED</a> - Bright and tuned to 940nm wavelength</li>
+<li><a href="https://www.adafruit.com/products/157">38khz IR Receiver</a> - Receives IR signals at remote control frequencies</li>
+<li><a href="https://www.adafruit.com/products/756">PN2222 Transistor</a> - Transistor to help drive IR LED</li>
+<li><a href="https://www.sparkfun.com/products/8374">10k Ohm resistor</a> - Resistor that goes between rPi GPIO and the PN2222 transistor</li>
+</ul>
+
+
+<p>If you don&#8217;t already have wires and a breadboard to prototype with, you may be interested in:</p>
+
+<ul>
+<li><a href="http://adafruit.com/products/942">Mounting plate + breadboard</a> - A mounting plate + breadboard for your RaspberryPi</li>
+<li><a href="http://adafruit.com/products/914">Adafruit Pi Cobbler Breakout Kit</a> - Breakout kit for getting the GPIO pins onto the breadboard</li>
+<li><a href="https://www.adafruit.com/products/153">Breadboard wire bundle</a> - Bundle of wires to use in the breadboard</li>
+</ul>
+
+
+<p>For this project I wired up the IR LED to GPIO pin 22 and the IR Receiver to GPIO pin 23. You&#8217;ll see that mentioned in the <code>/etc/modules</code> file above.</p>
+
+<p>Please check out these diagrams for information and schematics about how to wire everything up:</p>
+
+<ul>
+<li><a href="http://aron.ws/projects/lirc_rpi/">RaspberryPi lirc_rpi</a> - Contains hardware and schematics for the raspberryPi</li>
+<li><a href="http://www.ladyada.net/make/tvbgone/design.html">TV-B-Gone Schematic</a> - Info on wiring up IR leds / receivers</li>
+<li><a href="http://www.instructables.com/files/deriv/FJA/5B1M/H2WERJ0U/FJA5B1MH2WERJ0U.LARGE.jpg">GPIO pinout for RaspberryPi</a> - GPIO pinout diagram</li>
+</ul>
+
+
+<p>Here&#8217;s a picture of my RaspberryPi with all of the components wired up and working:</p>
+
+<p><img src="/images/posts/raspberrypi-ir.jpg" class="center" /></p>
+
+<h3>Testing the IR receiver</h3>
+
+<p>Testing the IR receiver is relatively straightforward.</p>
+
+<p>Run these two commands to stop <code>lircd</code> and start outputting raw data from the IR receiver:</p>
+
+<pre><code>sudo /etc/init.d/lirc stop
+mode2 -d /dev/lirc0
+</code></pre>
+
+<p>Point a remote control at your IR receiver and press some buttons. You should see something like this:</p>
+
+<pre><code>space 16300
+pulse 95
+space 28794
+pulse 80
+space 19395
+pulse 83
+space 402351
+pulse 135
+space 7085
+pulse 85
+space 2903
+</code></pre>
+
+<p>If you don&#8217;t, something is probably incorrectly configured. Triple check that you&#8217;ve connected everything properly and haven&#8217;t crossed any wires. I highly recommend referring to the schematics I linked to above. There is also some trouble shooting advice in the RaspberryPi Forum thread I linked to above. Finally - you may want to do this in a dark room. I found that my desk lamp and overhead light would cause the IR receiver to think it was receiving valid signals.</p>
+
+<h3>Testing the IR LED</h3>
+
+<p>You&#8217;re going to need to either find an existing LIRC config file for your remote control or use your IR receiver to generate a new LIRC config file. In my case I created a new LIRC config file. To do this, read the documentation on the <a href="http://www.lirc.org/html/irrecord.html">irrecord</a> application that comes with LIRC.</p>
+
+<p>When using irrecord it will ask you to name the buttons you&#8217;re programming as you program them. Be sure to run <code>irrecord --list-namespace</code> to see the valid names before you begin.</p>
+
+<p>Here were the commands that I ran to generate a remote configuration file:</p>
+
+<pre><code># Stop lirc to free up /dev/lirc0
+sudo /etc/init.d/lirc stop
+
+# Create a new remote control configuration file (using /dev/lirc0) and save the output to ~/lircd.conf
+irrecord -d /dev/lirc0 ~/lircd.conf
+
+# Make a backup of the original lircd.conf file
+sudo mv /etc/lirc/lircd.conf /etc/lirc/lircd_original.conf
+
+# Copy over your new configuration file
+sudo cp ~/lircd.conf /etc/lirc/lircd.conf
+
+# Start up lirc again
+sudo /etc/init.d/lirc start
+</code></pre>
+
+<p>Once you&#8217;ve completed a remote configuration file and saved/added it to <code>/etc/lirc/lircd.conf</code> you can try testing the IR LED. We&#8217;ll be using the <a href="http://www.lirc.org/html/irsend.html">irsend</a> application that comes with LIRC to facilitate sending commands. You&#8217;ll definitely want to check out the documentation to learn more about the options <code>irsend</code> has.</p>
+
+<p>Here are the commands I ran to test my IR LED (using the &#8220;yamaha&#8221; remote configuration file I created):</p>
+
+<pre><code># List all of the commands that LIRC knows for 'yamaha'
+irsend LIST yamaha ""
+
+# Send the KEY_POWER command once
+irsend SEND_ONCE yamaha KEY_POWER
+
+# Send the KEY_VOLUMEDOWN command once
+irsend SEND_ONCE yamaha KEY_VOLUMEDOWN
+</code></pre>
+
+<p>I tested that this was working by pointing the IR led at my Yamaha receiver and testing whether I could turn it on and adjust the volume.</p>
+
+<h3>Success!</h3>
+
+<p>That&#8217;s it! You&#8217;ve now successfully installed and configured LIRC on your RaspberryPi. You can add additional remote control configuration files to your <code>/etc/lirc/lircd.conf</code> file to control multiple remotes.</p>
+
+<h3>Resources</h3>
+
+<p>Here&#8217;s a few resources to explore if you&#8217;d like to learn more:</p>
+
+<ul>
+<li><a href="http://www.lirc.org">lirc</a> - LIRC home page</li>
+<li><a href="http://aron.ws/projects/lirc_rpi/">RaspberryPi lirc_rpi GPIO driver</a> - ar0n&#8217;s lirc_rpi page</li>
+<li><a href="http://www.raspberrypi.org/phpBB3/viewtopic.php?f=45&amp;t=7798&amp;start=100">LIRC GPIO driver for homebrew adapter</a></li>
+<li><a href="http://www.ladyada.net/make/tvbgone/design.html">TV-B-Gone Schematic</a></li>
+</ul>
+
+
+<h3>My next steps</h3>
+
+<p>The next step for my web controlled universal remote project is going to be finding or creating remote files for all of the IR devices in my house. Once I&#8217;ve gathered all of those files together and placed them in the <code>lircd.conf</code> file I&#8217;ll begin work on the web application server.</p>
+
+<p>I&#8217;ll cover all of that in a future post.</p>
+
+<h3>Questions? Comments?</h3>
+
+<p>Please let me know if you have any questions or run into any trouble while running through these steps. All of these steps were tested and working on the date this post was published.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Alex Bain</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-06T08:38:00-08:00" pubdate data-updated="true">Jan 6<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/raspberrypi/'>raspberrypi</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://alexbain.github.com/blog/2013/01/06/setting-up-lirc-on-the-raspberrypi/" data-via="alexsbain" data-counturl="http://alexbain.github.com/blog/2013/01/06/setting-up-lirc-on-the-raspberrypi/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/01/04/raspberrypi-quickstart/" title="Previous Post: RaspberryPi Quickstart">&laquo; RaspberryPi Quickstart</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/01/06/setting-up-lirc-on-the-raspberrypi/">Setting up LIRC on the RaspberryPi</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/01/04/raspberrypi-quickstart/">RaspberryPi Quickstart</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/12/07/spreadsheets-to-websites/">Spreadsheets to Websites</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/10/16/user-agent-stylesheets-and-border-box/">User agent stylesheets and border-box</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/10/16/native-gem-extensions-failing-to-install/">Native gem extensions failing to install</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/alexbain">@alexbain</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'alexbain',
+            count: 4,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("alexsbain", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/alexsbain" class="twitter-follow-button" data-show-count="false">Follow @alexsbain</a>
+  
+</section>
+
+
+<section>
+  <h1>On Delicious</h1>
+  <div id="delicious"></div>
+  <script type="text/javascript" src="http://feeds.delicious.com/v2/json/alexsbain?count=3&amp;sort=date&amp;callback=renderDeliciousLinks"></script>
+  <p><a href="http://delicious.com/alexsbain">My Delicious Bookmarks &raquo;</a></p>
+</section>
+
+
+<section class="googleplus">
+  <h1>
+    <a href="https://plus.google.com/116699909866105170494?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Alex Bain -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'alexbain';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://alexbain.github.com/blog/2013/01/06/setting-up-lirc-on-the-raspberrypi/';
+        var disqus_url = 'http://alexbain.github.com/blog/2013/01/06/setting-up-lirc-on-the-raspberrypi/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
