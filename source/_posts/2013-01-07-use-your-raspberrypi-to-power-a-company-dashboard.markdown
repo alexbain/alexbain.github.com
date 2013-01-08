@@ -6,7 +6,7 @@ comments: true
 categories: [raspberrypi]
 ---
 
-Here are five steps to follow if you want to start using a RaspberryPi to power a company dashboard. I've just finished putting this together at my office (using [Geckoboard](http://www.geckoboard.com)):
+Here are five steps to follow if you want to start using a RaspberryPi to power a company dashboard. I've just finished putting this together at my office. We're using [Geckoboard](http://www.geckoboard.com) for the web interface:
 
 <img class="center" src="/images/posts/raspberrypi-dashboard.jpg" />
 
@@ -14,7 +14,7 @@ Here are five steps to follow if you want to start using a RaspberryPi to power 
 
 ### 0: Make sure your RaspberryPi is fully updated
 
-Before you get started I highly recommend you follow my [RaspberryPi Quickstart](/blog/2013/01/04/raspberrypi-quickstart/) guide to get your RaspberryPi updated to the latest OS and Firmware.
+Before you get started I highly recommend you follow my [RaspberryPi Quickstart](/blog/2013/01/04/raspberrypi-quickstart/) guide to get your RaspberryPi updated to the latest OS and Firmware. That post also includes links to the case and peripherals I purchased for this project.
 
 ### 1: Install Chromium
 
