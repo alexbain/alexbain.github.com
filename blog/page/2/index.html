@@ -9,7 +9,7 @@
   <meta name="author" content="Alex Bain">
 
   
-  <meta name="description" content="Information. Not long ago information was scarce. If you needed information you&#8217;d have to embark on a quest to seek it out. You&#8217;d go to a &hellip;">
+  <meta name="description" content="Have you ever wanted to open an HTML file in Chrome, directly from the OSX terminal? I have. Here&#8217;s how to do it: Open ~/.bash_profile in your &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,66 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/03/23/open-chrome-from-terminal/">Opening Chrome From the OSX Terminal</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-03-23T11:15:00-07:00" pubdate data-updated="true">Mar 23<span>rd</span>, 2012</time>
+        
+         | <a href="/blog/2012/03/23/open-chrome-from-terminal/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Have you ever wanted to open an HTML file in Chrome, directly from the OSX terminal? I have. Here&#8217;s how to do it:</p>
+
+<ul>
+<li>Open <code>~/.bash_profile</code> in your editor of choice.</li>
+<li>Append this to the bottom of your <code>~/.bash_profile</code>:</li>
+</ul>
+
+
+<figure class='code'><figcaption><span>.bash_profile</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>  chrome <span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>    open -a <span class="s2">&quot;/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome&quot;</span> <span class="s2">&quot;$1&quot;</span>
+</span><span class='line'>  <span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>Save and close the file.</li>
+<li>Run <code>source ~/.bash_profile</code> from the terminal to reload it.</li>
+<li>Enjoy being able to type things like <code>chrome index.html</code> from the terminal.</li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -412,6 +472,10 @@ it&#8217;s a fantastic option.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/01/07/use-your-raspberrypi-to-power-a-company-dashboard/">Use your RaspberryPi to power a company dashboard</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/01/06/setting-up-lirc-on-the-raspberrypi/">Setting up LIRC on the RaspberryPi</a>
       </li>
     
@@ -425,10 +489,6 @@ it&#8217;s a fantastic option.</p>
     
       <li class="post">
         <a href="/blog/2012/10/16/user-agent-stylesheets-and-border-box/">User agent stylesheets and border-box</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/10/16/native-gem-extensions-failing-to-install/">Native gem extensions failing to install</a>
       </li>
     
   </ul>

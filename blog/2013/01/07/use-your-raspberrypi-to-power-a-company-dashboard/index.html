@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Opening Chrome from the OSX terminal - alexba.in</title>
+  <title>Use your RaspberryPi to power a company dashboard - alexba.in</title>
   <meta name="author" content="Alex Bain">
 
   
-  <meta name="description" content="Have you ever wanted to open an HTML file in Chrome, directly from the OSX terminal? I have. Here&#8217;s how to do it: Open ~/.bash_profile in your &hellip;">
+  <meta name="description" content="Here are five steps to follow if you want to start using a RaspberryPi to power a company dashboard. I&#8217;ve just finished putting this together &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://alexba.in/blog/2012/03/23/open-chrome-from-terminal/">
+  <link rel="canonical" href="http://alexba.in/blog/2013/01/07/use-your-raspberrypi-to-power-a-company-dashboard/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -79,7 +79,7 @@
   
   <header>
     
-      <h1 class="entry-title">Opening Chrome From the OSX Terminal</h1>
+      <h1 class="entry-title">Use Your RaspberryPi to Power a Company Dashboard</h1>
     
     
       <p class="meta">
@@ -95,7 +95,7 @@
   
 
 
-<time datetime="2012-03-23T11:15:00-07:00" pubdate data-updated="true">Mar 23<span>rd</span>, 2012</time>
+<time datetime="2013-01-07T15:51:00-08:00" pubdate data-updated="true">Jan 7<span>th</span>, 2013</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -104,29 +104,87 @@
   </header>
 
 
-<div class="entry-content"><p>Have you ever wanted to open an HTML file in Chrome, directly from the OSX terminal? I have. Here&#8217;s how to do it:</p>
+<div class="entry-content"><p>Here are five steps to follow if you want to start using a RaspberryPi to power a company dashboard. I&#8217;ve just finished putting this together at my office. We&#8217;re using <a href="http://www.geckoboard.com">Geckoboard</a> for the web interface:</p>
+
+<p><img class="center" src="/images/posts/raspberrypi-dashboard.jpg" /></p>
+
+<p><img class="center" src="/images/posts/raspberrypi-dashboard-2.jpg" /></p>
+
+<h3>0: Make sure your RaspberryPi is fully updated</h3>
+
+<p>Before you get started I highly recommend you follow my <a href="/blog/2013/01/04/raspberrypi-quickstart/">RaspberryPi Quickstart</a> guide to get your RaspberryPi updated to the latest OS and Firmware. That post also includes links to the case and peripherals I purchased for this project.</p>
+
+<h3>1: Install Chromium</h3>
+
+<p>First, you&#8217;ll want to install Chromium on your RaspberryPi. We&#8217;ll be using Chromium to load the dashboard. I&#8217;ve also included the <code>ttf-mscorefonts-installer</code> package so things render nicely.</p>
+
+<pre><code>sudo apt-get install chromium ttf-mscorefonts-installer
+</code></pre>
+
+<h3>2: Boot into X11 automatically</h3>
+
+<p>You&#8217;ll want to make sure your RaspberryPi immediately boots into X11.</p>
+
+<pre><code>sudo raspi-config
+</code></pre>
+
+<p>Scroll down to <code>boot_behavior</code> and hit enter. Make sure &#8220;Yes&#8221; is marked and hit enter again.</p>
+
+<p>You&#8217;re done here, so scroll to Finish (right arrow key) and hit enter.</p>
+
+<h3>3: Start Chromium on boot</h3>
+
+<p>Third, you&#8217;ll want to make sure Chromium starts in kiosk (full screen, no user interface) as soon as your RaspberryPi boots up.</p>
+
+<p>Create (or modify) <code>~/.config/lxsession/LXDE/autostart</code> and add the line:</p>
+
+<pre><code>chromium --kiosk http://url_to_your_dashboard.com --incognito
+</code></pre>
+
+<p>Kiosk mode boots Chromium into full screen mode, by default. Incognito mode prevents a &#8220;Chrome did not shutdown cleanly&#8221; message from appearing on the top if the RaspberryPi loses power.</p>
+
+<h3>4: Make sure the screen does not go to sleep</h3>
+
+<p>Dashboards aren&#8217;t very useful if the screen goes into standy after ten minutes.</p>
+
+<p>Edit <code>/etc/xdg/lxsession/LXDE/autostart</code> and make sure the <code>@xscreensaver</code> line is commented out. In addition, we&#8217;ll be adding three options that prevent the screen from going blank:</p>
+
+<pre><code>#@xscreensaver -no-splash
+@xset s off
+@xset -dpms
+@xset s noblank
+</code></pre>
+
+<p>I also needed to modify <code>/etc/lightdm/lightdm.conf</code>. Add this line to the <code>[SeatDefaults]</code> section:</p>
+
+<pre><code>xserver-command=X -s 0 dpms
+</code></pre>
+
+<h3>5: Hide the mouse cursor</h3>
+
+<p>There&#8217;s no reason to keep the mouse cursor stuck in the middle of the screen.  We&#8217;ll use the unclutter utility to hide it after boot.</p>
+
+<pre><code>sudo apt-get install unclutter
+</code></pre>
+
+<p>You&#8217;ll need to add this to your <code>~/.config/lxsession/LXDE/autostart</code> file:</p>
+
+<pre><code>unclutter -idle 0
+</code></pre>
+
+<h3>Enjoy!</h3>
+
+<p>Reboot your RaspberryPi and it should:</p>
 
 <ul>
-<li>Open <code>~/.bash_profile</code> in your editor of choice.</li>
-<li>Append this to the bottom of your <code>~/.bash_profile</code>:</li>
+<li>Boot directly into X11</li>
+<li>Start Chromium in kiosk mode and load up your dashboard</li>
+<li>Prevent the screen from going to sleep after 10 minutes</li>
+<li>Hide the mouse cursor</li>
 </ul>
 
 
-<figure class='code'><figcaption><span>.bash_profile</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>  chrome <span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>    open -a <span class="s2">&quot;/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome&quot;</span> <span class="s2">&quot;$1&quot;</span>
-</span><span class='line'>  <span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>Save and close the file.</li>
-<li>Run <code>source ~/.bash_profile</code> from the terminal to reload it.</li>
-<li>Enjoy being able to type things like <code>chrome index.html</code> from the terminal.</li>
-</ul>
-
+<p>Please let me know if you have any questions or comments.</p>
 </div>
 
 
@@ -149,12 +207,12 @@
   
 
 
-<time datetime="2012-03-23T11:15:00-07:00" pubdate data-updated="true">Mar 23<span>rd</span>, 2012</time>
+<time datetime="2013-01-07T15:51:00-08:00" pubdate data-updated="true">Jan 7<span>th</span>, 2013</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/osx/'>osx</a>
+    <a class='category' href='/blog/categories/raspberrypi/'>raspberrypi</a>
   
 </span>
 
@@ -163,7 +221,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://alexba.in/blog/2012/03/23/open-chrome-from-terminal/" data-via="alexsbain" data-counturl="http://alexba.in/blog/2012/03/23/open-chrome-from-terminal/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://alexba.in/blog/2013/01/07/use-your-raspberrypi-to-power-a-company-dashboard/" data-via="alexsbain" data-counturl="http://alexba.in/blog/2013/01/07/use-your-raspberrypi-to-power-a-company-dashboard/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -176,10 +234,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2012/03/16/time-to-information/" title="Previous Post: TTI: Time to Information">&laquo; TTI: Time to Information</a>
+        <a class="basic-alignment left" href="/blog/2013/01/06/setting-up-lirc-on-the-raspberrypi/" title="Previous Post: Setting up LIRC on the RaspberryPi">&laquo; Setting up LIRC on the RaspberryPi</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2012/07/07/undefined-macro-ac-prog-libtool/" title="Next Post: Undefined macro: AC_PROG_LIBTOOL">Undefined macro: AC_PROG_LIBTOOL &raquo;</a>
       
     </p>
   </footer>
@@ -307,8 +363,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://alexba.in/blog/2012/03/23/open-chrome-from-terminal/';
-        var disqus_url = 'http://alexba.in/blog/2012/03/23/open-chrome-from-terminal/';
+        var disqus_identifier = 'http://alexba.in/blog/2013/01/07/use-your-raspberrypi-to-power-a-company-dashboard/';
+        var disqus_url = 'http://alexba.in/blog/2013/01/07/use-your-raspberrypi-to-power-a-company-dashboard/';
         var disqus_script = 'embed.js';
       
     (function () {
