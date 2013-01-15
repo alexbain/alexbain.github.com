@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Undefined macro: AC_PROG_LIBTOOL - alexba.in</title>
+  <title>Installing NodeJS on your RaspberryPi - alexba.in</title>
   <meta name="author" content="Alex Bain">
 
   
-  <meta name="description" content="While trying to install LIRC on my RaspberryPi I ran into this error: configure.ac:24: error: possibly undefined macro: AC_PROG_LIBTOOL The solution &hellip;">
+  <meta name="description" content="Here&#8217;s how I installed NodeJS on my RaspberryPi: Upgrade to the latest OS / Firmware If you have not already upgraded to the latest version of &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://alexba.in/blog/2012/07/07/undefined-macro-ac-prog-libtool/">
+  <link rel="canonical" href="http://alexba.in/blog/2013/01/15/installing-nodejs-on-your-raspberrypi/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -79,7 +79,7 @@
   
   <header>
     
-      <h1 class="entry-title">Undefined Macro: AC_PROG_LIBTOOL</h1>
+      <h1 class="entry-title">Installing NodeJS on Your RaspberryPi</h1>
     
     
       <p class="meta">
@@ -95,7 +95,7 @@
   
 
 
-<time datetime="2012-07-07T23:00:00-07:00" pubdate data-updated="true">Jul 7<span>th</span>, 2012</time>
+<time datetime="2013-01-15T12:04:00-08:00" pubdate data-updated="true">Jan 15<span>th</span>, 2013</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -104,15 +104,56 @@
   </header>
 
 
-<div class="entry-content"><p>While trying to install LIRC on my RaspberryPi I ran into this error:</p>
+<div class="entry-content"><p>Here&#8217;s how I installed <a href="http://nodejs.org/">NodeJS</a> on my RaspberryPi:</p>
 
-<p><code>configure.ac:24: error: possibly undefined macro: AC_PROG_LIBTOOL</code></p>
+<h3>Upgrade to the latest OS / Firmware</h3>
 
-<p>The solution that worked for me (on Debian Wheezy) was:</p>
+<p>If you have not already upgraded to the latest version of Raspbian OS and the
+latest RaspberryPi firmware, I recommend following my <a href="http://alexba.in/blog/2013/01/04/raspberrypi-quickstart/">RaspberryPi Quickstart</a>.</p>
 
-<p><code>sudo apt-get install libtools</code></p>
+<h3>Getting and Compiling NodeJS</h3>
 
-<p>Hope that helps someone else out there.</p>
+<p>Once your RaspberryPi is up to date, here&#8217;s how to download and compile NodeJS:</p>
+
+<pre><code># Install some prerequisites
+sudo apt-get install python g++ make
+
+# Grab the latest version of NodeJS
+mkdir ~/nodejs &amp;&amp; cd $_
+wget -N http://nodejs.org/dist/node-latest.tar.gz
+tar xzvf node-latest.tar.gz &amp;&amp; cd `ls -rd node-v*`
+
+# Compile and install to your RaspberryPi
+./configure
+make
+sudo make install
+</code></pre>
+
+<p>Please note that it takes about two hours to compile NodeJS.</p>
+
+<h3>Confirming Installation</h3>
+
+<p>You can confirm that NodeJS was installed correctly by running:</p>
+
+<pre><code>node -v
+npm --help
+</code></pre>
+
+<p>That&#8217;s it! You&#8217;re ready to begin development.</p>
+
+<h3>Additional Reading:</h3>
+
+<p>If you&#8217;d like to do some additional reading about NodeJS or ways to access the
+GPIO pins on the RaspberryPi, check out:</p>
+
+<ul>
+<li><a href="http://nodejs.org/">NodeJS</a> - NodeJS home page</li>
+<li><a href="https://github.com/rakeshpai/pi-gpio">pi-gpio</a> - &#8220;node.js based library to help access the GPIO of the Raspberry Pi&#8221;</li>
+<li><a href="https://github.com/EnotionZ/GpiO">GpiO</a> - &#8220;Talk to your Raspberry Pi&#8217;s GPIO&#8221;</li>
+</ul>
+
+
+<p>If you have any other recommended resources please let me know!</p>
 </div>
 
 
@@ -135,12 +176,12 @@
   
 
 
-<time datetime="2012-07-07T23:00:00-07:00" pubdate data-updated="true">Jul 7<span>th</span>, 2012</time>
+<time datetime="2013-01-15T12:04:00-08:00" pubdate data-updated="true">Jan 15<span>th</span>, 2013</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/linux/'>linux</a>, <a class='category' href='/blog/categories/tip/'>tip</a>
+    <a class='category' href='/blog/categories/javascript/'>javascript</a>, <a class='category' href='/blog/categories/nodejs/'>nodejs</a>, <a class='category' href='/blog/categories/raspberrypi/'>raspberrypi</a>
   
 </span>
 
@@ -149,7 +190,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://alexba.in/blog/2012/07/07/undefined-macro-ac-prog-libtool/" data-via="alexsbain" data-counturl="http://alexba.in/blog/2012/07/07/undefined-macro-ac-prog-libtool/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://alexba.in/blog/2013/01/15/installing-nodejs-on-your-raspberrypi/" data-via="alexsbain" data-counturl="http://alexba.in/blog/2013/01/15/installing-nodejs-on-your-raspberrypi/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -162,10 +203,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2012/03/23/open-chrome-from-terminal/" title="Previous Post: Opening Chrome from the OSX terminal">&laquo; Opening Chrome from the OSX terminal</a>
+        <a class="basic-alignment left" href="/blog/2013/01/07/use-your-raspberrypi-to-power-a-company-dashboard/" title="Previous Post: Use your RaspberryPi to power a company dashboard">&laquo; Use your RaspberryPi to power a company dashboard</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2012/07/07/testing-for-missing-images-in-javascript/" title="Next Post: Testing for missing images in JavaScript">Testing for missing images in JavaScript &raquo;</a>
       
     </p>
   </footer>
@@ -293,8 +332,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://alexba.in/blog/2012/07/07/undefined-macro-ac-prog-libtool/';
-        var disqus_url = 'http://alexba.in/blog/2012/07/07/undefined-macro-ac-prog-libtool/';
+        var disqus_identifier = 'http://alexba.in/blog/2013/01/15/installing-nodejs-on-your-raspberrypi/';
+        var disqus_url = 'http://alexba.in/blog/2013/01/15/installing-nodejs-on-your-raspberrypi/';
         var disqus_script = 'embed.js';
       
     (function () {

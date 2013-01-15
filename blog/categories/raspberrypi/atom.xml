@@ -4,7 +4,7 @@
   <title><![CDATA[Category: raspberrypi | alexba.in]]></title>
   <link href="http://alexba.in/blog/categories/raspberrypi/atom.xml" rel="self"/>
   <link href="http://alexba.in/"/>
-  <updated>2013-01-07T17:28:45-08:00</updated>
+  <updated>2013-01-15T12:17:44-08:00</updated>
   <id>http://alexba.in/</id>
   <author>
     <name><![CDATA[Alex Bain]]></name>
@@ -12,6 +12,64 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Installing NodeJS on your RaspberryPi]]></title>
+    <link href="http://alexba.in/blog/2013/01/15/installing-nodejs-on-your-raspberrypi/"/>
+    <updated>2013-01-15T12:04:00-08:00</updated>
+    <id>http://alexba.in/blog/2013/01/15/installing-nodejs-on-your-raspberrypi</id>
+    <content type="html"><![CDATA[<p>Here's how I installed <a href="http://nodejs.org/">NodeJS</a> on my RaspberryPi:</p>
+
+<h3>Upgrade to the latest OS / Firmware</h3>
+
+<p>If you have not already upgraded to the latest version of Raspbian OS and the
+latest RaspberryPi firmware, I recommend following my <a href="http://alexba.in/blog/2013/01/04/raspberrypi-quickstart/">RaspberryPi Quickstart</a>.</p>
+
+<h3>Getting and Compiling NodeJS</h3>
+
+<p>Once your RaspberryPi is up to date, here's how to download and compile NodeJS:</p>
+
+<pre><code># Install some prerequisites
+sudo apt-get install python g++ make
+
+# Grab the latest version of NodeJS
+mkdir ~/nodejs &amp;&amp; cd $_
+wget -N http://nodejs.org/dist/node-latest.tar.gz
+tar xzvf node-latest.tar.gz &amp;&amp; cd `ls -rd node-v*`
+
+# Compile and install to your RaspberryPi
+./configure
+make
+sudo make install
+</code></pre>
+
+<p>Please note that it takes about two hours to compile NodeJS.</p>
+
+<h3>Confirming Installation</h3>
+
+<p>You can confirm that NodeJS was installed correctly by running:</p>
+
+<pre><code>node -v
+npm --help
+</code></pre>
+
+<p>That's it! You're ready to begin development.</p>
+
+<h3>Additional Reading:</h3>
+
+<p>If you'd like to do some additional reading about NodeJS or ways to access the
+GPIO pins on the RaspberryPi, check out:</p>
+
+<ul>
+<li><a href="http://nodejs.org/">NodeJS</a> - NodeJS home page</li>
+<li><a href="https://github.com/rakeshpai/pi-gpio">pi-gpio</a> - "node.js based library to help access the GPIO of the Raspberry Pi"</li>
+<li><a href="https://github.com/EnotionZ/GpiO">GpiO</a> - "Talk to your Raspberry Pi's GPIO"</li>
+</ul>
+
+
+<p>If you have any other recommended resources please let me know!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Use your RaspberryPi to power a company dashboard]]></title>
