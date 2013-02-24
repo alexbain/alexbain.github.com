@@ -4,7 +4,7 @@
   <title><![CDATA[Category: javascript | alexba.in]]></title>
   <link href="http://alexba.in/blog/categories/javascript/atom.xml" rel="self"/>
   <link href="http://alexba.in/"/>
-  <updated>2013-02-24T00:10:58-08:00</updated>
+  <updated>2013-02-24T00:20:51-08:00</updated>
   <id>http://alexba.in/</id>
   <author>
     <name><![CDATA[Alex Bain]]></name>
@@ -44,7 +44,7 @@
 
 <p>For this project I chose to work in NodeJS. If you would prefer to implement a web application in a different language, I found two existing LIRC client libraries. Sadly, neither seem maintained. I found <a href="https://github.com/fugalh/lircr">lircr</a> for Ruby and <a href="http://sourceforge.net/projects/pylirc/">pyLirc</a> for Python.</p>
 
-<p>Since I could not find an existing NodeJS LIRC client library, and the existing libraries I did find were not up to date, I built my own. I created <a href="https://github.com/alexbain/lirc_node">lirc_node</a>, a lightweight NodeJS client library that interfaces with LIRC. v0.0.1 of <code>lirc_node</code> only supports <code>irsend</code>. This allows you to send IR commands to devices once you have programmed them. <code>irrecord</code>, required for learning new IR commands, is an interactive command line utility, making it more complex to work with.</p>
+<p>Since I could not find an existing NodeJS LIRC client library, and the existing libraries I did find were not up to date, I built my own. I created <a href="https://github.com/alexbain/lirc_node">lirc_node</a>, a lightweight NodeJS client library that interfaces with LIRC. v0.0.1 of <code>lirc_node</code> only supports <code>irsend</code>. This allows you to send IR commands to devices that LIRC knows about.</p>
 
 <p>Before trying to install and use <code>lirc_node</code> make sure you have completed these steps:</p>
 
@@ -91,10 +91,10 @@ node app.js
 <p>In the coming months I hope to:</p>
 
 <ul>
-<li>Release an open hardware schematic and PCB board for anyone to build.</li>
-<li>3D print an enclosure so that the project looks finished.</li>
+<li>Create an open hardware schematic and PCB board that anyone can use for the hardware.</li>
+<li>3D print an enclosure for the RaspberryPi + expansion board.</li>
 <li>Improve the web application and give it a proper mobile web interface.</li>
-<li>Write a blog post about connecting Tasker or IFTTT to <code>lirc_web</code>.</li>
+<li>Write about how to connect <a href="https://github.com/alexbain/lirc_web">lirc_web</a> to Tasker or IFTTT.</li>
 </ul>
 
 
