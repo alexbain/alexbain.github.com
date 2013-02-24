@@ -33,7 +33,7 @@ To make LIRC usable from the web I needed a client library in a language I could
 
 For this project I chose to work in NodeJS. If you would prefer to implement a web application in a different language, I found two existing LIRC client libraries. Sadly, neither seem maintained. I found [lircr](https://github.com/fugalh/lircr) for Ruby and [pyLirc](http://sourceforge.net/projects/pylirc/) for Python.
 
-Since I could not find an existing NodeJS LIRC client library, and the existing libraries I did find were not up to date, I built my own. I created [lirc_node](https://github.com/alexbain/lirc_node), a lightweight NodeJS client library that interfaces with LIRC. v0.0.1 of ``lirc_node`` only supports ``irsend``. This allows you to send IR commands to devices once you have programmed them. ``irrecord``, required for learning new IR commands, is an interactive command line utility, making it more complex to work with.
+Since I could not find an existing NodeJS LIRC client library, and the existing libraries I did find were not up to date, I built my own. I created [lirc_node](https://github.com/alexbain/lirc_node), a lightweight NodeJS client library that interfaces with LIRC. v0.0.1 of ``lirc_node`` only supports ``irsend``. This allows you to send IR commands to devices that LIRC knows about.
 
 Before trying to install and use ``lirc_node`` make sure you have completed these steps:
 
@@ -77,10 +77,10 @@ At this point, assuming you've been able to get each step working, you should ha
 
 In the coming months I hope to:
 
-* Release an open hardware schematic and PCB board for anyone to build.
-* 3D print an enclosure so that the project looks finished.
+* Create an open hardware schematic and PCB board that anyone can use for the hardware.
+* 3D print an enclosure for the RaspberryPi + expansion board.
 * Improve the web application and give it a proper mobile web interface.
-* Write a blog post about connecting Tasker or IFTTT to ``lirc_web``.
+* Write about how to connect [lirc_web](https://github.com/alexbain/lirc_web) to Tasker or IFTTT.
 
 If you have any questions, suggestions, or run into any issues - please let me know.
 
