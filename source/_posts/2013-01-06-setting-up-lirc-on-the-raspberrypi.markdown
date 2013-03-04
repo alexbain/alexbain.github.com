@@ -6,6 +6,8 @@ comments: true
 categories: [raspberrypi]
 ---
 
+**March 4th Update:** I've written a follow up post that describes how to control your RaspberryPi universal remote from the web. Please check out [Controlling LIRC from the web](/blog/2013/02/23/controlling-lirc-from-the-web/) for instructions on how to install and configure the software.
+
 ### Preface
 
 In July 2012 I wrote a post called [Universal remote experiments](/blog/2012/07/08/universal-remote-experiments/) about creating a web controlled universal remote from the electronics up. The first platform I started with was an Arduino Uno. After much experimentation I learned that asking an Arduino to maintain a WiFi connection, maintain a TCP socket with a host computer, and send/receive IR signals was a bit much. With the limited memory and storage I had a hard time managing memory and keeping the system stable. I was, however, able to build a functional prototype:
