@@ -4,7 +4,7 @@
   <title><![CDATA[alexba.in]]></title>
   <link href="http://alexba.in/atom.xml" rel="self"/>
   <link href="http://alexba.in/"/>
-  <updated>2013-02-24T00:20:51-08:00</updated>
+  <updated>2013-03-04T10:14:06-08:00</updated>
   <id>http://alexba.in/</id>
   <author>
     <name><![CDATA[Alex Bain]]></name>
@@ -254,7 +254,9 @@ GPIO pins on the RaspberryPi, check out:</p>
     <link href="http://alexba.in/blog/2013/01/06/setting-up-lirc-on-the-raspberrypi/"/>
     <updated>2013-01-06T08:38:00-08:00</updated>
     <id>http://alexba.in/blog/2013/01/06/setting-up-lirc-on-the-raspberrypi</id>
-    <content type="html"><![CDATA[<h3>Preface</h3>
+    <content type="html"><![CDATA[<p><strong>March 4th Update:</strong> I&#8217;ve written a follow up post that describes how to control your RaspberryPi universal remote from the web. Please check out <a href="http://alexba.in/blog/2013/02/23/controlling-lirc-from-the-web/">Controlling LIRC from the web</a> for instructions on how to install and configure the software.</p>
+
+<h3>Preface</h3>
 
 <p>In July 2012 I wrote a post called <a href="http://alexba.in/blog/2012/07/08/universal-remote-experiments/">Universal remote experiments</a> about creating a web controlled universal remote from the electronics up. The first platform I started with was an Arduino Uno. After much experimentation I learned that asking an Arduino to maintain a WiFi connection, maintain a TCP socket with a host computer, and send/receive IR signals was a bit much. With the limited memory and storage I had a hard time managing memory and keeping the system stable. I was, however, able to build a functional prototype:</p>
 
