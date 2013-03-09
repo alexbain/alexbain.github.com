@@ -6,6 +6,8 @@ comments: true
 categories: [raspberrypi]
 ---
 
+**March 9th 2013 Update:** I have formalized the schematic and parts list that I'm using and have made it available on [Upverter](http://upverter.com). Please read [RaspberryPi IR Schematic for LIRC](/blog/2013/03/09/raspberrypi-ir-schematic-for-lirc/) for more details.
+
 **March 4th Update:** I've written a follow up post that describes how to control your RaspberryPi universal remote from the web. Please check out [Controlling LIRC from the web](/blog/2013/02/23/controlling-lirc-from-the-web/) for instructions on how to install and configure the software.
 
 ### Preface
@@ -74,9 +76,12 @@ Now restart ``lircd`` so it picks up these changes:
 
 ### Wiring up the IR transceiver
 
+**March 9th 2013 Update:** I have formalized the schematic and parts list that I'm using and have made it available on [Upverter](http://upverter.com). Please read [RaspberryPi IR Schematic for LIRC](/blog/2013/03/09/raspberrypi-ir-schematic-for-lirc/) for more details.
+
 To send and receive IR signals from your RaspberryPi you'll need to wire up an IR LED and an IR receiver and tell LIRC where to find them. Here are the parts I purchased for my own project:
 
-* [940nm IR LED](https://www.adafruit.com/products/387) - Bright and tuned to 940nm wavelength
+* [940nm IR LED 20deg](https://www.adafruit.com/products/387) - 20 degree viewing angle. Bright and tuned to 940nm wavelength
+* [940nm IR LED 40deg](http://www.digikey.com/product-detail/en/IR333C/1080-1081-ND/2675572?WT.z_cid=ref_octopart_dkc_buynow) - 40 degree viewing angle. Bright and tuned to 940nm wavelength.
 * [38khz IR Receiver](https://www.adafruit.com/products/157) - Receives IR signals at remote control frequencies
 * [PN2222 Transistor](https://www.adafruit.com/products/756) - Transistor to help drive IR LED
 * [10k Ohm resistor](https://www.sparkfun.com/products/8374) - Resistor that goes between rPi GPIO and the PN2222 transistor
@@ -91,11 +96,12 @@ For this project I wired up the IR LED to GPIO pin 22 and the IR Receiver to GPI
 
 Please check out these diagrams for information and schematics about how to wire everything up:
 
+* [RasperryPi IR Schematic for LIRC](/blog/2013/03/09/raspberrypi-ir-schematic-for-lirc/) - My own schematic, which I've been using myself.
 * [RaspberryPi lirc_rpi](http://aron.ws/projects/lirc_rpi/) - Contains hardware and schematics for the raspberryPi
 * [TV-B-Gone Schematic](http://www.ladyada.net/make/tvbgone/design.html) - Info on wiring up IR leds / receivers
 * [GPIO pinout for RaspberryPi](http://www.instructables.com/files/deriv/FJA/5B1M/H2WERJ0U/FJA5B1MH2WERJ0U.LARGE.jpg) - GPIO pinout diagram
 
-Here's a picture of my RaspberryPi with all of the components wired up and working:
+Here's a picture of my initial schematic ([view the updated one here](/blog/2013/03/09/raspberrypi-ir-schematic-for-lirc/)) wired up to my RaspberryPi with all of the components tested and working:
 
 <img src="/images/posts/raspberrypi-ir.jpg" class="center" />
 
