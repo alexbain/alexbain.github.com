@@ -4,7 +4,7 @@
   <title><![CDATA[Category: javascript | alexba.in]]></title>
   <link href="http://alexba.in/blog/categories/javascript/atom.xml" rel="self"/>
   <link href="http://alexba.in/"/>
-  <updated>2013-03-04T10:14:06-08:00</updated>
+  <updated>2013-03-09T09:36:00-08:00</updated>
   <id>http://alexba.in/</id>
   <author>
     <name><![CDATA[Alex Bain]]></name>
@@ -12,6 +12,23 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Open Source Universal Remote]]></title>
+    <link href="http://alexba.in/blog/2013/03/06/open-source-universal-remote/"/>
+    <updated>2013-03-06T11:55:00-08:00</updated>
+    <id>http://alexba.in/blog/2013/03/06/open-source-universal-remote</id>
+    <content type="html"><![CDATA[<p><img src="http://alexba.in/images/posts/universal-remote/transistor.jpg" /></p>
+
+<p>Almost a year ago I decided to teach myself electronics by creating my own WiFi enabled universal remote. Initially I tried to build the project with an Arduino, but later switched to a RaspberryPi. As I've made progress on my project I've open sourced the software I've written and blogged about every step of the process.</p>
+
+<p>To date, I've had over nine thousand unique visitors check out the posts related to this project. Based on the positive feedback I've received and the questions asked, I believe it makes sense to aggregate all of the data I've spread out across numerous blog posts into one guide. Over the coming weeks I'll be creating a step by step guide for building your own RaspberryPi powered universal remote. In addition, I'll be creating and open sourcing additional components of the project such as a printed circuit board and a 3D printable case to enclose the project.</p>
+
+<p>Check out the <a href="http://opensourceuniversalremote.com">Open Source Universal Remote</a> landing page I created for the project. In the coming weeks I'll be adding additional content to that page.</p>
+
+<p>If you have any requests or ideas for this project please don't hesitate to ask in the comments. In addition, if you have hardware engineering experience or industrial design experience and would like to contribute please get in touch.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Controlling LIRC from the web]]></title>
@@ -279,66 +296,6 @@ checkForMissingImage(src, function() {
 
 <p>As <code>onerror</code> support isn't universal across every browser this should be
 considered a visual enhancement for users with modern browsers.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[JavaScript Equivalence Operators]]></title>
-    <link href="http://alexba.in/blog/2012/01/05/javascript-equivalence-operators/"/>
-    <updated>2012-01-05T22:06:00-08:00</updated>
-    <id>http://alexba.in/blog/2012/01/05/javascript-equivalence-operators</id>
-    <content type="html"><![CDATA[<p>JavaScript has two sets of equivalence operators. One set is type converting
-while the other set is strict.</p>
-
-<p>Here's a quick example that demonstrates these two types of operators:</p>
-
-<p>``` javascript Equivalence operators in JavaScript</p>
-
-<blockquote><p>var a = 4;
-4
-var b = 4;
-4
-var c = "4";
-"4"
-a == b
-true
-a === b
-true
-a == c
-true
-// fails due to type mismatch
-a === c
-false
-```</p></blockquote>
-
-<p>The key point is noting that while <code>a == c</code> is true, <code>a === c</code> is false.</p>
-
-<p>Why? When using the <code>==</code> operator the string <code>"4"</code> is type cast into a <code>4</code>
-which is compared to <code>4</code>. As <code>4</code> is equivalent to <code>4</code>, this evaluates to true.</p>
-
-<p>However, when using the <code>===</code> operator the string <code>"4"</code> is directly compared to the
-number <code>4</code>. This fails because a <code>String</code> is not equivalent to a <code>Number</code>.</p>
-
-<p>Here are the specific rules that the JavaScript interpreter follows:</p>
-
-<blockquote><p>If either operand is a number or a boolean, the operands are converted to
-numbers if possible; else if either operand is a string, the other operand is
-converted to a string if possible. If both operands are objects, then
-JavaScript compares internal references which are equal when operands refer
-to the same object in memory.
-<a href="https://developer.mozilla.org/en/JavaScript/Reference/Operators/Comparison_Operators">Mozilla Developer Network</a></p></blockquote>
-
-<p>So, if you're ever trying to figure out why a comparison is evaluating to
-true when it should be evaluating to false, double check that you're not
-accidentally type casting one of the operands.</p>
-
-<p>Want to dive deeper? Check out these articles for even more information:</p>
-
-<ul>
-<li><a href="http://www.w3schools.com/Js/js_comparisons.asp">W3CSchools - JavaScript Comparison and Logical Operators</a></li>
-<li><a href="https://developer.mozilla.org/en/JavaScript/Reference/Operators/Comparison_Operators">MDN - Comparison operators</a></li>
-</ul>
-
 ]]></content>
   </entry>
   

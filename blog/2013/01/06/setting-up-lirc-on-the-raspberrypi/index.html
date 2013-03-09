@@ -9,7 +9,7 @@
   <meta name="author" content="Alex Bain">
 
   
-  <meta name="description" content="March 4th Update: I&#8217;ve written a follow up post that describes how to control your RaspberryPi universal remote from the web. Please check out &hellip;">
+  <meta name="description" content="March 9th 2013 Update: I have formalized the schematic and parts list that I&#8217;m using and have made it available on Upverter. Please read &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -104,7 +104,9 @@
   </header>
 
 
-<div class="entry-content"><p><strong>March 4th Update:</strong> I&#8217;ve written a follow up post that describes how to control your RaspberryPi universal remote from the web. Please check out <a href="/blog/2013/02/23/controlling-lirc-from-the-web/">Controlling LIRC from the web</a> for instructions on how to install and configure the software.</p>
+<div class="entry-content"><p><strong>March 9th 2013 Update:</strong> I have formalized the schematic and parts list that I&#8217;m using and have made it available on <a href="http://upverter.com">Upverter</a>. Please read <a href="/blog/2013/03/09/raspberrypi-ir-schematic-for-lirc/">RaspberryPi IR Schematic for LIRC</a> for more details.</p>
+
+<p><strong>March 4th Update:</strong> I&#8217;ve written a follow up post that describes how to control your RaspberryPi universal remote from the web. Please check out <a href="/blog/2013/02/23/controlling-lirc-from-the-web/">Controlling LIRC from the web</a> for instructions on how to install and configure the software.</p>
 
 <h3>Preface</h3>
 
@@ -176,10 +178,13 @@ sudo /etc/init.d/lirc start
 
 <h3>Wiring up the IR transceiver</h3>
 
+<p><strong>March 9th 2013 Update:</strong> I have formalized the schematic and parts list that I&#8217;m using and have made it available on <a href="http://upverter.com">Upverter</a>. Please read <a href="/blog/2013/03/09/raspberrypi-ir-schematic-for-lirc/">RaspberryPi IR Schematic for LIRC</a> for more details.</p>
+
 <p>To send and receive IR signals from your RaspberryPi you&#8217;ll need to wire up an IR LED and an IR receiver and tell LIRC where to find them. Here are the parts I purchased for my own project:</p>
 
 <ul>
-<li><a href="https://www.adafruit.com/products/387">940nm IR LED</a> - Bright and tuned to 940nm wavelength</li>
+<li><a href="https://www.adafruit.com/products/387">940nm IR LED 20deg</a> - 20 degree viewing angle. Bright and tuned to 940nm wavelength</li>
+<li><a href="http://www.digikey.com/product-detail/en/IR333C/1080-1081-ND/2675572?WT.z_cid=ref_octopart_dkc_buynow">940nm IR LED 40deg</a> - 40 degree viewing angle. Bright and tuned to 940nm wavelength.</li>
 <li><a href="https://www.adafruit.com/products/157">38khz IR Receiver</a> - Receives IR signals at remote control frequencies</li>
 <li><a href="https://www.adafruit.com/products/756">PN2222 Transistor</a> - Transistor to help drive IR LED</li>
 <li><a href="https://www.sparkfun.com/products/8374">10k Ohm resistor</a> - Resistor that goes between rPi GPIO and the PN2222 transistor</li>
@@ -200,13 +205,14 @@ sudo /etc/init.d/lirc start
 <p>Please check out these diagrams for information and schematics about how to wire everything up:</p>
 
 <ul>
+<li><a href="/blog/2013/03/09/raspberrypi-ir-schematic-for-lirc/">RasperryPi IR Schematic for LIRC</a> - My own schematic, which I&#8217;ve been using myself.</li>
 <li><a href="http://aron.ws/projects/lirc_rpi/">RaspberryPi lirc_rpi</a> - Contains hardware and schematics for the raspberryPi</li>
 <li><a href="http://www.ladyada.net/make/tvbgone/design.html">TV-B-Gone Schematic</a> - Info on wiring up IR leds / receivers</li>
 <li><a href="http://www.instructables.com/files/deriv/FJA/5B1M/H2WERJ0U/FJA5B1MH2WERJ0U.LARGE.jpg">GPIO pinout for RaspberryPi</a> - GPIO pinout diagram</li>
 </ul>
 
 
-<p>Here&#8217;s a picture of my RaspberryPi with all of the components wired up and working:</p>
+<p>Here&#8217;s a picture of my initial schematic (<a href="/blog/2013/03/09/raspberrypi-ir-schematic-for-lirc/">view the updated one here</a>) wired up to my RaspberryPi with all of the components tested and working:</p>
 
 <p><img src="/images/posts/raspberrypi-ir.jpg" class="center" /></p>
 
@@ -375,6 +381,14 @@ irsend SEND_ONCE yamaha KEY_VOLUMEDOWN
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/03/09/raspberrypi-ir-schematic-for-lirc/">RaspberryPi IR Schematic for LIRC</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/03/06/open-source-universal-remote/">Open Source Universal Remote</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/02/23/controlling-lirc-from-the-web/">Controlling LIRC from the web</a>
       </li>
     
@@ -384,14 +398,6 @@ irsend SEND_ONCE yamaha KEY_VOLUMEDOWN
     
       <li class="post">
         <a href="/blog/2013/01/07/use-your-raspberrypi-to-power-a-company-dashboard/">Use your RaspberryPi to power a company dashboard</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/01/06/setting-up-lirc-on-the-raspberrypi/">Setting up LIRC on the RaspberryPi</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/01/04/raspberrypi-quickstart/">RaspberryPi Quickstart</a>
       </li>
     
   </ul>

@@ -9,7 +9,7 @@
   <meta name="author" content="Alex Bain">
 
   
-  <meta name="description" content="In this post I will cover how to create a web interface + API for LIRC, the Linux Infrared Remote Control project. I will be using NodeJS and a &hellip;">
+  <meta name="description" content="Here is a simple schematic I designed that demonstrates you how you could create an IR transceiver for your RaspberryPi. You can use this schematic &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,100 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/03/09/raspberrypi-ir-schematic-for-lirc/">RaspberryPi IR Schematic for LIRC</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-09T09:19:00-08:00" pubdate data-updated="true">Mar 9<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/03/09/raspberrypi-ir-schematic-for-lirc/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Here is a <a href="http://upverter.com/alexbain/f24516375cfae8b9/Open-Source-Universal-Remote/">simple schematic</a> I designed that demonstrates you how you could create an IR transceiver for your RaspberryPi. You can use this schematic with the <a href="http://lirc.org">LIRC</a> software package to create your own universal remote. It&#8217;s hosted on <a href="http://upverter.com">Upverter</a> and contains a parts list for where to purchase the parts I used.</p>
+
+<p><a href="http://upverter.com/alexbain/f24516375cfae8b9/Open-Source-Universal-Remote/#">
+  <img src="/images/posts/universal-remote/schematic-v1.jpg" />
+</a></p>
+
+<p><a href="http://upverter.com/alexbain/f24516375cfae8b9/Open-Source-Universal-Remote/#">View the schematic and parts list</a></p>
+
+<p>If you have any suggestions for improvements feel free to tinker on it and submit them.</p>
+
+<p>Interested in installing LIRC on your RaspberryPi? You may be interested in reading <a href="/blog/2013/01/06/setting-up-lirc-on-the-raspberrypi/">Setting up LIRC on the RaspberryPi</a> and <a href="/blog/2013/02/23/controlling-lirc-from-the-web/">Controlling LIRC From the Web</a>.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/03/06/open-source-universal-remote/">Open Source Universal Remote</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-06T11:55:00-08:00" pubdate data-updated="true">Mar 6<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/03/06/open-source-universal-remote/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img src="/images/posts/universal-remote/transistor.jpg" /></p>
+
+<p>Almost a year ago I decided to teach myself electronics by creating my own WiFi enabled universal remote. Initially I tried to build the project with an Arduino, but later switched to a RaspberryPi. As I&#8217;ve made progress on my project I&#8217;ve open sourced the software I&#8217;ve written and blogged about every step of the process.</p>
+
+<p>To date, I&#8217;ve had over nine thousand unique visitors check out the posts related to this project. Based on the positive feedback I&#8217;ve received and the questions asked, I believe it makes sense to aggregate all of the data I&#8217;ve spread out across numerous blog posts into one guide. Over the coming weeks I&#8217;ll be creating a step by step guide for building your own RaspberryPi powered universal remote. In addition, I&#8217;ll be creating and open sourcing additional components of the project such as a printed circuit board and a 3D printable case to enclose the project.</p>
+
+<p>Check out the <a href="http://opensourceuniversalremote.com">Open Source Universal Remote</a> landing page I created for the project. In the coming weeks I&#8217;ll be adding additional content to that page.</p>
+
+<p>If you have any requests or ideas for this project please don&#8217;t hesitate to ask in the comments. In addition, if you have hardware engineering experience or industrial design experience and would like to contribute please get in touch.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -430,7 +524,9 @@ GPIO pins on the RaspberryPi, check out:</p>
   </header>
 
 
-  <div class="entry-content"><p><strong>March 4th Update:</strong> I&#8217;ve written a follow up post that describes how to control your RaspberryPi universal remote from the web. Please check out <a href="/blog/2013/02/23/controlling-lirc-from-the-web/">Controlling LIRC from the web</a> for instructions on how to install and configure the software.</p>
+  <div class="entry-content"><p><strong>March 9th 2013 Update:</strong> I have formalized the schematic and parts list that I&#8217;m using and have made it available on <a href="http://upverter.com">Upverter</a>. Please read <a href="/blog/2013/03/09/raspberrypi-ir-schematic-for-lirc/">RaspberryPi IR Schematic for LIRC</a> for more details.</p>
+
+<p><strong>March 4th Update:</strong> I&#8217;ve written a follow up post that describes how to control your RaspberryPi universal remote from the web. Please check out <a href="/blog/2013/02/23/controlling-lirc-from-the-web/">Controlling LIRC from the web</a> for instructions on how to install and configure the software.</p>
 
 <h3>Preface</h3>
 
@@ -502,10 +598,13 @@ sudo /etc/init.d/lirc start
 
 <h3>Wiring up the IR transceiver</h3>
 
+<p><strong>March 9th 2013 Update:</strong> I have formalized the schematic and parts list that I&#8217;m using and have made it available on <a href="http://upverter.com">Upverter</a>. Please read <a href="/blog/2013/03/09/raspberrypi-ir-schematic-for-lirc/">RaspberryPi IR Schematic for LIRC</a> for more details.</p>
+
 <p>To send and receive IR signals from your RaspberryPi you&#8217;ll need to wire up an IR LED and an IR receiver and tell LIRC where to find them. Here are the parts I purchased for my own project:</p>
 
 <ul>
-<li><a href="https://www.adafruit.com/products/387">940nm IR LED</a> - Bright and tuned to 940nm wavelength</li>
+<li><a href="https://www.adafruit.com/products/387">940nm IR LED 20deg</a> - 20 degree viewing angle. Bright and tuned to 940nm wavelength</li>
+<li><a href="http://www.digikey.com/product-detail/en/IR333C/1080-1081-ND/2675572?WT.z_cid=ref_octopart_dkc_buynow">940nm IR LED 40deg</a> - 40 degree viewing angle. Bright and tuned to 940nm wavelength.</li>
 <li><a href="https://www.adafruit.com/products/157">38khz IR Receiver</a> - Receives IR signals at remote control frequencies</li>
 <li><a href="https://www.adafruit.com/products/756">PN2222 Transistor</a> - Transistor to help drive IR LED</li>
 <li><a href="https://www.sparkfun.com/products/8374">10k Ohm resistor</a> - Resistor that goes between rPi GPIO and the PN2222 transistor</li>
@@ -526,13 +625,14 @@ sudo /etc/init.d/lirc start
 <p>Please check out these diagrams for information and schematics about how to wire everything up:</p>
 
 <ul>
+<li><a href="/blog/2013/03/09/raspberrypi-ir-schematic-for-lirc/">RasperryPi IR Schematic for LIRC</a> - My own schematic, which I&#8217;ve been using myself.</li>
 <li><a href="http://aron.ws/projects/lirc_rpi/">RaspberryPi lirc_rpi</a> - Contains hardware and schematics for the raspberryPi</li>
 <li><a href="http://www.ladyada.net/make/tvbgone/design.html">TV-B-Gone Schematic</a> - Info on wiring up IR leds / receivers</li>
 <li><a href="http://www.instructables.com/files/deriv/FJA/5B1M/H2WERJ0U/FJA5B1MH2WERJ0U.LARGE.jpg">GPIO pinout for RaspberryPi</a> - GPIO pinout diagram</li>
 </ul>
 
 
-<p>Here&#8217;s a picture of my RaspberryPi with all of the components wired up and working:</p>
+<p>Here&#8217;s a picture of my initial schematic (<a href="/blog/2013/03/09/raspberrypi-ir-schematic-for-lirc/">view the updated one here</a>) wired up to my RaspberryPi with all of the components tested and working:</p>
 
 <p><img src="/images/posts/raspberrypi-ir.jpg" class="center" /></p>
 
@@ -919,183 +1019,6 @@ fail to compile if that&#8217;s missing. When I checked <code>/usr/bin</code> I 
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/07/14/ardusat-doing-it/">ArduSat: Doing It.</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-07-14T11:26:00-07:00" pubdate data-updated="true">Jul 14<span>th</span>, 2012</time>
-        
-         | <a href="/blog/2012/07/14/ardusat-doing-it/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I&#8217;ve been enamored with space for as long as I can remember. The barrier of entry
-for space/satellites, however, has always been a bit outside of the individual&#8217;s grasp.</p>
-
-<p>Until now. The other day I stumbled across an amazing Kickstarter project -
-the <a href="http://www.kickstarter.com/projects/575960623/ardusat-your-arduino-experiment-in-space">ArduSat</a>. The goal of the project is to be the first open platform for
-individuals to design and run their own space experiments. Yup. That&#8217;s right.
-For $325 you can now run your own space experiments.</p>
-
-<p>For the first time you can get access to a satellite and execute whatever code
-you like to gather data, run experiments, or otherwise just take photos from space.
-It&#8217;s an amazing idea and one I&#8217;m proud to say I&#8217;m a backer of.</p>
-
-<p>I haven&#8217;t decided what to do with the time yet. Since photography is such
-a passion of mine, however, I&#8217;d love to find some way to analyze the surroundings,
-determine if something interesting is happening, and start taking photographs. Given
-that the user has good control over the camera I was thinking that some HDR shots
-might end up being beautiful.</p>
-
-<p>Hopefully my output from this will be a beautiful print I can hang in my home
-to remember the first (of many, I can only hope) time I was able to run code in space.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/07/08/universal-remote-experiments/">Universal Remote Experiments</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-07-08T09:51:00-07:00" pubdate data-updated="true">Jul 8<span>th</span>, 2012</time>
-        
-         | <a href="/blog/2012/07/08/universal-remote-experiments/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Over the past few months I&#8217;ve decided to teach myself a bit about embedded
-microcontrollers and electronics. I&#8217;ve never worked with hardware before and,
-after a bit of Googling, found an amazing Maker / Open Hardware movement going
-on that I could leverage to help bootstrap my ideas.</p>
-
-<p>Since I&#8217;ve found the best way to motivate myself is with a concrete project I
-decided that, for my first project, I wanted to build a universal remote that I
-could control from my phone. I have a Harmony remote, which I use regularly,
-but it&#8217;s limited by line of sight and requires customization through a
-cumbersome software interface.</p>
-
-<p>My initial requirements were:</p>
-
-<ul>
-<li>Must be small enough to place discreetly in the room</li>
-<li>Must be WiFi enabled</li>
-<li>Must have great IR range and coverage</li>
-<li>Must be able to learn existing commands</li>
-<li>Must have a responsive web interface</li>
-</ul>
-
-
-<h4>Version 1: Arduino</h4>
-
-<p>The first prototype I built was using an <a href="http://arduino.cc">Arduino Uno</a> microcontroller along with
-<a href="http://www.arcfn.com/2009/08/multi-protocol-infrared-remote-library.html">Ken Shirriff&#8217;s</a> multi protocol IR library. I had wired a 940nm IR LED to one
-of the Arduino&#8217;s pins and was able to get about two feet of range out of it.</p>
-
-<p>Next, I extended the code and attached a <a href="http://www.sparkfun.com/products/10822">Roving Networks RN-XV</a> WiFi chip to
-my project so it was WiFi enabled. So far so good. I could now send or receive
-IR commands (relatively well, it wasn&#8217;t perfect) over Wifi with about a two foot
-range for the IR signal. I also had to hard code the WiFi credentials which meant
-the device wasn&#8217;t very portable, but at least it worked. This was version 1.1.</p>
-
-<p>Version 1.2 was an updated hardware schematic that added a 2N2222 transistor to
-the mix. Using a transistor meant that the output from the Arduino&#8217;s pin was not
-trying to power the LED but just telling a transitor to switch current on and off.
-Since the transistor switches current significantly better than the output
-pin of the Arduino I was able to extend the range for the IR blaster to about 15ft.
-This change was inspired by open source schematics like <a href="http://www.ladyada.net/images/tvbgone/schematic.jpg">TV-B-Gone</a>.</p>
-
-<p>Version 1.3 was to be the version with the web interface. This was where I realized
-the limitations of the Arduino platform. I could not easily run a WiFi libray,
-an IR library, and a web server off of an 8bit micro controller. I simply didn&#8217;t
-have the resources.</p>
-
-<p>I had considered a few alternatives:</p>
-
-<ul>
-<li>Run a webserver on my laptop and just send commands to/from the Arduino</li>
-<li>Run a webserver on the internet and relay commands that way</li>
-<li>Purchase a device like a <a href="http://raspberrypi.org/">RaspberryPi</a> or <a href="http://beagleboard.org/bone/">Beaglebone</a> and run the web
-server on that device. Communicate with the Arduino perhaps via XBee or over WiFi.</li>
-</ul>
-
-
-<p>Ultimately I decided that adding a second device increased the complexity of the
-project beyond what I wanted. So, I scrapped the idea of using an Arduino and I&#8217;m
-starting over with a <a href="http://raspberrypi.org/">RaspberryPi</a>.</p>
-
-<h4>Version 2: RaspberryPi</h4>
-
-<p>The <a href="http://raspberrypi.org/">RaspberryPi</a> is a completely different beast than the <a href="http://arduino.cc">Arduino</a>. The <a href="http://raspberrypi.org/">RaspberryPi</a>
-is about as powerful as a mobile phone. It&#8217;s got an ARM processor,
-ethernet port, RAM, SD card for storage, and a bunch of <a href="http://en.wikipedia.org/wiki/General_Purpose_Input/Output">GPIO</a> pins for a hardware
-interface.</p>
-
-<p>So first up was finding an IR software package (designed for a Linux OS) that
-could handle the transmission and receiving of IR signals. This lead me to
-<a href="http://www.lirc.org/">LIRC</a> - the Linux Infrared Remote Control project. This project has been
-around for a while, has a bunch of hardware schematics available (sending and
-receiving) for it, and is open source. Perfect.</p>
-
-<p>This lead me to getting LIRC working on my RaspberryPi. Luckily a chap who goes
-by the name <a href="http://aron.ws/projects/lirc_rpi/">ar0n</a> has already opened a <a href="https://github.com/raspberrypi/linux/pull/38">pull request</a> that adds preliminary
-LIRC support to the RaspberryPi linux kernel.</p>
-
-<p>So, at this very moment, I am attempting to recompile the RaspberryPi linux kernel
-with LIRC support. Once this step is done I&#8217;ll wire up some hardware to test
-sending and receiving. Once that works I should be back to &#8220;adding a web platform&#8221;
-which will be significantly easier when powered by an entire Linux stack.</p>
-
-<p>I&#8217;ll post another update down the road once I&#8217;ve gotten this step working.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1111,6 +1034,14 @@ which will be significantly easier when powered by an entire Linux stack.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/03/09/raspberrypi-ir-schematic-for-lirc/">RaspberryPi IR Schematic for LIRC</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/03/06/open-source-universal-remote/">Open Source Universal Remote</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/02/23/controlling-lirc-from-the-web/">Controlling LIRC from the web</a>
       </li>
     
@@ -1120,14 +1051,6 @@ which will be significantly easier when powered by an entire Linux stack.</p>
     
       <li class="post">
         <a href="/blog/2013/01/07/use-your-raspberrypi-to-power-a-company-dashboard/">Use your RaspberryPi to power a company dashboard</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/01/06/setting-up-lirc-on-the-raspberrypi/">Setting up LIRC on the RaspberryPi</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/01/04/raspberrypi-quickstart/">RaspberryPi Quickstart</a>
       </li>
     
   </ul>

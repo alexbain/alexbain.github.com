@@ -4,7 +4,7 @@
   <title><![CDATA[Category: lirc | alexba.in]]></title>
   <link href="http://alexba.in/blog/categories/lirc/atom.xml" rel="self"/>
   <link href="http://alexba.in/"/>
-  <updated>2013-03-04T10:14:06-08:00</updated>
+  <updated>2013-03-09T09:36:00-08:00</updated>
   <id>http://alexba.in/</id>
   <author>
     <name><![CDATA[Alex Bain]]></name>
@@ -12,6 +12,25 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[RaspberryPi IR Schematic for LIRC]]></title>
+    <link href="http://alexba.in/blog/2013/03/09/raspberrypi-ir-schematic-for-lirc/"/>
+    <updated>2013-03-09T09:19:00-08:00</updated>
+    <id>http://alexba.in/blog/2013/03/09/raspberrypi-ir-schematic-for-lirc</id>
+    <content type="html"><![CDATA[<p>Here is a <a href="http://upverter.com/alexbain/f24516375cfae8b9/Open-Source-Universal-Remote/">simple schematic</a> I designed that demonstrates you how you could create an IR transceiver for your RaspberryPi. You can use this schematic with the <a href="http://lirc.org">LIRC</a> software package to create your own universal remote. It's hosted on <a href="http://upverter.com">Upverter</a> and contains a parts list for where to purchase the parts I used.</p>
+
+<p><a href="http://upverter.com/alexbain/f24516375cfae8b9/Open-Source-Universal-Remote/#">
+  <img src="http://alexba.in/images/posts/universal-remote/schematic-v1.jpg" />
+</a></p>
+
+<p><a href="http://upverter.com/alexbain/f24516375cfae8b9/Open-Source-Universal-Remote/#">View the schematic and parts list</a></p>
+
+<p>If you have any suggestions for improvements feel free to tinker on it and submit them.</p>
+
+<p>Interested in installing LIRC on your RaspberryPi? You may be interested in reading <a href="/blog/2013/01/06/setting-up-lirc-on-the-raspberrypi/">Setting up LIRC on the RaspberryPi</a> and <a href="/blog/2013/02/23/controlling-lirc-from-the-web/">Controlling LIRC From the Web</a>.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Controlling LIRC from the web]]></title>

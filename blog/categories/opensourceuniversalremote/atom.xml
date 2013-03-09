@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: opensourceuniversalremote | alexba.in]]></title>
+  <link href="http://alexba.in/blog/categories/opensourceuniversalremote/atom.xml" rel="self"/>
+  <link href="http://alexba.in/"/>
+  <updated>2013-03-09T09:36:00-08:00</updated>
+  <id>http://alexba.in/</id>
+  <author>
+    <name><![CDATA[Alex Bain]]></name>
+    <email><![CDATA[alex@alexba.in]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[RaspberryPi IR Schematic for LIRC]]></title>
+    <link href="http://alexba.in/blog/2013/03/09/raspberrypi-ir-schematic-for-lirc/"/>
+    <updated>2013-03-09T09:19:00-08:00</updated>
+    <id>http://alexba.in/blog/2013/03/09/raspberrypi-ir-schematic-for-lirc</id>
+    <content type="html"><![CDATA[<p>Here is a <a href="http://upverter.com/alexbain/f24516375cfae8b9/Open-Source-Universal-Remote/">simple schematic</a> I designed that demonstrates you how you could create an IR transceiver for your RaspberryPi. You can use this schematic with the <a href="http://lirc.org">LIRC</a> software package to create your own universal remote. It's hosted on <a href="http://upverter.com">Upverter</a> and contains a parts list for where to purchase the parts I used.</p>
+
+<p><a href="http://upverter.com/alexbain/f24516375cfae8b9/Open-Source-Universal-Remote/#">
+  <img src="http://alexba.in/images/posts/universal-remote/schematic-v1.jpg" />
+</a></p>
+
+<p><a href="http://upverter.com/alexbain/f24516375cfae8b9/Open-Source-Universal-Remote/#">View the schematic and parts list</a></p>
+
+<p>If you have any suggestions for improvements feel free to tinker on it and submit them.</p>
+
+<p>Interested in installing LIRC on your RaspberryPi? You may be interested in reading <a href="/blog/2013/01/06/setting-up-lirc-on-the-raspberrypi/">Setting up LIRC on the RaspberryPi</a> and <a href="/blog/2013/02/23/controlling-lirc-from-the-web/">Controlling LIRC From the Web</a>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Open Source Universal Remote]]></title>
+    <link href="http://alexba.in/blog/2013/03/06/open-source-universal-remote/"/>
+    <updated>2013-03-06T11:55:00-08:00</updated>
+    <id>http://alexba.in/blog/2013/03/06/open-source-universal-remote</id>
+    <content type="html"><![CDATA[<p><img src="http://alexba.in/images/posts/universal-remote/transistor.jpg" /></p>
+
+<p>Almost a year ago I decided to teach myself electronics by creating my own WiFi enabled universal remote. Initially I tried to build the project with an Arduino, but later switched to a RaspberryPi. As I've made progress on my project I've open sourced the software I've written and blogged about every step of the process.</p>
+
+<p>To date, I've had over nine thousand unique visitors check out the posts related to this project. Based on the positive feedback I've received and the questions asked, I believe it makes sense to aggregate all of the data I've spread out across numerous blog posts into one guide. Over the coming weeks I'll be creating a step by step guide for building your own RaspberryPi powered universal remote. In addition, I'll be creating and open sourcing additional components of the project such as a printed circuit board and a 3D printable case to enclose the project.</p>
+
+<p>Check out the <a href="http://opensourceuniversalremote.com">Open Source Universal Remote</a> landing page I created for the project. In the coming weeks I'll be adding additional content to that page.</p>
+
+<p>If you have any requests or ideas for this project please don't hesitate to ask in the comments. In addition, if you have hardware engineering experience or industrial design experience and would like to contribute please get in touch.</p>
+]]></content>
+  </entry>
+  
+</feed>
