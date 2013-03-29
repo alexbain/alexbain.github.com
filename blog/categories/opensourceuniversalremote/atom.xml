@@ -4,7 +4,7 @@
   <title><![CDATA[Category: opensourceuniversalremote | alexba.in]]></title>
   <link href="http://alexba.in/blog/categories/opensourceuniversalremote/atom.xml" rel="self"/>
   <link href="http://alexba.in/"/>
-  <updated>2013-03-09T12:26:08-08:00</updated>
+  <updated>2013-03-29T13:39:52-07:00</updated>
   <id>http://alexba.in/</id>
   <author>
     <name><![CDATA[Alex Bain]]></name>
@@ -18,11 +18,9 @@
     <link href="http://alexba.in/blog/2013/03/09/raspberrypi-ir-schematic-for-lirc/"/>
     <updated>2013-03-09T09:19:00-08:00</updated>
     <id>http://alexba.in/blog/2013/03/09/raspberrypi-ir-schematic-for-lirc</id>
-    <content type="html"><![CDATA[<p>Here is a <a href="http://upverter.com/alexbain/f24516375cfae8b9/Open-Source-Universal-Remote/">simple schematic</a> I designed that demonstrates you how you could create an IR transceiver for your RaspberryPi. You can use this schematic with the <a href="http://lirc.org">LIRC</a> software package to create your own universal remote. It's hosted on <a href="http://upverter.com">Upverter</a> and contains a parts list for where to purchase the parts I used.</p>
+    <content type="html"><![CDATA[<p>Here is a <a href="http://upverter.com/alexbain/f24516375cfae8b9/Open-Source-Universal-Remote/">schematic</a> I designed that demonstrates you how you could create an IR transceiver for your RaspberryPi. You can use this schematic with the <a href="http://lirc.org">LIRC</a> software package to create your own universal remote. It's hosted on <a href="http://upverter.com">Upverter</a> and contains a parts list for where to purchase the parts I used.</p>
 
-<p><a href="http://upverter.com/alexbain/f24516375cfae8b9/Open-Source-Universal-Remote/#">
-  <img src="http://alexba.in/images/posts/universal-remote/schematic-v2.jpg" />
-</a></p>
+<p><a href="http://upverter.com/alexbain/f24516375cfae8b9/Open-Source-Universal-Remote/#/"><img src="http://upverter.com/alexbain/f24516375cfae8b9/Open-Source-Universal-Remote/embed_img/13645879800000/" alt="Open Source Universal Remote - Upverter" /></a></p>
 
 <p><a href="http://upverter.com/alexbain/f24516375cfae8b9/Open-Source-Universal-Remote/#">View the schematic and parts list</a></p>
 
