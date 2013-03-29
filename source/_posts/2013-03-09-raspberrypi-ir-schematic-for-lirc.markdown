@@ -6,11 +6,9 @@ comments: true
 categories: [raspberrypi, opensourceuniversalremote, lirc]
 ---
 
-Here is a [simple schematic](http://upverter.com/alexbain/f24516375cfae8b9/Open-Source-Universal-Remote/) I designed that demonstrates you how you could create an IR transceiver for your RaspberryPi. You can use this schematic with the [LIRC](http://lirc.org) software package to create your own universal remote. It's hosted on [Upverter](http://upverter.com) and contains a parts list for where to purchase the parts I used.
+Here is a [schematic](http://upverter.com/alexbain/f24516375cfae8b9/Open-Source-Universal-Remote/) I designed that demonstrates you how you could create an IR transceiver for your RaspberryPi. You can use this schematic with the [LIRC](http://lirc.org) software package to create your own universal remote. It's hosted on [Upverter](http://upverter.com) and contains a parts list for where to purchase the parts I used.
 
-<a href="http://upverter.com/alexbain/f24516375cfae8b9/Open-Source-Universal-Remote/#">
-  <img src="/images/posts/universal-remote/schematic-v2.jpg" />
-</a>
+[![Open Source Universal Remote - Upverter](http://upverter.com/alexbain/f24516375cfae8b9/Open-Source-Universal-Remote/embed_img/13645879800000/)](http://upverter.com/alexbain/f24516375cfae8b9/Open-Source-Universal-Remote/#/)
 
 <a href="http://upverter.com/alexbain/f24516375cfae8b9/Open-Source-Universal-Remote/#">View the schematic and parts list</a>
 
