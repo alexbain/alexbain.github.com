@@ -792,6 +792,24 @@ irsend SEND_ONCE yamaha KEY_VOLUMEDOWN
 
 <p>Plug everything in, boot up the system. If you&#8217;re planning to SSH into the RaspberryPi via Ethernet (instead of using a keyboard/mouse/monitor) you&#8217;ll have to log into your router and determine what it&#8217;s IP address is.</p>
 
+<p>The default RaspberryPi login is username <code>pi</code> with password <code>raspberry</code>. You&#8217;ll probably want to change this.</p>
+
+<h3>Expanding the root partition</h3>
+
+<p><strong>Update: April 12th 2013</strong>: Thanks to Conky (and Kevin) for suggesting this.</p>
+
+<p>Once your RaspberryPi boots up, you&#8217;ll want to adjust the root partition to take up the entire SD card. This will help prevent errors about the file system being full once you start updating packages and installing new packages:</p>
+
+<pre><code># Open the RaspiConfig tool:
+sudo raspi-config
+
+# Navigate to the "expand_rootfs" option and select it
+# Quit out of the raspi-config screen
+
+# Reboot the system:
+sudo shutdown -r now
+</code></pre>
+
 <h3>Setting up the WiFi</h3>
 
 <p>Assuming everything booted up okay, you&#8217;re ready to setup the wireless. To setup the wireless card to connect to your WPA/WPA2 secured wireless network, edit <code>/etc/network/interfaces</code> and add this to the bottom of the file. You may need to remove some existing configuration for <code>wlan0</code>.</p>
