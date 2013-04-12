@@ -27,6 +27,23 @@ I recently had the opportunity to purchase and setup a second RaspberryPi system
 
 Plug everything in, boot up the system. If you're planning to SSH into the RaspberryPi via Ethernet (instead of using a keyboard/mouse/monitor) you'll have to log into your router and determine what it's IP address is.
 
+The default RaspberryPi login is username ``pi`` with password ``raspberry``. You'll probably want to change this.
+
+### Expanding the root partition
+
+**Update: April 12th 2013**: Thanks to Conky (and Kevin) for suggesting this.
+
+Once your RaspberryPi boots up, you'll want to adjust the root partition to take up the entire SD card. This will help prevent errors about the file system being full once you start updating packages and installing new packages:
+
+    # Open the RaspiConfig tool:
+    sudo raspi-config
+
+    # Navigate to the "expand_rootfs" option and select it
+    # Quit out of the raspi-config screen
+
+    # Reboot the system:
+    sudo shutdown -r now
+
 ### Setting up the WiFi
 
 Assuming everything booted up okay, you're ready to setup the wireless. To setup the wireless card to connect to your WPA/WPA2 secured wireless network, edit ``/etc/network/interfaces`` and add this to the bottom of the file. You may need to remove some existing configuration for ``wlan0``.
