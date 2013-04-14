@@ -1,0 +1,22 @@
+---
+layout: post
+title: "lirc_web v0.0.3"
+date: 2013-04-14 13:00
+comments: true
+categories: [raspberrypi, lirc, opensourceuniversalremote]
+---
+
+As part of the [Open Source Universal Remote](http://opensourceuniversalremote.com) project I've been creating a simple and touch friendly user interface for LIRC. In a previous post I covered [Controlling LIRC From the Web](/blog/2013/02/23/controlling-lirc-from-the-web/), where I introduced version 0.0.1 of [lirc_web](http://github.com/alexbain/lirc_web). Lirc_web is a simple NodeJS app I created for controlling LIRC from the web.
+
+Since then, I've created a set of UI styles and fixed a number of touch related bugs with the project. I'm excited to announce [v0.0.3 of lirc_web](http://github.com/alexbain/lirc_web) which is now on GitHub.
+
+Here is a screen shot of the remote listing page:
+
+<img src="/images/posts/universal-remote/lirc_web_v003_remotes.png" class="center" />
+
+Upon tapping on any remote, you'll be taken to a page that shows all known commands for that remote:
+
+<img src="/images/posts/universal-remote/lirc_web_v003_commands.png" class="center" />
+
+I have a long list of intended improvements, so if you're interested in contributing to the project please let me know. As always, if you discover any bugs or have any feedback, please let me know in the comments.
+
