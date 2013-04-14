@@ -4,7 +4,7 @@
   <title><![CDATA[alexba.in]]></title>
   <link href="http://alexba.in/atom.xml" rel="self"/>
   <link href="http://alexba.in/"/>
-  <updated>2013-04-12T08:45:22-07:00</updated>
+  <updated>2013-04-14T13:18:13-07:00</updated>
   <id>http://alexba.in/</id>
   <author>
     <name><![CDATA[Alex Bain]]></name>
@@ -12,6 +12,27 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[lirc_web v0.0.3]]></title>
+    <link href="http://alexba.in/blog/2013/04/14/lirc-web-v0-dot-0-3/"/>
+    <updated>2013-04-14T13:00:00-07:00</updated>
+    <id>http://alexba.in/blog/2013/04/14/lirc-web-v0-dot-0-3</id>
+    <content type="html"><![CDATA[<p>As part of the <a href="http://opensourceuniversalremote.com">Open Source Universal Remote</a> project I&#8217;ve been creating a simple and touch friendly user interface for LIRC. In a previous post I covered <a href="http://alexba.in/blog/2013/02/23/controlling-lirc-from-the-web/">Controlling LIRC From the Web</a>, where I introduced version 0.0.1 of <a href="http://github.com/alexbain/lirc_web">lirc_web</a>. Lirc_web is a simple NodeJS app I created for controlling LIRC from the web.</p>
+
+<p>Since then, I&#8217;ve created a set of UI styles and fixed a number of touch related bugs with the project. I&#8217;m excited to announce <a href="http://github.com/alexbain/lirc_web">v0.0.3 of lirc_web</a> which is now on GitHub.</p>
+
+<p>Here is a screen shot of the remote listing page:</p>
+
+<p><img src="http://alexba.in/images/posts/universal-remote/lirc_web_v003_remotes.png" class="center" /></p>
+
+<p>Upon tapping on any remote, you&#8217;ll be taken to a page that shows all known commands for that remote:</p>
+
+<p><img src="http://alexba.in/images/posts/universal-remote/lirc_web_v003_commands.png" class="center" /></p>
+
+<p>I have a long list of intended improvements, so if you&#8217;re interested in contributing to the project please let me know. As always, if you discover any bugs or have any feedback, please let me know in the comments.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[RaspberryPi IR Schematic for LIRC]]></title>

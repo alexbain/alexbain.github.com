@@ -54,7 +54,7 @@
     </url>
     <url>
         <loc>http://alexba.in/blog/2013/01/06/setting-up-lirc-on-the-raspberrypi/</loc>
-        <lastmod>2013-03-09T09:33:13-08:00</lastmod>
+        <lastmod>2013-04-12T10:10:56-07:00</lastmod>
     </url>
     <url>
         <loc>
@@ -79,11 +79,15 @@
         <lastmod>2013-03-29T13:39:07-07:00</lastmod>
     </url>
     <url>
+        <loc>http://alexba.in/blog/2013/04/14/lirc-web-v0-dot-0-3/</loc>
+        <lastmod>2013-04-14T13:17:08-07:00</lastmod>
+    </url>
+    <url>
         <loc>http://alexba.in/blog/archives/</loc>
-        <lastmod>2013-04-12T08:44:10-07:00</lastmod>
+        <lastmod>2013-04-14T13:17:08-07:00</lastmod>
     </url>
     <url>
         <loc>http://alexba.in/</loc>
-        <lastmod>2013-04-12T08:44:10-07:00</lastmod>
+        <lastmod>2013-04-14T13:17:08-07:00</lastmod>
     </url>
 </urlset>

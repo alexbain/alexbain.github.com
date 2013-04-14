@@ -4,7 +4,7 @@
   <title><![CDATA[Category: raspberrypi | alexba.in]]></title>
   <link href="http://alexba.in/blog/categories/raspberrypi/atom.xml" rel="self"/>
   <link href="http://alexba.in/"/>
-  <updated>2013-04-12T08:45:22-07:00</updated>
+  <updated>2013-04-14T13:18:13-07:00</updated>
   <id>http://alexba.in/</id>
   <author>
     <name><![CDATA[Alex Bain]]></name>
@@ -12,6 +12,27 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[lirc_web v0.0.3]]></title>
+    <link href="http://alexba.in/blog/2013/04/14/lirc-web-v0-dot-0-3/"/>
+    <updated>2013-04-14T13:00:00-07:00</updated>
+    <id>http://alexba.in/blog/2013/04/14/lirc-web-v0-dot-0-3</id>
+    <content type="html"><![CDATA[<p>As part of the <a href="http://opensourceuniversalremote.com">Open Source Universal Remote</a> project I've been creating a simple and touch friendly user interface for LIRC. In a previous post I covered <a href="/blog/2013/02/23/controlling-lirc-from-the-web/">Controlling LIRC From the Web</a>, where I introduced version 0.0.1 of <a href="http://github.com/alexbain/lirc_web">lirc_web</a>. Lirc_web is a simple NodeJS app I created for controlling LIRC from the web.</p>
+
+<p>Since then, I've created a set of UI styles and fixed a number of touch related bugs with the project. I'm excited to announce <a href="http://github.com/alexbain/lirc_web">v0.0.3 of lirc_web</a> which is now on GitHub.</p>
+
+<p>Here is a screen shot of the remote listing page:</p>
+
+<p><img src="http://alexba.in/images/posts/universal-remote/lirc_web_v003_remotes.png" class="center" /></p>
+
+<p>Upon tapping on any remote, you'll be taken to a page that shows all known commands for that remote:</p>
+
+<p><img src="http://alexba.in/images/posts/universal-remote/lirc_web_v003_commands.png" class="center" /></p>
+
+<p>I have a long list of intended improvements, so if you're interested in contributing to the project please let me know. As always, if you discover any bugs or have any feedback, please let me know in the comments.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[RaspberryPi IR Schematic for LIRC]]></title>
@@ -193,95 +214,6 @@ GPIO pins on the RaspberryPi, check out:</p>
 
 
 <p>If you have any other recommended resources please let me know!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Use your RaspberryPi to power a company dashboard]]></title>
-    <link href="http://alexba.in/blog/2013/01/07/use-your-raspberrypi-to-power-a-company-dashboard/"/>
-    <updated>2013-01-07T15:51:00-08:00</updated>
-    <id>http://alexba.in/blog/2013/01/07/use-your-raspberrypi-to-power-a-company-dashboard</id>
-    <content type="html"><![CDATA[<p>Here are five steps to follow if you want to start using a RaspberryPi to power a company dashboard. I've just finished putting this together at my office. We're using <a href="http://www.geckoboard.com">Geckoboard</a> for the web interface:</p>
-
-<p><img class="center" src="http://alexba.in/images/posts/raspberrypi-dashboard.jpg" /></p>
-
-<p><img class="center" src="http://alexba.in/images/posts/raspberrypi-dashboard-2.jpg" /></p>
-
-<h3>0: Make sure your RaspberryPi is fully updated</h3>
-
-<p>Before you get started I highly recommend you follow my <a href="/blog/2013/01/04/raspberrypi-quickstart/">RaspberryPi Quickstart</a> guide to get your RaspberryPi updated to the latest OS and Firmware. That post also includes links to the case and peripherals I purchased for this project.</p>
-
-<h3>1: Install Chromium</h3>
-
-<p>First, you'll want to install Chromium on your RaspberryPi. We'll be using Chromium to load the dashboard. I've also included the <code>ttf-mscorefonts-installer</code> package so things render nicely.</p>
-
-<pre><code>sudo apt-get install chromium ttf-mscorefonts-installer
-</code></pre>
-
-<h3>2: Boot into X11 automatically</h3>
-
-<p>You'll want to make sure your RaspberryPi immediately boots into X11.</p>
-
-<pre><code>sudo raspi-config
-</code></pre>
-
-<p>Scroll down to <code>boot_behavior</code> and hit enter. Make sure "Yes" is marked and hit enter again.</p>
-
-<p>You're done here, so scroll to Finish (right arrow key) and hit enter.</p>
-
-<h3>3: Start Chromium on boot</h3>
-
-<p>Third, you'll want to make sure Chromium starts in kiosk (full screen, no user interface) as soon as your RaspberryPi boots up.</p>
-
-<p>Create (or modify) <code>~/.config/lxsession/LXDE/autostart</code> and add the line:</p>
-
-<pre><code>chromium --kiosk http://url_to_your_dashboard.com --incognito
-</code></pre>
-
-<p>Kiosk mode boots Chromium into full screen mode, by default. Incognito mode prevents a "Chrome did not shutdown cleanly" message from appearing on the top if the RaspberryPi loses power.</p>
-
-<h3>4: Make sure the screen does not go to sleep</h3>
-
-<p>Dashboards aren't very useful if the screen goes into standy after ten minutes.</p>
-
-<p>Edit <code>/etc/xdg/lxsession/LXDE/autostart</code> and make sure the <code>@xscreensaver</code> line is commented out. In addition, we'll be adding three options that prevent the screen from going blank:</p>
-
-<pre><code>#@xscreensaver -no-splash
-@xset s off
-@xset -dpms
-@xset s noblank
-</code></pre>
-
-<p>I also needed to modify <code>/etc/lightdm/lightdm.conf</code>. Add this line to the <code>[SeatDefaults]</code> section:</p>
-
-<pre><code>xserver-command=X -s 0 dpms
-</code></pre>
-
-<h3>5: Hide the mouse cursor</h3>
-
-<p>There's no reason to keep the mouse cursor stuck in the middle of the screen.  We'll use the unclutter utility to hide it after boot.</p>
-
-<pre><code>sudo apt-get install unclutter
-</code></pre>
-
-<p>You'll need to add this to your <code>~/.config/lxsession/LXDE/autostart</code> file:</p>
-
-<pre><code>unclutter -idle 0
-</code></pre>
-
-<h3>Enjoy!</h3>
-
-<p>Reboot your RaspberryPi and it should:</p>
-
-<ul>
-<li>Boot directly into X11</li>
-<li>Start Chromium in kiosk mode and load up your dashboard</li>
-<li>Prevent the screen from going to sleep after 10 minutes</li>
-<li>Hide the mouse cursor</li>
-</ul>
-
-
-<p>Please let me know if you have any questions or comments.</p>
 ]]></content>
   </entry>
   
