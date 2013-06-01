@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: raspberrypi | alexba.in]]></title>
+  <title><![CDATA[Category: RaspberryPi | alexba.in]]></title>
   <link href="http://alexba.in/blog/categories/raspberrypi/atom.xml" rel="self"/>
   <link href="http://alexba.in/"/>
-  <updated>2013-04-14T13:18:13-07:00</updated>
+  <updated>2013-06-01T16:18:36-07:00</updated>
   <id>http://alexba.in/</id>
   <author>
     <name><![CDATA[Alex Bain]]></name>
@@ -14,206 +14,115 @@
 
   
   <entry>
-    <title type="html"><![CDATA[lirc_web v0.0.3]]></title>
-    <link href="http://alexba.in/blog/2013/04/14/lirc-web-v0-dot-0-3/"/>
-    <updated>2013-04-14T13:00:00-07:00</updated>
-    <id>http://alexba.in/blog/2013/04/14/lirc-web-v0-dot-0-3</id>
-    <content type="html"><![CDATA[<p>As part of the <a href="http://opensourceuniversalremote.com">Open Source Universal Remote</a> project I've been creating a simple and touch friendly user interface for LIRC. In a previous post I covered <a href="/blog/2013/02/23/controlling-lirc-from-the-web/">Controlling LIRC From the Web</a>, where I introduced version 0.0.1 of <a href="http://github.com/alexbain/lirc_web">lirc_web</a>. Lirc_web is a simple NodeJS app I created for controlling LIRC from the web.</p>
+    <title type="html"><![CDATA[Using a RaspberryPi and Pebble Watch to control your home theater]]></title>
+    <link href="http://alexba.in/blog/2013/06/01/using-the-pebble-watch-to-control-your-home-theater/"/>
+    <updated>2013-06-01T13:23:00-07:00</updated>
+    <id>http://alexba.in/blog/2013/06/01/using-the-pebble-watch-to-control-your-home-theater</id>
+    <content type="html"><![CDATA[<p>This post will serve as a guide to using a <a href="http://www.raspberrypi.org/">RaspberryPi</a>, a <a href="http://getpebble.com/">Pebble Watch</a>, and an Android phone (<a href="http://www.google.com/nexus/4/">Google Nexus 4</a>) to control your home theater from your wrist. The result is something like this:</p>
 
-<p>Since then, I've created a set of UI styles and fixed a number of touch related bugs with the project. I'm excited to announce <a href="http://github.com/alexbain/lirc_web">v0.0.3 of lirc_web</a> which is now on GitHub.</p>
+<p><img src="http://alexba.in/images/posts/open-source-universal-remote-pebble-watch.jpg" height="450px" width="600px" class="center" /></p>
 
-<p>Here is a screen shot of the remote listing page:</p>
+<h3>Introduction</h3>
 
-<p><img src="http://alexba.in/images/posts/universal-remote/lirc_web_v003_remotes.png" class="center" /></p>
+<p>For a bit of backstory, around eighteen months ago I decided to start experimenting with and teaching myself electronics. I started working with an <a href="http://arduino.cc/en/Main/arduinoBoardUno">Arduino Uno</a> and eventually moved to a <a href="http://www.raspberrypi.org">RasperryPi</a>. I wanted to build open hardware, open source, web connected devices and these seemed like the right tools for the job. I wanted to ensure that every device I built could, down the road, be controlled in entirely new ways with novel human computer interfaces like the <a href="http://getpebble.com">Pebble Watch</a>, <a href="https://www.thalmic.com/myo/?autoplay=true">Thalmic Labs Myo</a>, <a href="http://www.emotiv.com/">Emotiv EPOC EEG Headset</a>, <a href="https://www.leapmotion.com/">Leap Motion</a>, <a href="http://www.google.com/glass/start/">Google Glass</a>, and others.</p>
 
-<p>Upon tapping on any remote, you'll be taken to a page that shows all known commands for that remote:</p>
+<p>So, after some consideration, I chose to build a RaspberryPi powered device that controls all of the infrared devices in my home. This project has turned into the <a href="http://opensourceuniversalremote.com">Open Source Universal Remote</a>, an open hardware/open source device you can make yourself with a RaspberryPi and $10 of electronic parts. This post will discuss how I wired up my Pebble Watch to control my Open Source Universal remote using my Android phone.</p>
 
-<p><img src="http://alexba.in/images/posts/universal-remote/lirc_web_v003_commands.png" class="center" /></p>
+<p>Let's get started!</p>
 
-<p>I have a long list of intended improvements, so if you're interested in contributing to the project please let me know. As always, if you discover any bugs or have any feedback, please let me know in the comments.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[RaspberryPi IR Schematic for LIRC]]></title>
-    <link href="http://alexba.in/blog/2013/03/09/raspberrypi-ir-schematic-for-lirc/"/>
-    <updated>2013-03-09T09:19:00-08:00</updated>
-    <id>http://alexba.in/blog/2013/03/09/raspberrypi-ir-schematic-for-lirc</id>
-    <content type="html"><![CDATA[<p>Here is a <a href="http://upverter.com/alexbain/f24516375cfae8b9/Open-Source-Universal-Remote/">schematic</a> I designed that demonstrates you how you could create an IR transceiver for your RaspberryPi. You can use this schematic with the <a href="http://lirc.org">LIRC</a> software package to create your own universal remote. It's hosted on <a href="http://upverter.com">Upverter</a> and contains a parts list for where to purchase the parts I used.</p>
-
-<p><a href="http://upverter.com/alexbain/f24516375cfae8b9/Open-Source-Universal-Remote/#/"><img src="http://upverter.com/alexbain/f24516375cfae8b9/Open-Source-Universal-Remote/embed_img/13645879800000/" alt="Open Source Universal Remote - Upverter" /></a></p>
-
-<p><a href="http://upverter.com/alexbain/f24516375cfae8b9/Open-Source-Universal-Remote/#">View the schematic and parts list</a></p>
-
-<p>If you have any suggestions for improvements feel free to tinker on it and submit them.</p>
-
-<p>Interested in installing LIRC on your RaspberryPi? You may be interested in reading <a href="/blog/2013/01/06/setting-up-lirc-on-the-raspberrypi/">Setting up LIRC on the RaspberryPi</a> and <a href="/blog/2013/02/23/controlling-lirc-from-the-web/">Controlling LIRC From the Web</a>.</p>
-
-<p><strong>Update:</strong> Thanks to Steve in the comments for pointing out a few errors I had in the schematic.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Open Source Universal Remote]]></title>
-    <link href="http://alexba.in/blog/2013/03/06/open-source-universal-remote/"/>
-    <updated>2013-03-06T11:55:00-08:00</updated>
-    <id>http://alexba.in/blog/2013/03/06/open-source-universal-remote</id>
-    <content type="html"><![CDATA[<p><img src="http://alexba.in/images/posts/universal-remote/transistor.jpg" /></p>
-
-<p>Almost a year ago I decided to teach myself electronics by creating my own WiFi enabled universal remote. Initially I tried to build the project with an Arduino, but later switched to a RaspberryPi. As I've made progress on my project I've open sourced the software I've written and blogged about every step of the process.</p>
-
-<p>To date, I've had over nine thousand unique visitors check out the posts related to this project. Based on the positive feedback I've received and the questions asked, I believe it makes sense to aggregate all of the data I've spread out across numerous blog posts into one guide. Over the coming weeks I'll be creating a step by step guide for building your own RaspberryPi powered universal remote. In addition, I'll be creating and open sourcing additional components of the project such as a printed circuit board and a 3D printable case to enclose the project.</p>
-
-<p>Check out the <a href="http://opensourceuniversalremote.com">Open Source Universal Remote</a> landing page I created for the project. In the coming weeks I'll be adding additional content to that page.</p>
-
-<p>If you have any requests or ideas for this project please don't hesitate to ask in the comments. In addition, if you have hardware engineering experience or industrial design experience and would like to contribute please get in touch.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Controlling LIRC from the web]]></title>
-    <link href="http://alexba.in/blog/2013/02/23/controlling-lirc-from-the-web/"/>
-    <updated>2013-02-23T13:06:00-08:00</updated>
-    <id>http://alexba.in/blog/2013/02/23/controlling-lirc-from-the-web</id>
-    <content type="html"><![CDATA[<p>In this post I will cover how to create a web interface + API for <a href="http://lirc.org">LIRC</a>, the Linux Infrared Remote Control project. I will be using NodeJS and a RaspberryPi in this post, but the ideas generalize to other languages and hardware. This post will serve as Part 3 of my open source universal remote project posts. If you haven't had an opportunity to read the first two posts, I suggest checking out <a href="/blog/2012/07/08/universal-remote-experiments/">Universal remote experiments</a> (Part 1) and <a href="/blog/2013/01/06/setting-up-lirc-on-the-raspberrypi">Setting up LIRC on the RaspberryPi</a> (Part 2) before proceeding. You may also want to read <a href="/blog/2013/01/15/installing-nodejs-on-your-raspberrypi">Installing NodeJS on your RaspberryPi</a>, where I cover installing NodeJS.</p>
-
-<p>If you're completely new to the RaspberryPi and want to learn more I wrote a <a href="/blog/2013/01/04/raspberrypi-quickstart">RaspberryPi Quickstart</a> post which covers everything from purchasing the parts to configuring the WiFi. Check that out if you're new to the RaspberryPi ecosystem.</p>
-
-<p>With that out of the way, let's get started!</p>
-
-<p><img src="http://alexba.in/images/posts/universal-remote/ir-leds.jpg" class="center" /></p>
-
-<h3>Why a web interface + API?</h3>
-
-<p>LIRC is an awesome open source project that handles all of the low level requirements of sending and receiving Infrared commands from a Linux computer. It's well documented, well supported, and thanks to the work of the open source community there is now a <code>lirc_rpi</code> driver included in the latest version of RaspbianOS. This means that, as long as you're running a RaspberryPi with the latest OS and firmware, LIRC can interface with the RaspberryPi GPIO pins. Fantastic.</p>
-
-<p>Once you have LIRC installed and configured (which I cover in my <a href="/blog/2013/01/06/setting-up-lirc-on-the-raspberrypi">Setting up LIRC on the RaspberryPi</a> post), you can use LIRC executables like <a href="http://www.lirc.org/html/irsend.html">irsend</a> and <a href="http://www.lirc.org/html/irrecord.html">irrecord</a> to send and record IR commands for all your IR devices - right from the command line! This is great fun, but not very user friendly.</p>
-
-<p>I wanted a way to control LIRC from the web. I wanted a web application that enabled me to interact with LIRC from any web connected device. If I had that, I could create a mobile web app for my phone, a regular web app for a desktop, and a RESTful API for web services. The API would give me a way to connect LIRC with any external web service - opening the door for future integrations. All I needed to do was find a way to call LIRC commands from within a web application.</p>
-
-<p>Which brings us to the meat of this post. Getting NodeJS and LIRC to talk.</p>
-
-<p><img src="http://alexba.in/images/posts/universal-remote/breadboard-wires.jpg" class="center" /></p>
-
-<h3>Getting LIRC and NodeJS to talk</h3>
-
-<p>To make LIRC usable from the web I needed a client library in a language I could build a web application in. The client library would provide some way to make calls from the web application to LIRC. This would give me the building blocks I needed to build a web application. The usual web languages include PHP, Python, Ruby, and NodeJS.</p>
-
-<p>For this project I chose to work in NodeJS. If you would prefer to implement a web application in a different language, I found two existing LIRC client libraries. Sadly, neither seem maintained. I found <a href="https://github.com/fugalh/lircr">lircr</a> for Ruby and <a href="http://sourceforge.net/projects/pylirc/">pyLirc</a> for Python.</p>
-
-<p>Since I could not find an existing NodeJS LIRC client library, and the existing libraries I did find were not up to date, I built my own. I created <a href="https://github.com/alexbain/lirc_node">lirc_node</a>, a lightweight NodeJS client library that interfaces with LIRC. v0.0.1 of <code>lirc_node</code> only supports <code>irsend</code>. This allows you to send IR commands to devices that LIRC knows about.</p>
-
-<p>Before trying to install and use <code>lirc_node</code> make sure you have completed these steps:</p>
+<h3>Outline</h3>
 
 <ul>
-<li>Purchased, setup, and configured a RaspberryPi to join a network</li>
-<li>Wired up an IR LED and an IR Receiver to your RaspberryPi</li>
-<li>Installed and configured LIRC to interface with your IR LED and IR Receiver</li>
-<li>Programmed LIRC to understand your remote controls</li>
-<li>Installed NodeJS on your RaspberryPi</li>
+<li>Part 0: How it Works</li>
+<li>Part 1: Open Source Universal Remote</li>
+<li>Part 2: The Android Phone</li>
+<li>Part 3: The Pebble Watch</li>
+<li>Part 4: Conclusion / What's next</li>
 </ul>
 
 
-<p>If you have not completed all of those steps scroll back to the top of this post and check out my earlier posts. I have written detailed step by step guides to get you through each of those steps.</p>
+<h3>Part 0: How it Works</h3>
 
-<p>All caught up? Great! We're ready to install a basic web application for LIRC.</p>
+<p>At a high level, the project works like this:</p>
 
-<p><img src="http://alexba.in/images/posts/universal-remote/ir-receiver.jpg" class="center" /></p>
+<ol>
+<li>User taps button on Pebble Watch.</li>
+<li>Pebble Watch tells Android phone that a button has been tapped.</li>
+<li>Android phone makes web request to Open Source Universal Remote API.</li>
+<li>Open Source Universal Remote receives web request and sends out infrared pulses.</li>
+<li>Home theater device detects infrared pulses and responds accordingly.</li>
+</ol>
 
-<h3>Creating a NodeJS web application using <code>lirc_node</code> and <code>lirc_web</code></h3>
 
-<p>The easiest way to setup a NodeJS web application using <code>lirc_node</code> is to use v0.0.1 of <a href="https://github.com/alexbain/lirc_web">lirc_web</a>, a sample NodeJS application I wrote as a proof of concept for <code>lirc_node</code>. This web application is extremely basic, and only proves that <code>lirc_node</code> works. I have plans to grow this application with additional functionality and an improved interface. You may also use the basic API included in this web application to connect your universal remote with services like <a href="https://play.google.com/store/apps/details?id=net.dinglisch.android.taskerm&amp;hl=en">Tasker</a> or <a href="https://ifttt.com/">IFTTT</a>.</p>
+<p>I'll work backwards from the Open Source Universal Remote to the Pebble Watch.</p>
 
-<p>To download and install <a href="https://github.com/alexbain/lirc_web">lirc_web</a>:</p>
+<h3>Part 1: Open Source Universal Remote</h3>
 
-<pre><code>wget https://github.com/alexbain/lirc_web/archive/master.zip
-unzip master.zip
-mv lirc_web-master lirc_web
-rm master.zip
-cd lirc_web
-npm install
-node app.js
+<p><img src="http://alexba.in/images/posts/open-source-universal-remote.jpg" height="320px" width="640px" class="center" /></p>
+
+<p>The foundation of this project is the <a href="http://opensourceuniversalremote.com">Open Source Universal Remote</a>. I won't be going into detail about how to make one here, but if you're interested in learning more or making your own, here is all the information you need:</p>
+
+<ol>
+<li><a href="http://opensourceuniversalremote.com">Open Source Universal Remote</a> - The open source universal remote home page. This is an overview of the project and how it works.</li>
+<li><a href="http://alexba.in/blog/2013/01/04/raspberrypi-quickstart/">RaspberryPi QuickStart</a> - A guide I wrote to purchasing and doing the initial configuration on a RaspberryPi.</li>
+<li><a href="http://alexba.in/blog/2013/01/06/setting-up-lirc-on-the-raspberrypi/">Setting up LIRC on the RaspberryPi</a> - How to setup and install the <a href="http://lirc.org">Linux Infrared Remote Control (LIRC)</a> software on the RaspberryPi</li>
+<li><a href="http://alexba.in/blog/2013/02/23/controlling-lirc-from-the-web/">Controlling LIRC from the Web</a> - How to install and configure two open source projects I wrote (<a href="https://github.com/alexbain/lirc_node">lirc_node</a> and <a href="https://github.com/alexbain/lirc_web">lirc_web</a>) to enable you to control LIRC from the web.</li>
+</ol>
+
+
+<p>For this project, I'll be using the HTTP based API that the Open Source Universal Remote generates based on the remotes and commands you teach it. Here are the three URLs I used for this project:</p>
+
+<pre><code>http://192.168.1.115:3000/remotes/Yamaha/power
+http://192.168.1.115:3000/remotes/Microsoft_xbox360/onoff
+http://192.168.1.115:3000/remotes/sonytv/power
 </code></pre>
 
-<p>That should do it. Now, visit <code>http://raspberrypi:3000/</code> (or the IP address of your RaspberryPi) to confirm the sample web application shows all of the remotes and commands LIRC knows about. Clicking any of the links will tell LIRC to send that IR command via the API endpoint.</p>
+<p>You could get clever and use the hostname of the open source remote, I'm just using the static IP address here.</p>
 
-<p><img src="http://alexba.in/images/posts/universal-remote/lirc_web.jpg" class="center" /></p>
+<h3>Part 2: The Android Phone</h3>
 
-<h3>Success!</h3>
+<p>The second component of this project is an Android phone with the <a href="https://play.google.com/store/apps/details?id=net.dinglisch.android.taskerm">Tasker</a> app installed on it. <a href="https://play.google.com/store/apps/details?id=net.dinglisch.android.taskerm">Tasker</a> is a great app that provides a rich way to control your Android phone. One of the functions is the ability to send HTTP POST requests to specific URLs, which is the feature we'll be using for this project.</p>
 
-<p>At this point, assuming you've been able to get each step working, you should have a web application you can use to control any IR device that LIRC knows about.</p>
+<p>Within the Tasker app you'll need to create three new tasks, one for each button on the Pebble watch. Each task should be created with a descriptive name (like "Yamaha Power") and will contain a single <code>HTTP POST</code> action (found in the <code>Net</code> menu), which will be sent to the open source remote. Here's where the <code>HTTP POST</code> action can be found:</p>
 
-<h3>What's next?</h3>
+<p><img src="http://alexba.in/images/posts/tasker-http-post.jpg" height="640px" width="384px" class="center" /></p>
 
-<p>In the coming months I hope to:</p>
+<p>The <code>HTTP POST</code> action should be setup like this:</p>
 
-<ul>
-<li>Create an open hardware schematic and PCB board that anyone can use for the hardware.</li>
-<li>3D print an enclosure for the RaspberryPi + expansion board.</li>
-<li>Improve the web application and give it a proper mobile web interface.</li>
-<li>Write about how to connect <a href="https://github.com/alexbain/lirc_web">lirc_web</a> to Tasker or IFTTT.</li>
-</ul>
+<p><img src="http://alexba.in/images/posts/tasker-action-example.jpg" height="640px" width="384px" class="center" /></p>
 
+<pre><code># IP / Port of the Open Source Universal Remote
+Server:Port   http://192.168.1.115:3000
 
-<p>If you have any questions, suggestions, or run into any issues - please let me know.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Installing NodeJS on your RaspberryPi]]></title>
-    <link href="http://alexba.in/blog/2013/01/15/installing-nodejs-on-your-raspberrypi/"/>
-    <updated>2013-01-15T12:04:00-08:00</updated>
-    <id>http://alexba.in/blog/2013/01/15/installing-nodejs-on-your-raspberrypi</id>
-    <content type="html"><![CDATA[<p>Here's how I installed <a href="http://nodejs.org/">NodeJS</a> on my RaspberryPi:</p>
-
-<h3>Upgrade to the latest OS / Firmware</h3>
-
-<p>If you have not already upgraded to the latest version of Raspbian OS and the
-latest RaspberryPi firmware, I recommend following my <a href="http://alexba.in/blog/2013/01/04/raspberrypi-quickstart/">RaspberryPi Quickstart</a>.</p>
-
-<h3>Getting and Compiling NodeJS</h3>
-
-<p>Once your RaspberryPi is up to date, here's how to download and compile NodeJS:</p>
-
-<pre><code># Install some prerequisites
-sudo apt-get install python g++ make
-
-# Grab the latest version of NodeJS
-mkdir ~/nodejs &amp;&amp; cd $_
-wget -N http://nodejs.org/dist/node-latest.tar.gz
-tar xzvf node-latest.tar.gz &amp;&amp; cd `ls -rd node-v*`
-
-# Compile and install to your RaspberryPi
-./configure
-make
-sudo make install
+# Path to the remote/command combo you want to call
+Path          /remotes/Yamaha/power
 </code></pre>
 
-<p>Please note that it takes about two hours to compile NodeJS.</p>
+<p>Once you've created those three Tasks, you're ready to setup the Pebble Watch.</p>
 
-<h3>Confirming Installation</h3>
+<h3>Part 3: Pebble Watch</h3>
 
-<p>You can confirm that NodeJS was installed correctly by running:</p>
+<p>The <a href="http://getpebble.com">Pebble Watch</a> was a successful Kickstarter project that launched in 2012. It's a smart watch which connects to your cell phone via Bluetooth. It has a software development kit enabling anyone to write apps for the watch. I participated in the Kickstarter project, and have been very excited to start using my watch as a "remote control for reality."</p>
 
-<pre><code>node -v
-npm --help
-</code></pre>
+<p>For this project we'll be using the Android/Pebble combo app called <a href="https://play.google.com/store/apps/details?id=com.kodek.pebbletasker">PebbleTasker</a>. This is a very straightforward app. You install the app on your phone, which gives you the option to install the PebbleTasker app on the watch.</p>
 
-<p>That's it! You're ready to begin development.</p>
+<p>Once the watch app has been installed, you use the Android app to define which Tasker actions should be assigned to which button. Select the three Tasker actions that you created above and you should be set!</p>
 
-<h3>Additional Reading:</h3>
+<p><img src="http://alexba.in/images/posts/pebble-tasker.jpg" height="640px" width="384px" class="center" /></p>
 
-<p>If you'd like to do some additional reading about NodeJS or ways to access the
-GPIO pins on the RaspberryPi, check out:</p>
+<p>Here's a photograph of my Pebble Watch with the above Tasker actions programmed into the watch:</p>
 
-<ul>
-<li><a href="http://nodejs.org/">NodeJS</a> - NodeJS home page</li>
-<li><a href="https://github.com/rakeshpai/pi-gpio">pi-gpio</a> - "node.js based library to help access the GPIO of the Raspberry Pi"</li>
-<li><a href="https://github.com/EnotionZ/GpiO">GpiO</a> - "Talk to your Raspberry Pi's GPIO"</li>
-</ul>
+<p><img src="http://alexba.in/images/posts/open-source-universal-remote-pebble-watch-2.jpg" height="450px" width="600px" class="center" /></p>
 
+<h3>Part 4: Conclusion / What's Next</h3>
 
-<p>If you have any other recommended resources please let me know!</p>
+<p>Not to wax too philosophical, but I believe that next generation user interface devices like the Pebble Watch have the potential to transform how humans interact with the digital world. The cell phone was revolutionary - it enabled humans to interact with their data while away from a desktop or laptop computer. Now, devices like the Pebble Watch and the RaspberryPi allow you to move beyond the phone and begin interacting with the digital world in an entirely new way.</p>
+
+<p>As additional web connected devices are made that control lights, garage doors, cars, appliances, and beyond, the interplay between those devices and user interface devices like the Pebble Watch, Myo, Emotiv EPOC, Google Glass, and others are going to give us new and powerful interactions to control the digital and physical world. These interactions were, until now, the stuff of science fiction. These are exciting times we live in.</p>
+
+<p>If you found this post interesting, please subscribe to the <a href="http://feeds.feedburner.com/alexbain">RSS feed</a> to receive future updates or share this post with your social network. If you have any questions, feel free to leave a comment or send me an email (alex[at]thisdomain).</p>
+
+<p>Tune in next time where I'll be writing up how to control the Open Source Universal Remote with your mind using an Emotiv EPOC EEG headset.</p>
 ]]></content>
   </entry>
   

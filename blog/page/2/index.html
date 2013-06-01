@@ -9,8 +9,8 @@
   <meta name="author" content="Alex Bain">
 
   
-  <meta name="description" content="Recently I&#8217;ve had trouble installing native gem extensions on my OSX 10.8.2 laptop.
-It appears that some gems are specifically looking for /usr &hellip;">
+  <meta name="description" content="Recently I was trying to troubleshoot why all of the inputs on a project had
+box-sizing: border-box applied to them. It turns out that a user agent &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +77,58 @@ It appears that some gems are specifically looking for /usr &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/10/16/user-agent-stylesheets-and-border-box/">User Agent Stylesheets and Border-box</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-16T12:38:00-07:00" pubdate data-updated="true">Oct 16<span>th</span>, 2012</time>
+        
+         | <a href="/blog/2012/10/16/user-agent-stylesheets-and-border-box/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Recently I was trying to troubleshoot why all of the inputs on a project had
+<code>box-sizing: border-box</code> applied to them. It turns out that a user agent
+stylesheet rule that I don&#8217;t normally see was being applied to all input elements.
+This user agent stylesheet rule was being applied in Chrome, Firefox, and Safari.</p>
+
+<p>Here is the <code>user agent stylesheet</code> rule that was being applied:</p>
+
+<pre><code>input:not([type="image"]), textarea {
+  box-sizing: border-box;
+}
+</code></pre>
+
+<p>After some troubleshooting it turns out this rule was being applied due
+to a typo in the DOCTYPE for the project. After changing the DOCTYPE back
+to the correct HTML5 doctype (<code>&lt;!doctype html&gt;</code>) everything loaded correctly.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -821,69 +873,9 @@ accidentally type casting one of the operands.</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/12/23/first-post/">First Post</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-12-23T12:29:00-08:00" pubdate data-updated="true">Dec 23<span>rd</span>, 2011</time>
-        
-         | <a href="/blog/2011/12/23/first-post/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Hi!</p>
-
-<p>I&#8217;ve started this blog to document the things I find of interest in the realm of
-front end web development (JavaScript, CSS3, HTML5), Ruby on Rails, and Cognitive Science.</p>
-
-<p>My hope is that you&#8217;ll find some of these posts either interesting or educational.</p>
-
-<p><strong>This blog is powered by:</strong></p>
-
-<ul>
-<li><a href="http://octopress.org" title="Octopress">Octopress</a></li>
-<li><a href="http://pages.github.com" title="GitHub Pages">GitHub Pages</a></li>
-</ul>
-
-
-<p>Considering Octopress? I&#8217;d recommend it. My first impressions of <a href="http://octopress.org" title="Octopress">Octopress</a>
-are very positive. It&#8217;s easy to setup, easy to configure, and very customizable.
-As long as you&#8217;re comfortable with the command line, <a href="http://daringfireball.net/projects/markdown/" title="Markdown">Markdown</a>, and <a href="http://github.com" title="GitHub">GitHub</a>,
-it&#8217;s a fantastic option.</p>
-
-<p>As time goes on I&#8217;ll be implementing some theme/front end tweaks I have in mind.</p>
-
-<p>Want to look under the hood? Feel free to explore the <a href="https://github.com/alexbain/alexbain.github.com" title="alexbain.github.com source code">source code</a>.</p>
-
-<p>Thanks for stopping by. Please subscribe to the <a href="http://feeds.feedburner.com/alexbain" title="RSS feed">RSS feed</a> to follow future updates.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
+    
+      <a class="prev" href="/blog/page/3/">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
@@ -896,6 +888,10 @@ it&#8217;s a fantastic option.</p>
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/06/01/using-the-pebble-watch-to-control-your-home-theater/">Using a RaspberryPi and Pebble Watch to control your home theater</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2013/04/14/lirc-web-v0-dot-0-3/">lirc_web v0.0.3</a>
@@ -911,10 +907,6 @@ it&#8217;s a fantastic option.</p>
     
       <li class="post">
         <a href="/blog/2013/02/23/controlling-lirc-from-the-web/">Controlling LIRC from the web</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/01/15/installing-nodejs-on-your-raspberrypi/">Installing NodeJS on your RaspberryPi</a>
       </li>
     
   </ul>
