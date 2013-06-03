@@ -10,7 +10,9 @@ Here is a [schematic](http://upverter.com/alexbain/f24516375cfae8b9/Open-Source-
 
 **June 1st, 2013: Thanks to some feedback and experimentation I've updated the schematic. This latest version reflects the best combination of parts I've found so far.**
 
-[![Open Source Universal Remote by alexbain f24516375cfae8b9 - Upverter](http://upverter.com/alexbain/f24516375cfae8b9/Open-Source-Universal-Remote/embed_img/13701432060000/)](http://upverter.com/alexbain/f24516375cfae8b9/Open-Source-Universal-Remote/#/)
+**June 3rd, 2013: Two more schematic bugfixes.**
+
+[![Open Source Universal Remote by alexbain f24516375cfae8b9 - Upverter](http://upverter.com/alexbain/f24516375cfae8b9/Open-Source-Universal-Remote/embed_img/13702922880000/)](http://upverter.com/alexbain/f24516375cfae8b9/Open-Source-Universal-Remote/#/)
 
 <a href="http://upverter.com/alexbain/f24516375cfae8b9/Open-Source-Universal-Remote/#">View the schematic and parts list</a>
 
