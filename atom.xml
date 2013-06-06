@@ -4,7 +4,7 @@
   <title><![CDATA[alexba.in]]></title>
   <link href="http://alexba.in/atom.xml" rel="self"/>
   <link href="http://alexba.in/"/>
-  <updated>2013-06-03T13:46:47-07:00</updated>
+  <updated>2013-06-06T09:55:39-07:00</updated>
   <id>http://alexba.in/</id>
   <author>
     <name><![CDATA[Alex Bain]]></name>
@@ -12,6 +12,22 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Open terminal's working directory in Finder]]></title>
+    <link href="http://alexba.in/blog/2013/06/06/open-terminals-working-directory-in-finder/"/>
+    <updated>2013-06-06T09:51:00-07:00</updated>
+    <id>http://alexba.in/blog/2013/06/06/open-terminals-working-directory-in-finder</id>
+    <content type="html"><![CDATA[<p>I frequently need to jump from the terminal to Finder in OSX. Turns out there is a very easy way to do that, which I thought I&#8217;d log here in case anyone else is searching for how to do this.</p>
+
+<p>To open the current working directory in Finder, just run:</p>
+
+<pre><code>open .
+</code></pre>
+
+<p>Simple, right? The more you know.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Using a RaspberryPi and Pebble Watch to control your home theater]]></title>
@@ -1207,80 +1223,6 @@ them here once it&#8217;s up and running.</p>
 
 <p>If you&#8217;re curious, check out the <a href="https://github.com/alexbain/TI-Chronos-eZ430-to-WebSockets" title="TI eZ430 -&gt; WebSockets">Ruby script</a> that gets the watch talking
 with <a href="http://pusher.com" title="Pusher">Pusher.com</a>.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[JavaScript Equivalence Operators]]></title>
-    <link href="http://alexba.in/blog/2012/01/05/javascript-equivalence-operators/"/>
-    <updated>2012-01-05T22:06:00-08:00</updated>
-    <id>http://alexba.in/blog/2012/01/05/javascript-equivalence-operators</id>
-    <content type="html"><![CDATA[<p>JavaScript has two sets of equivalence operators. One set is type converting
-while the other set is strict.</p>
-
-<p>Here&#8217;s a quick example that demonstrates these two types of operators:</p>
-
-<figure class='code'><figcaption><span>Equivalence operators in JavaScript</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="o">&gt;</span> <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
-</span><span class='line'><span class="mi">4</span>
-</span><span class='line'><span class="o">&gt;</span> <span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
-</span><span class='line'><span class="mi">4</span>
-</span><span class='line'><span class="o">&gt;</span> <span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="s2">&quot;4&quot;</span><span class="p">;</span>
-</span><span class='line'><span class="s2">&quot;4&quot;</span>
-</span><span class='line'><span class="o">&gt;</span> <span class="nx">a</span> <span class="o">==</span> <span class="nx">b</span>
-</span><span class='line'><span class="kc">true</span>
-</span><span class='line'><span class="o">&gt;</span> <span class="nx">a</span> <span class="o">===</span> <span class="nx">b</span>
-</span><span class='line'><span class="kc">true</span>
-</span><span class='line'><span class="o">&gt;</span> <span class="nx">a</span> <span class="o">==</span> <span class="nx">c</span>
-</span><span class='line'><span class="kc">true</span>
-</span><span class='line'><span class="c1">// fails due to type mismatch</span>
-</span><span class='line'><span class="o">&gt;</span> <span class="nx">a</span> <span class="o">===</span> <span class="nx">c</span>
-</span><span class='line'><span class="kc">false</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>The key point is noting that while <code>a == c</code> is true, <code>a === c</code> is false.</p>
-
-<p>Why? When using the <code>==</code> operator the string <code>"4"</code> is type cast into a <code>4</code>
-which is compared to <code>4</code>. As <code>4</code> is equivalent to <code>4</code>, this evaluates to true.</p>
-
-<p>However, when using the <code>===</code> operator the string <code>"4"</code> is directly compared to the
-number <code>4</code>. This fails because a <code>String</code> is not equivalent to a <code>Number</code>.</p>
-
-<p>Here are the specific rules that the JavaScript interpreter follows:</p>
-
-<blockquote><p>If either operand is a number or a boolean, the operands are converted to
-numbers if possible; else if either operand is a string, the other operand is
-converted to a string if possible. If both operands are objects, then
-JavaScript compares internal references which are equal when operands refer
-to the same object in memory.
-<a href="https://developer.mozilla.org/en/JavaScript/Reference/Operators/Comparison_Operators">Mozilla Developer Network</a></p></blockquote>
-
-<p>So, if you&#8217;re ever trying to figure out why a comparison is evaluating to
-true when it should be evaluating to false, double check that you&#8217;re not
-accidentally type casting one of the operands.</p>
-
-<p>Want to dive deeper? Check out these articles for even more information:</p>
-
-<ul>
-<li><a href="http://www.w3schools.com/Js/js_comparisons.asp">W3CSchools - JavaScript Comparison and Logical Operators</a></li>
-<li><a href="https://developer.mozilla.org/en/JavaScript/Reference/Operators/Comparison_Operators">MDN - Comparison operators</a></li>
-</ul>
-
 ]]></content>
   </entry>
   

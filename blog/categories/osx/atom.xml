@@ -4,7 +4,7 @@
   <title><![CDATA[Category: osx | alexba.in]]></title>
   <link href="http://alexba.in/blog/categories/osx/atom.xml" rel="self"/>
   <link href="http://alexba.in/"/>
-  <updated>2013-06-03T13:46:47-07:00</updated>
+  <updated>2013-06-06T09:55:39-07:00</updated>
   <id>http://alexba.in/</id>
   <author>
     <name><![CDATA[Alex Bain]]></name>
@@ -12,6 +12,22 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Open terminal's working directory in Finder]]></title>
+    <link href="http://alexba.in/blog/2013/06/06/open-terminals-working-directory-in-finder/"/>
+    <updated>2013-06-06T09:51:00-07:00</updated>
+    <id>http://alexba.in/blog/2013/06/06/open-terminals-working-directory-in-finder</id>
+    <content type="html"><![CDATA[<p>I frequently need to jump from the terminal to Finder in OSX. Turns out there is a very easy way to do that, which I thought I'd log here in case anyone else is searching for how to do this.</p>
+
+<p>To open the current working directory in Finder, just run:</p>
+
+<pre><code>open .
+</code></pre>
+
+<p>Simple, right? The more you know.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Opening Chrome from the OSX terminal]]></title>
