@@ -4,7 +4,7 @@
   <title><![CDATA[Category: RaspberryPi | alexba.in]]></title>
   <link href="http://alexba.in/blog/categories/raspberrypi/atom.xml" rel="self"/>
   <link href="http://alexba.in/"/>
-  <updated>2013-06-08T20:35:33-07:00</updated>
+  <updated>2013-06-08T20:44:25-07:00</updated>
   <id>http://alexba.in/</id>
   <author>
     <name><![CDATA[Alex Bain]]></name>
@@ -67,6 +67,7 @@
 <li><a href="http://alexba.in/blog/2013/01/04/raspberrypi-quickstart/">RaspberryPi QuickStart</a> - A guide I wrote to purchasing and doing the initial configuration on a RaspberryPi.</li>
 <li><a href="http://alexba.in/blog/2013/01/06/setting-up-lirc-on-the-raspberrypi/">Setting up LIRC on the RaspberryPi</a> - How to setup and install the <a href="http://lirc.org">Linux Infrared Remote Control (LIRC)</a> software on the RaspberryPi</li>
 <li><a href="http://alexba.in/blog/2013/02/23/controlling-lirc-from-the-web/">Controlling LIRC from the Web</a> - How to install and configure two open source projects I wrote (<a href="https://github.com/alexbain/lirc_node">lirc_node</a> and <a href="https://github.com/alexbain/lirc_web">lirc_web</a>) to enable you to control LIRC from the web.</li>
+<li><a href="http://alexba.in/blog/2013/06/08/open-source-universal-remote-parts-and-pictures/">Open Source Universal Remote - Parts &amp; Picturse</a> - Finalized parts list and build pictures from a protoboard I soldered together.</li>
 </ol>
 
 
