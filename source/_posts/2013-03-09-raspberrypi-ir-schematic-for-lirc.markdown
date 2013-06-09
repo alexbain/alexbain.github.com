@@ -12,6 +12,8 @@ Here is a [schematic](http://upverter.com/alexbain/f24516375cfae8b9/Open-Source-
 
 **June 3rd, 2013: Two more schematic bugfixes.**
 
+**June 8th, 2013:** Read about the finished protoboard build in my [Open Source Universal Remote - Parts & Picturse](http://alexba.in/blog/2013/06/08/open-source-universal-remote-parts-and-pictures/) blog post.
+
 [![Open Source Universal Remote by alexbain f24516375cfae8b9 - Upverter](http://upverter.com/alexbain/f24516375cfae8b9/Open-Source-Universal-Remote/embed_img/13702922880000/)](http://upverter.com/alexbain/f24516375cfae8b9/Open-Source-Universal-Remote/#/)
 
 <a href="http://upverter.com/alexbain/f24516375cfae8b9/Open-Source-Universal-Remote/#">View the schematic and parts list</a>

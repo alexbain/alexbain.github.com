@@ -48,6 +48,7 @@ The foundation of this project is the [Open Source Universal Remote](http://open
 2. [RaspberryPi QuickStart](http://alexba.in/blog/2013/01/04/raspberrypi-quickstart/) - A guide I wrote to purchasing and doing the initial configuration on a RaspberryPi.
 3. [Setting up LIRC on the RaspberryPi](http://alexba.in/blog/2013/01/06/setting-up-lirc-on-the-raspberrypi/) - How to setup and install the [Linux Infrared Remote Control (LIRC)](http://lirc.org) software on the RaspberryPi
 4. [Controlling LIRC from the Web](http://alexba.in/blog/2013/02/23/controlling-lirc-from-the-web/) - How to install and configure two open source projects I wrote ([lirc_node](https://github.com/alexbain/lirc_node) and [lirc_web](https://github.com/alexbain/lirc_web)) to enable you to control LIRC from the web.
+5. [Open Source Universal Remote - Parts & Picturse](http://alexba.in/blog/2013/06/08/open-source-universal-remote-parts-and-pictures/) - Finalized parts list and build pictures from a protoboard I soldered together.
 
 For this project, I'll be using the HTTP based API that the Open Source Universal Remote generates based on the remotes and commands you teach it. Here are the three URLs I used for this project:
 

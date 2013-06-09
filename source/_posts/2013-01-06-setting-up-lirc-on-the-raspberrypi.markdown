@@ -6,6 +6,8 @@ comments: true
 categories: [raspberrypi]
 ---
 
+**June 8th 2013 Update:** I have completed a soldered circuit prototype, complete with a full parts list and high resolution build pictures. Please read [Open Source Universal Remote - Parts & Picturse](http://alexba.in/blog/2013/06/08/open-source-universal-remote-parts-and-pictures/) to learn more.
+
 **March 9th 2013 Update:** I have formalized the schematic and parts list that I'm using and have made it available on [Upverter](http://upverter.com). Please read [RaspberryPi IR Schematic for LIRC](/blog/2013/03/09/raspberrypi-ir-schematic-for-lirc/) for more details.
 
 **March 4th Update:** I've written a follow up post that describes how to control your RaspberryPi universal remote from the web. Please check out [Controlling LIRC from the web](/blog/2013/02/23/controlling-lirc-from-the-web/) for instructions on how to install and configure the software.
@@ -75,6 +77,8 @@ Now restart ``lircd`` so it picks up these changes:
     sudo /etc/init.d/lirc start
 
 ### Wiring up the IR transceiver
+
+**June 8th 2013 Update:** I've finished a more permanent build and documented the process in my [Open Source Universal Remote - Parts & Picturse](http://alexba.in/blog/2013/06/08/open-source-universal-remote-parts-and-pictures/) blog post.
 
 **March 9th 2013 Update:** I have formalized the schematic and parts list that I'm using and have made it available on [Upverter](http://upverter.com). Please read [RaspberryPi IR Schematic for LIRC](/blog/2013/03/09/raspberrypi-ir-schematic-for-lirc/) for more details.
 
