@@ -1,0 +1,13 @@
+---
+layout: post
+title: "lirc_web v0.0.5"
+date: 2013-08-21 10:25
+comments: true
+categories: [raspberrypi, opensourceuniversalremote, lirc_web]
+---
+
+I've updated the ``lirc_web`` project (available at [http://github.com/alexbain/lirc_web](http://github.com/alexbain/lirc_web)) to v0.0.5. This version fixes a bug related to the [swig](https://npmjs.org/package/swig) npm module that was causing an error when trying to view the project in a browser.
+
+If you were encountering a JavaScript error after trying to install ``lirc_web`` this should fix it. Thanks to the folks that reported this.
+
+Please let me know if you encounter any other errors!
