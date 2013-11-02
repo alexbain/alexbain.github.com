@@ -4,7 +4,7 @@
   <title><![CDATA[Category: gcc | alexba.in]]></title>
   <link href="http://alexba.in/blog/categories/gcc/atom.xml" rel="self"/>
   <link href="http://alexba.in/"/>
-  <updated>2013-08-21T10:45:21-07:00</updated>
+  <updated>2013-11-02T20:42:30+00:00</updated>
   <id>http://alexba.in/</id>
   <author>
     <name><![CDATA[Alex Bain]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Native gem extensions failing to install]]></title>
     <link href="http://alexba.in/blog/2012/10/16/native-gem-extensions-failing-to-install/"/>
-    <updated>2012-10-16T12:23:00-07:00</updated>
+    <updated>2012-10-16T12:23:00+00:00</updated>
     <id>http://alexba.in/blog/2012/10/16/native-gem-extensions-failing-to-install</id>
     <content type="html"><![CDATA[<p>Recently I've had trouble installing native gem extensions on my OSX 10.8.2 laptop.
 It appears that some gems are specifically looking for <code>/usr/bin/gcc-4.2</code> and

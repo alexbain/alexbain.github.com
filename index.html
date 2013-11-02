@@ -9,7 +9,7 @@
   <meta name="author" content="Alex Bain">
 
   
-  <meta name="description" content="I&#8217;ve updated the lirc_web project (available at http://github.com/alexbain/lirc_web) to v0.0.5. This version fixes a bug related to the swig &hellip;">
+  <meta name="description" content="In this post I will cover how to start a NodeJS app (lirc_web) when a RaspberryPi boots up. This ensures that if the RaspberryPi ever loses power, &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -82,6 +82,179 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2013/11/02/lirc-web-nginx-and-upstart/">Running Lirc_web With Nginx and Upstart</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-02T09:50:00+00:00" pubdate data-updated="true">Nov 2<span>nd</span>, 2013</time>
+        
+         | <a href="/blog/2013/11/02/lirc-web-nginx-and-upstart/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>In this post I will cover how to start a NodeJS app (<code>lirc_web</code>) when a RaspberryPi boots up. This ensures that if the RaspberryPi ever loses power, the <code>lirc_web</code> app will restart when the system comes online. <code>lirc_web</code> is an open source NodeJS app I wrote as part of the <a href="http://opensourceuniversalremote.com">Open Source Universal Remote</a> project. If you&#8217;d like to learn more about the project, please check out <a href="http://alexba.in/blog/2013/06/08/open-source-universal-remote-parts-and-pictures/">Open Source Universal Remote - Parts &amp; Pictures</a>.</p>
+
+<p>To accomplish this will take three steps:</p>
+
+<ol>
+<li>Configure the hostname for the RaspberryPi</li>
+<li>Install and configure Upstart</li>
+<li>Install and configure NGINX</li>
+</ol>
+
+
+<p><strong>Note: Not all mobile devices support <code>.local</code> domains. You may still need to connect via IP.</strong></p>
+
+<h3>Configure the hostname for the RaspberryPi</h3>
+
+<p>If you want your RaspberryPi to be accessible on your local network via hostname, instead of always typing it&#8217;s IP address, you&#8217;ll want to install an mDNS daemon. If you&#8217;d like to learn why, I recommend reading <a href="http://www.howtogeek.com/167190/how-and-why-to-assign-the-.local-domain-to-your-raspberry-pi/">How (and Why) to Assign the .local Domain to Your Raspberry Pi</a>. The RaspberryPi supports Avahi, which can be installed with:</p>
+
+<pre><code>sudo apt-get install avahi-daemon
+</code></pre>
+
+<p>When that finishes, try pinging <code>raspberrypi.local</code> from a different computer. Everything should just work. Next, we&#8217;ll update the hostname of the RaspberryPi to be <code>universalremote</code>. This requires three steps:</p>
+
+<ol>
+<li>Edit <code>/etc/hosts</code> and change the last line to <code>127.0.1.1 universalremote</code></li>
+<li>Edit <code>/etc/hostname</code> and change the hostname to <code>universalremote</code></li>
+<li>Reboot the RaspberryPi by running <code>sudu shutdown -r now</code></li>
+</ol>
+
+
+<p>After the RaspberryPi boots back up, you should be able to connect to the RaspberryPi via hostname (<code>http://universalremote.local</code>) or IP.</p>
+
+<h3>Install and configure Upstart</h3>
+
+<p>To ensure the <code>lirc_web</code> app starts when the RaspberryPi boots, we will use a tool called <a href="http://upstart.ubuntu.com">Upstart</a>. Upstart is a project from Ubuntu that simplifies writing init scripts. If you want to learn more about it, you can visit <a href="http://upstart.ubuntu.com/">http://upstart.ubuntu.com/</a> and read more. RaspbianOS does not include Upstart by default, but it can be installed to replace sysvinit with no negative consequences. Here are the commands:</p>
+
+<pre><code>sudo apt-get install upstart
+# You will be asked to type 'Yes, do as I say!'
+# You may see an error about initctl being unable to connect, which will be fixed after a reboot
+
+# Reboot the RaspberryPi
+sudo shutdown -r now
+</code></pre>
+
+<p>Once the RaspberryPi reboots Upstart should be installed. Upstart configuration files are placed in <code>/etc/init</code>. You can either use the sample Upstart configuration that comes with the <code>lirc_web</code> Git repository, or you can use this example (place in <code>/etc/init/open-source-universal-remote.conf</code>):</p>
+
+<pre><code># /etc/init/open-source-universal-remote.conf
+description "universalremote.local"
+
+start on runlevel [2345]
+stop on runlevel [016]
+
+# Restart when job dies
+respawn
+
+# Give up restart after 5 respawns in 60 seconds
+respawn limit 5 60
+
+script
+
+  echo $$ &gt; /var/run/open-source-universal-remote.pid
+  exec /usr/local/bin/node /home/pi/lirc_web/app.js 2&gt;&amp;1 &gt;&gt; /var/log/open-source-universal-remote.upstart.log
+
+end script
+
+pre-start script
+    # Date format same as (new Date()).toISOString() for consistency
+    echo "[`date -u +%Y-%m-%dT%T.%3NZ`] (sys) Starting" &gt;&gt; /var/log/open-source-universal-remote.upstart.log
+end script
+
+pre-stop script
+    rm /var/run/open-source-universal-remote.pid
+    echo "[`date -u +%Y-%m-%dT%T.%3NZ`] (sys) Stopping" &gt;&gt; /var/log/open-source-universal-remote.upstart.log
+end script
+</code></pre>
+
+<p>After creating the Upstart script, you should be able to start the <code>lirc_web</code> project by running:</p>
+
+<pre><code>sudo initctl start open-source-universal-remote
+</code></pre>
+
+<p>You can verify everything works by opening <code>http://universalremote.local:3000</code> (or the RaspberryPi&#8217;s IP address) in your web browser. You should see the <code>lirc_web</code> web interface.</p>
+
+<h3>Install and Configure NGINX</h3>
+
+<p>If you run <code>lirc_web</code> by itself it creates a basic web server on port 3000. This is fine, but it&#8217;s more convenient when an web application runs on port 80, the default port for web traffic. We&#8217;ll use the free and open source NGINX web server to accomplish this.</p>
+
+<p>To install nginx and ensure it starts on boot, run:</p>
+
+<pre><code>sudo apt-get install nginx
+update-rc.d nginx defaults
+sudo service nginx start
+</code></pre>
+
+<p>When this completes, confirm everything installed correctly by trying to  access <code>http://universalremote.local</code> in your web browser. You should see a &#8220;Welcome to nginx!&#8221; web page.</p>
+
+<p>Next, we have to configure nginx to serve the <code>lirc_web</code> app. You can use the sample config file included in the <code>lirc_web</code> Git repository (within the config directory), or use this example:</p>
+
+<pre><code>server {
+    listen            80;
+    server_name       universalremote.local;
+
+    # Change this to the location you installed lirc_web
+    root              /home/pi/lirc_web;
+    index             index.html index.htm;
+
+    access_log        /var/log/open-source-universal-remote.nginx.log;
+
+    location / {
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $http_host;
+        proxy_set_header X-NginX-Proxy true;
+
+        proxy_pass http://127.0.0.1:3000/;
+        proxy_redirect off;
+    }
+}
+</code></pre>
+
+<p>Restart nginx to pick up the new configuration with <code>sudo service nginx restart</code>.</p>
+
+<p>Now, if you visit <code>http://universalremote.local</code> in your web browser you should now see the project running. In the future, any time you reboot the RaspberryPi <code>lirc_web</code> will start automatically.</p>
+
+<h3>Conclusion</h3>
+
+<p>If everything went smoothly you should now have a daemonzized version of <code>lirc_web</code> running on your RaspberryPi, which is being served via nginx over port 80. In addition, any time you restart your RaspberryPi the <code>lirc_web</code> app will start up at boot.</p>
+
+<p>Are you interested in reading more about the Open Source Universal Remote project? Check out:</p>
+
+<ul>
+<li><a href="http://alexba.in/blog/2013/01/06/setting-up-lirc-on-the-raspberrypi/">Setting up LIRC on the RaspberryPi</a></li>
+<li><a href="http://alexba.in/blog/2013/02/23/controlling-lirc-from-the-web/">Controlling LIRC from the web</a></li>
+<li><a href="http://alexba.in/blog/2013/06/01/using-the-pebble-watch-to-control-your-home-theater/">Using a RaspberryPi and a Pebble Watch to control your home theater</a></li>
+<li><a href="http://alexba.in/blog/2013/06/08/open-source-universal-remote-parts-and-pictures/">Open Source Universal Remote - Parts &amp; Pictures</a></li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2013/08/21/lirc-web-v0-0-5/">Lirc_web v0.0.5</a></h1>
     
     
@@ -98,7 +271,7 @@
   
 
 
-<time datetime="2013-08-21T10:25:00-07:00" pubdate data-updated="true">Aug 21<span>st</span>, 2013</time>
+<time datetime="2013-08-21T10:25:00+00:00" pubdate data-updated="true">Aug 21<span>st</span>, 2013</time>
         
          | <a href="/blog/2013/08/21/lirc-web-v0-0-5/#disqus_thread">Comments</a>
         
@@ -140,7 +313,7 @@
   
 
 
-<time datetime="2013-06-08T16:17:00-07:00" pubdate data-updated="true">Jun 8<span>th</span>, 2013</time>
+<time datetime="2013-06-08T16:17:00+00:00" pubdate data-updated="true">Jun 8<span>th</span>, 2013</time>
         
          | <a href="/blog/2013/06/08/open-source-universal-remote-parts-and-pictures/#disqus_thread">Comments</a>
         
@@ -226,7 +399,7 @@
   
 
 
-<time datetime="2013-06-06T09:51:00-07:00" pubdate data-updated="true">Jun 6<span>th</span>, 2013</time>
+<time datetime="2013-06-06T09:51:00+00:00" pubdate data-updated="true">Jun 6<span>th</span>, 2013</time>
         
          | <a href="/blog/2013/06/06/open-terminals-working-directory-in-finder/#disqus_thread">Comments</a>
         
@@ -271,7 +444,7 @@
   
 
 
-<time datetime="2013-06-01T13:23:00-07:00" pubdate data-updated="true">Jun 1<span>st</span>, 2013</time>
+<time datetime="2013-06-01T13:23:00+00:00" pubdate data-updated="true">Jun 1<span>st</span>, 2013</time>
         
          | <a href="/blog/2013/06/01/using-the-pebble-watch-to-control-your-home-theater/#disqus_thread">Comments</a>
         
@@ -414,7 +587,7 @@ Path          /remotes/Yamaha/power
   
 
 
-<time datetime="2013-04-14T13:00:00-07:00" pubdate data-updated="true">Apr 14<span>th</span>, 2013</time>
+<time datetime="2013-04-14T13:00:00+00:00" pubdate data-updated="true">Apr 14<span>th</span>, 2013</time>
         
          | <a href="/blog/2013/04/14/lirc-web-v0-dot-0-3/#disqus_thread">Comments</a>
         
@@ -464,7 +637,7 @@ Path          /remotes/Yamaha/power
   
 
 
-<time datetime="2013-03-09T09:19:00-08:00" pubdate data-updated="true">Mar 9<span>th</span>, 2013</time>
+<time datetime="2013-03-09T09:19:00+00:00" pubdate data-updated="true">Mar 9<span>th</span>, 2013</time>
         
          | <a href="/blog/2013/03/09/raspberrypi-ir-schematic-for-lirc/#disqus_thread">Comments</a>
         
@@ -518,7 +691,7 @@ Path          /remotes/Yamaha/power
   
 
 
-<time datetime="2013-03-06T11:55:00-08:00" pubdate data-updated="true">Mar 6<span>th</span>, 2013</time>
+<time datetime="2013-03-06T11:55:00+00:00" pubdate data-updated="true">Mar 6<span>th</span>, 2013</time>
         
          | <a href="/blog/2013/03/06/open-source-universal-remote/#disqus_thread">Comments</a>
         
@@ -564,7 +737,7 @@ Path          /remotes/Yamaha/power
   
 
 
-<time datetime="2013-02-23T13:06:00-08:00" pubdate data-updated="true">Feb 23<span>rd</span>, 2013</time>
+<time datetime="2013-02-23T13:06:00+00:00" pubdate data-updated="true">Feb 23<span>rd</span>, 2013</time>
         
          | <a href="/blog/2013/02/23/controlling-lirc-from-the-web/#disqus_thread">Comments</a>
         
@@ -682,7 +855,7 @@ node app.js
   
 
 
-<time datetime="2013-01-15T12:04:00-08:00" pubdate data-updated="true">Jan 15<span>th</span>, 2013</time>
+<time datetime="2013-01-15T12:04:00+00:00" pubdate data-updated="true">Jan 15<span>th</span>, 2013</time>
         
          | <a href="/blog/2013/01/15/installing-nodejs-on-your-raspberrypi/#disqus_thread">Comments</a>
         
@@ -748,124 +921,6 @@ GPIO pins on the RaspberryPi, check out:</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/01/07/use-your-raspberrypi-to-power-a-company-dashboard/">Use Your RaspberryPi to Power a Company Dashboard</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-01-07T15:51:00-08:00" pubdate data-updated="true">Jan 7<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/01/07/use-your-raspberrypi-to-power-a-company-dashboard/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Here are five steps to follow if you want to start using a RaspberryPi to power a company dashboard. I&#8217;ve just finished putting this together at my office. We&#8217;re using <a href="http://www.geckoboard.com">Geckoboard</a> for the web interface:</p>
-
-<p><img class="center" src="/images/posts/raspberrypi-dashboard.jpg" /></p>
-
-<p><img class="center" src="/images/posts/raspberrypi-dashboard-2.jpg" /></p>
-
-<h3>0: Make sure your RaspberryPi is fully updated</h3>
-
-<p>Before you get started I highly recommend you follow my <a href="/blog/2013/01/04/raspberrypi-quickstart/">RaspberryPi Quickstart</a> guide to get your RaspberryPi updated to the latest OS and Firmware. That post also includes links to the case and peripherals I purchased for this project.</p>
-
-<h3>1: Install Chromium</h3>
-
-<p>First, you&#8217;ll want to install Chromium on your RaspberryPi. We&#8217;ll be using Chromium to load the dashboard. I&#8217;ve also included the <code>ttf-mscorefonts-installer</code> package so things render nicely.</p>
-
-<pre><code>sudo apt-get install chromium ttf-mscorefonts-installer
-</code></pre>
-
-<h3>2: Boot into X11 automatically</h3>
-
-<p>You&#8217;ll want to make sure your RaspberryPi immediately boots into X11.</p>
-
-<pre><code>sudo raspi-config
-</code></pre>
-
-<p>Scroll down to <code>boot_behavior</code> and hit enter. Make sure &#8220;Yes&#8221; is marked and hit enter again.</p>
-
-<p>You&#8217;re done here, so scroll to Finish (right arrow key) and hit enter.</p>
-
-<h3>3: Start Chromium on boot</h3>
-
-<p>Third, you&#8217;ll want to make sure Chromium starts in kiosk (full screen, no user interface) as soon as your RaspberryPi boots up.</p>
-
-<p>Create (or modify) <code>~/.config/lxsession/LXDE/autostart</code> and add the line:</p>
-
-<pre><code>chromium --kiosk http://url_to_your_dashboard.com --incognito
-</code></pre>
-
-<p>Kiosk mode boots Chromium into full screen mode, by default. Incognito mode prevents a &#8220;Chrome did not shutdown cleanly&#8221; message from appearing on the top if the RaspberryPi loses power.</p>
-
-<h3>4: Make sure the screen does not go to sleep</h3>
-
-<p>Dashboards aren&#8217;t very useful if the screen goes into standy after ten minutes.</p>
-
-<p>Edit <code>/etc/xdg/lxsession/LXDE/autostart</code> and make sure the <code>@xscreensaver</code> line is commented out. In addition, we&#8217;ll be adding three options that prevent the screen from going blank:</p>
-
-<pre><code>#@xscreensaver -no-splash
-@xset s off
-@xset -dpms
-@xset s noblank
-</code></pre>
-
-<p>I also needed to modify <code>/etc/lightdm/lightdm.conf</code>. Add this line to the <code>[SeatDefaults]</code> section:</p>
-
-<pre><code>xserver-command=X -s 0 dpms
-</code></pre>
-
-<h3>5: Hide the mouse cursor</h3>
-
-<p>There&#8217;s no reason to keep the mouse cursor stuck in the middle of the screen.  We&#8217;ll use the unclutter utility to hide it after boot.</p>
-
-<pre><code>sudo apt-get install unclutter
-</code></pre>
-
-<p>You&#8217;ll need to add this to your <code>~/.config/lxsession/LXDE/autostart</code> file:</p>
-
-<pre><code>unclutter -idle 0
-</code></pre>
-
-<h3>Enjoy!</h3>
-
-<p>Reboot your RaspberryPi and it should:</p>
-
-<ul>
-<li>Boot directly into X11</li>
-<li>Start Chromium in kiosk mode and load up your dashboard</li>
-<li>Prevent the screen from going to sleep after 10 minutes</li>
-<li>Hide the mouse cursor</li>
-</ul>
-
-
-<p>Please let me know if you have any questions or comments.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -881,6 +936,10 @@ GPIO pins on the RaspberryPi, check out:</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/11/02/lirc-web-nginx-and-upstart/">Running lirc_web with nginx and upstart</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/08/21/lirc-web-v0-0-5/">lirc_web v0.0.5</a>
       </li>
     
@@ -894,10 +953,6 @@ GPIO pins on the RaspberryPi, check out:</p>
     
       <li class="post">
         <a href="/blog/2013/06/01/using-the-pebble-watch-to-control-your-home-theater/">Using a RaspberryPi and Pebble Watch to control your home theater</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/04/14/lirc-web-v0-dot-0-3/">lirc_web v0.0.3</a>
       </li>
     
   </ul>
@@ -949,13 +1004,6 @@ GPIO pins on the RaspberryPi, check out:</p>
   
 </section>
 
-
-<section>
-  <h1>On Delicious</h1>
-  <div id="delicious"></div>
-  <script type="text/javascript" src="http://feeds.delicious.com/v2/json/alexsbain?count=3&amp;sort=date&amp;callback=renderDeliciousLinks"></script>
-  <p><a href="http://delicious.com/alexsbain">My Delicious Bookmarks &raquo;</a></p>
-</section>
 
 
 <section class="googleplus">

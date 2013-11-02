@@ -4,7 +4,7 @@
   <title><![CDATA[Category: electronics | alexba.in]]></title>
   <link href="http://alexba.in/blog/categories/electronics/atom.xml" rel="self"/>
   <link href="http://alexba.in/"/>
-  <updated>2013-08-21T10:45:21-07:00</updated>
+  <updated>2013-11-02T20:42:30+00:00</updated>
   <id>http://alexba.in/</id>
   <author>
     <name><![CDATA[Alex Bain]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Open Source Universal Remote - Parts &amp; Pictures]]></title>
     <link href="http://alexba.in/blog/2013/06/08/open-source-universal-remote-parts-and-pictures/"/>
-    <updated>2013-06-08T16:17:00-07:00</updated>
+    <updated>2013-06-08T16:17:00+00:00</updated>
     <id>http://alexba.in/blog/2013/06/08/open-source-universal-remote-parts-and-pictures</id>
     <content type="html"><![CDATA[<p><a href="http://alexba.in/images/posts/protoboard_v1/protoboard_v1_installed.jpg"><img src="http://alexba.in/images/posts/protoboard_v1/thumb_protoboard_v1_installed.jpg" class="center" /></a></p>
 
@@ -73,7 +73,7 @@
   <entry>
     <title type="html"><![CDATA[Universal remote experiments]]></title>
     <link href="http://alexba.in/blog/2012/07/08/universal-remote-experiments/"/>
-    <updated>2012-07-08T09:51:00-07:00</updated>
+    <updated>2012-07-08T09:51:00+00:00</updated>
     <id>http://alexba.in/blog/2012/07/08/universal-remote-experiments</id>
     <content type="html"><![CDATA[<p>Over the past few months I've decided to teach myself a bit about embedded
 microcontrollers and electronics. I've never worked with hardware before and,

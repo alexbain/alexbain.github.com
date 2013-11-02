@@ -4,7 +4,7 @@
   <title><![CDATA[Category: osx | alexba.in]]></title>
   <link href="http://alexba.in/blog/categories/osx/atom.xml" rel="self"/>
   <link href="http://alexba.in/"/>
-  <updated>2013-08-21T10:45:21-07:00</updated>
+  <updated>2013-11-02T20:42:30+00:00</updated>
   <id>http://alexba.in/</id>
   <author>
     <name><![CDATA[Alex Bain]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Open terminal's working directory in Finder]]></title>
     <link href="http://alexba.in/blog/2013/06/06/open-terminals-working-directory-in-finder/"/>
-    <updated>2013-06-06T09:51:00-07:00</updated>
+    <updated>2013-06-06T09:51:00+00:00</updated>
     <id>http://alexba.in/blog/2013/06/06/open-terminals-working-directory-in-finder</id>
     <content type="html"><![CDATA[<p>I frequently need to jump from the terminal to Finder in OSX. Turns out there is a very easy way to do that, which I thought I'd log here in case anyone else is searching for how to do this.</p>
 
@@ -32,7 +32,7 @@
   <entry>
     <title type="html"><![CDATA[Opening Chrome from the OSX terminal]]></title>
     <link href="http://alexba.in/blog/2012/03/23/open-chrome-from-terminal/"/>
-    <updated>2012-03-23T11:15:00-07:00</updated>
+    <updated>2012-03-23T11:15:00+00:00</updated>
     <id>http://alexba.in/blog/2012/03/23/open-chrome-from-terminal</id>
     <content type="html"><![CDATA[<p>Have you ever wanted to open an HTML file in Chrome, directly from the OSX terminal? I have. Here's how to do it:</p>
 

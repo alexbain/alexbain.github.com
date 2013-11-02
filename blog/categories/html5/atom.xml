@@ -4,7 +4,7 @@
   <title><![CDATA[Category: html5 | alexba.in]]></title>
   <link href="http://alexba.in/blog/categories/html5/atom.xml" rel="self"/>
   <link href="http://alexba.in/"/>
-  <updated>2013-08-21T10:45:21-07:00</updated>
+  <updated>2013-11-02T20:42:30+00:00</updated>
   <id>http://alexba.in/</id>
   <author>
     <name><![CDATA[Alex Bain]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[User agent stylesheets and border-box]]></title>
     <link href="http://alexba.in/blog/2012/10/16/user-agent-stylesheets-and-border-box/"/>
-    <updated>2012-10-16T12:38:00-07:00</updated>
+    <updated>2012-10-16T12:38:00+00:00</updated>
     <id>http://alexba.in/blog/2012/10/16/user-agent-stylesheets-and-border-box</id>
     <content type="html"><![CDATA[<p>Recently I was trying to troubleshoot why all of the inputs on a project had
 <code>box-sizing: border-box</code> applied to them. It turns out that a user agent

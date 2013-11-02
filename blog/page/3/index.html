@@ -9,7 +9,7 @@
   <meta name="author" content="Alex Bain">
 
   
-  <meta name="description" content="Information. Not long ago information was scarce. If you needed information you&#8217;d have to embark on a quest to seek it out. You&#8217;d go to a &hellip;">
+  <meta name="description" content="Have you ever wanted to open an HTML file in Chrome, directly from the OSX terminal? I have. Here&#8217;s how to do it: Open ~/.bash_profile in your &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -82,6 +82,66 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2012/03/23/open-chrome-from-terminal/">Opening Chrome From the OSX Terminal</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-03-23T11:15:00+00:00" pubdate data-updated="true">Mar 23<span>rd</span>, 2012</time>
+        
+         | <a href="/blog/2012/03/23/open-chrome-from-terminal/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Have you ever wanted to open an HTML file in Chrome, directly from the OSX terminal? I have. Here&#8217;s how to do it:</p>
+
+<ul>
+<li>Open <code>~/.bash_profile</code> in your editor of choice.</li>
+<li>Append this to the bottom of your <code>~/.bash_profile</code>:</li>
+</ul>
+
+
+<figure class='code'><figcaption><span>.bash_profile</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>  chrome <span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>    open -a <span class="s2">&quot;/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome&quot;</span> <span class="s2">&quot;$1&quot;</span>
+</span><span class='line'>  <span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>Save and close the file.</li>
+<li>Run <code>source ~/.bash_profile</code> from the terminal to reload it.</li>
+<li>Enjoy being able to type things like <code>chrome index.html</code> from the terminal.</li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2012/03/16/time-to-information/">TTI: Time to Information</a></h1>
     
     
@@ -98,7 +158,7 @@
   
 
 
-<time datetime="2012-03-16T00:15:00-07:00" pubdate data-updated="true">Mar 16<span>th</span>, 2012</time>
+<time datetime="2012-03-16T00:15:00+00:00" pubdate data-updated="true">Mar 16<span>th</span>, 2012</time>
         
          | <a href="/blog/2012/03/16/time-to-information/#disqus_thread">Comments</a>
         
@@ -191,7 +251,7 @@
   
 
 
-<time datetime="2012-02-03T08:17:00-08:00" pubdate data-updated="true">Feb 3<span>rd</span>, 2012</time>
+<time datetime="2012-02-03T08:17:00+00:00" pubdate data-updated="true">Feb 3<span>rd</span>, 2012</time>
         
          | <a href="/blog/2012/02/03/adventures-with-microprocessors/#disqus_thread">Comments</a>
         
@@ -253,7 +313,7 @@ with <a href="http://pusher.com" title="Pusher">Pusher.com</a>.</p>
   
 
 
-<time datetime="2012-01-05T22:06:00-08:00" pubdate data-updated="true">Jan 5<span>th</span>, 2012</time>
+<time datetime="2012-01-05T22:06:00+00:00" pubdate data-updated="true">Jan 5<span>th</span>, 2012</time>
         
          | <a href="/blog/2012/01/05/javascript-equivalence-operators/#disqus_thread">Comments</a>
         
@@ -356,7 +416,7 @@ accidentally type casting one of the operands.</p>
   
 
 
-<time datetime="2011-12-23T12:29:00-08:00" pubdate data-updated="true">Dec 23<span>rd</span>, 2011</time>
+<time datetime="2011-12-23T12:29:00+00:00" pubdate data-updated="true">Dec 23<span>rd</span>, 2011</time>
         
          | <a href="/blog/2011/12/23/first-post/#disqus_thread">Comments</a>
         
@@ -412,6 +472,10 @@ it&#8217;s a fantastic option.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/11/02/lirc-web-nginx-and-upstart/">Running lirc_web with nginx and upstart</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/08/21/lirc-web-v0-0-5/">lirc_web v0.0.5</a>
       </li>
     
@@ -425,10 +489,6 @@ it&#8217;s a fantastic option.</p>
     
       <li class="post">
         <a href="/blog/2013/06/01/using-the-pebble-watch-to-control-your-home-theater/">Using a RaspberryPi and Pebble Watch to control your home theater</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/04/14/lirc-web-v0-dot-0-3/">lirc_web v0.0.3</a>
       </li>
     
   </ul>
@@ -480,13 +540,6 @@ it&#8217;s a fantastic option.</p>
   
 </section>
 
-
-<section>
-  <h1>On Delicious</h1>
-  <div id="delicious"></div>
-  <script type="text/javascript" src="http://feeds.delicious.com/v2/json/alexsbain?count=3&amp;sort=date&amp;callback=renderDeliciousLinks"></script>
-  <p><a href="http://delicious.com/alexsbain">My Delicious Bookmarks &raquo;</a></p>
-</section>
 
 
 <section class="googleplus">

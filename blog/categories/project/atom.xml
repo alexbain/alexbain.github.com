@@ -4,7 +4,7 @@
   <title><![CDATA[Category: project | alexba.in]]></title>
   <link href="http://alexba.in/blog/categories/project/atom.xml" rel="self"/>
   <link href="http://alexba.in/"/>
-  <updated>2013-08-21T10:45:21-07:00</updated>
+  <updated>2013-11-02T20:42:30+00:00</updated>
   <id>http://alexba.in/</id>
   <author>
     <name><![CDATA[Alex Bain]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Using a RaspberryPi and Pebble Watch to control your home theater]]></title>
     <link href="http://alexba.in/blog/2013/06/01/using-the-pebble-watch-to-control-your-home-theater/"/>
-    <updated>2013-06-01T13:23:00-07:00</updated>
+    <updated>2013-06-01T13:23:00+00:00</updated>
     <id>http://alexba.in/blog/2013/06/01/using-the-pebble-watch-to-control-your-home-theater</id>
     <content type="html"><![CDATA[<p>This post will serve as a guide to using a <a href="http://www.raspberrypi.org/">RaspberryPi</a>, a <a href="http://getpebble.com/">Pebble Watch</a>, and an Android phone (<a href="http://www.google.com/nexus/4/">Google Nexus 4</a>) to control your home theater from your wrist. The result is something like this:</p>
 

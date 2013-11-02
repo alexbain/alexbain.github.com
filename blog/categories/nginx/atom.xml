@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: nginx | alexba.in]]></title>
+  <link href="http://alexba.in/blog/categories/nginx/atom.xml" rel="self"/>
+  <link href="http://alexba.in/"/>
+  <updated>2013-11-02T20:42:30+00:00</updated>
+  <id>http://alexba.in/</id>
+  <author>
+    <name><![CDATA[Alex Bain]]></name>
+    <email><![CDATA[alex@alexba.in]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Running lirc_web with nginx and upstart]]></title>
+    <link href="http://alexba.in/blog/2013/11/02/lirc-web-nginx-and-upstart/"/>
+    <updated>2013-11-02T09:50:00+00:00</updated>
+    <id>http://alexba.in/blog/2013/11/02/lirc-web-nginx-and-upstart</id>
+    <content type="html"><![CDATA[<p>In this post I will cover how to start a NodeJS app (<code>lirc_web</code>) when a RaspberryPi boots up. This ensures that if the RaspberryPi ever loses power, the <code>lirc_web</code> app will restart when the system comes online. <code>lirc_web</code> is an open source NodeJS app I wrote as part of the <a href="http://opensourceuniversalremote.com">Open Source Universal Remote</a> project. If you'd like to learn more about the project, please check out <a href="http://alexba.in/blog/2013/06/08/open-source-universal-remote-parts-and-pictures/">Open Source Universal Remote - Parts &amp; Pictures</a>.</p>
+
+<p>To accomplish this will take three steps:</p>
+
+<ol>
+<li>Configure the hostname for the RaspberryPi</li>
+<li>Install and configure Upstart</li>
+<li>Install and configure NGINX</li>
+</ol>
+
+
+<p><strong>Note: Not all mobile devices support <code>.local</code> domains. You may still need to connect via IP.</strong></p>
+
+<h3>Configure the hostname for the RaspberryPi</h3>
+
+<p>If you want your RaspberryPi to be accessible on your local network via hostname, instead of always typing it's IP address, you'll want to install an mDNS daemon. If you'd like to learn why, I recommend reading <a href="http://www.howtogeek.com/167190/how-and-why-to-assign-the-.local-domain-to-your-raspberry-pi/">How (and Why) to Assign the .local Domain to Your Raspberry Pi</a>. The RaspberryPi supports Avahi, which can be installed with:</p>
+
+<pre><code>sudo apt-get install avahi-daemon
+</code></pre>
+
+<p>When that finishes, try pinging <code>raspberrypi.local</code> from a different computer. Everything should just work. Next, we'll update the hostname of the RaspberryPi to be <code>universalremote</code>. This requires three steps:</p>
+
+<ol>
+<li>Edit <code>/etc/hosts</code> and change the last line to <code>127.0.1.1 universalremote</code></li>
+<li>Edit <code>/etc/hostname</code> and change the hostname to <code>universalremote</code></li>
+<li>Reboot the RaspberryPi by running <code>sudu shutdown -r now</code></li>
+</ol>
+
+
+<p>After the RaspberryPi boots back up, you should be able to connect to the RaspberryPi via hostname (<code>http://universalremote.local</code>) or IP.</p>
+
+<h3>Install and configure Upstart</h3>
+
+<p>To ensure the <code>lirc_web</code> app starts when the RaspberryPi boots, we will use a tool called <a href="http://upstart.ubuntu.com">Upstart</a>. Upstart is a project from Ubuntu that simplifies writing init scripts. If you want to learn more about it, you can visit <a href="http://upstart.ubuntu.com/">http://upstart.ubuntu.com/</a> and read more. RaspbianOS does not include Upstart by default, but it can be installed to replace sysvinit with no negative consequences. Here are the commands:</p>
+
+<pre><code>sudo apt-get install upstart
+# You will be asked to type 'Yes, do as I say!'
+# You may see an error about initctl being unable to connect, which will be fixed after a reboot
+
+# Reboot the RaspberryPi
+sudo shutdown -r now
+</code></pre>
+
+<p>Once the RaspberryPi reboots Upstart should be installed. Upstart configuration files are placed in <code>/etc/init</code>. You can either use the sample Upstart configuration that comes with the <code>lirc_web</code> Git repository, or you can use this example (place in <code>/etc/init/open-source-universal-remote.conf</code>):</p>
+
+<pre><code># /etc/init/open-source-universal-remote.conf
+description "universalremote.local"
+
+start on runlevel [2345]
+stop on runlevel [016]
+
+# Restart when job dies
+respawn
+
+# Give up restart after 5 respawns in 60 seconds
+respawn limit 5 60
+
+script
+
+  echo $$ &gt; /var/run/open-source-universal-remote.pid
+  exec /usr/local/bin/node /home/pi/lirc_web/app.js 2&gt;&amp;1 &gt;&gt; /var/log/open-source-universal-remote.upstart.log
+
+end script
+
+pre-start script
+    # Date format same as (new Date()).toISOString() for consistency
+    echo "[`date -u +%Y-%m-%dT%T.%3NZ`] (sys) Starting" &gt;&gt; /var/log/open-source-universal-remote.upstart.log
+end script
+
+pre-stop script
+    rm /var/run/open-source-universal-remote.pid
+    echo "[`date -u +%Y-%m-%dT%T.%3NZ`] (sys) Stopping" &gt;&gt; /var/log/open-source-universal-remote.upstart.log
+end script
+</code></pre>
+
+<p>After creating the Upstart script, you should be able to start the <code>lirc_web</code> project by running:</p>
+
+<pre><code>sudo initctl start open-source-universal-remote
+</code></pre>
+
+<p>You can verify everything works by opening <code>http://universalremote.local:3000</code> (or the RaspberryPi's IP address) in your web browser. You should see the <code>lirc_web</code> web interface.</p>
+
+<h3>Install and Configure NGINX</h3>
+
+<p>If you run <code>lirc_web</code> by itself it creates a basic web server on port 3000. This is fine, but it's more convenient when an web application runs on port 80, the default port for web traffic. We'll use the free and open source NGINX web server to accomplish this.</p>
+
+<p>To install nginx and ensure it starts on boot, run:</p>
+
+<pre><code>sudo apt-get install nginx
+update-rc.d nginx defaults
+sudo service nginx start
+</code></pre>
+
+<p>When this completes, confirm everything installed correctly by trying to  access <code>http://universalremote.local</code> in your web browser. You should see a "Welcome to nginx!" web page.</p>
+
+<p>Next, we have to configure nginx to serve the <code>lirc_web</code> app. You can use the sample config file included in the <code>lirc_web</code> Git repository (within the config directory), or use this example:</p>
+
+<pre><code>server {
+    listen            80;
+    server_name       universalremote.local;
+
+    # Change this to the location you installed lirc_web
+    root              /home/pi/lirc_web;
+    index             index.html index.htm;
+
+    access_log        /var/log/open-source-universal-remote.nginx.log;
+
+    location / {
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $http_host;
+        proxy_set_header X-NginX-Proxy true;
+
+        proxy_pass http://127.0.0.1:3000/;
+        proxy_redirect off;
+    }
+}
+</code></pre>
+
+<p>Restart nginx to pick up the new configuration with <code>sudo service nginx restart</code>.</p>
+
+<p>Now, if you visit <code>http://universalremote.local</code> in your web browser you should now see the project running. In the future, any time you reboot the RaspberryPi <code>lirc_web</code> will start automatically.</p>
+
+<h3>Conclusion</h3>
+
+<p>If everything went smoothly you should now have a daemonzized version of <code>lirc_web</code> running on your RaspberryPi, which is being served via nginx over port 80. In addition, any time you restart your RaspberryPi the <code>lirc_web</code> app will start up at boot.</p>
+
+<p>Are you interested in reading more about the Open Source Universal Remote project? Check out:</p>
+
+<ul>
+<li><a href="http://alexba.in/blog/2013/01/06/setting-up-lirc-on-the-raspberrypi/">Setting up LIRC on the RaspberryPi</a></li>
+<li><a href="http://alexba.in/blog/2013/02/23/controlling-lirc-from-the-web/">Controlling LIRC from the web</a></li>
+<li><a href="http://alexba.in/blog/2013/06/01/using-the-pebble-watch-to-control-your-home-theater/">Using a RaspberryPi and a Pebble Watch to control your home theater</a></li>
+<li><a href="http://alexba.in/blog/2013/06/08/open-source-universal-remote-parts-and-pictures/">Open Source Universal Remote - Parts &amp; Pictures</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

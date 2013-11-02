@@ -4,7 +4,7 @@
   <title><![CDATA[Category: javascript | alexba.in]]></title>
   <link href="http://alexba.in/blog/categories/javascript/atom.xml" rel="self"/>
   <link href="http://alexba.in/"/>
-  <updated>2013-08-21T10:45:21-07:00</updated>
+  <updated>2013-11-02T20:42:30+00:00</updated>
   <id>http://alexba.in/</id>
   <author>
     <name><![CDATA[Alex Bain]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Open Source Universal Remote]]></title>
     <link href="http://alexba.in/blog/2013/03/06/open-source-universal-remote/"/>
-    <updated>2013-03-06T11:55:00-08:00</updated>
+    <updated>2013-03-06T11:55:00+00:00</updated>
     <id>http://alexba.in/blog/2013/03/06/open-source-universal-remote</id>
     <content type="html"><![CDATA[<p><img src="http://alexba.in/images/posts/universal-remote/transistor.jpg" /></p>
 
@@ -33,7 +33,7 @@
   <entry>
     <title type="html"><![CDATA[Controlling LIRC from the web]]></title>
     <link href="http://alexba.in/blog/2013/02/23/controlling-lirc-from-the-web/"/>
-    <updated>2013-02-23T13:06:00-08:00</updated>
+    <updated>2013-02-23T13:06:00+00:00</updated>
     <id>http://alexba.in/blog/2013/02/23/controlling-lirc-from-the-web</id>
     <content type="html"><![CDATA[<p>In this post I will cover how to create a web interface + API for <a href="http://lirc.org">LIRC</a>, the Linux Infrared Remote Control project. I will be using NodeJS and a RaspberryPi in this post, but the ideas generalize to other languages and hardware. This post will serve as Part 3 of my open source universal remote project posts. If you haven't had an opportunity to read the first two posts, I suggest checking out <a href="/blog/2012/07/08/universal-remote-experiments/">Universal remote experiments</a> (Part 1) and <a href="/blog/2013/01/06/setting-up-lirc-on-the-raspberrypi">Setting up LIRC on the RaspberryPi</a> (Part 2) before proceeding. You may also want to read <a href="/blog/2013/01/15/installing-nodejs-on-your-raspberrypi">Installing NodeJS on your RaspberryPi</a>, where I cover installing NodeJS.</p>
 
@@ -122,7 +122,7 @@ node app.js
   <entry>
     <title type="html"><![CDATA[Installing NodeJS on your RaspberryPi]]></title>
     <link href="http://alexba.in/blog/2013/01/15/installing-nodejs-on-your-raspberrypi/"/>
-    <updated>2013-01-15T12:04:00-08:00</updated>
+    <updated>2013-01-15T12:04:00+00:00</updated>
     <id>http://alexba.in/blog/2013/01/15/installing-nodejs-on-your-raspberrypi</id>
     <content type="html"><![CDATA[<p>Here's how I installed <a href="http://nodejs.org/">NodeJS</a> on my RaspberryPi:</p>
 
@@ -180,7 +180,7 @@ GPIO pins on the RaspberryPi, check out:</p>
   <entry>
     <title type="html"><![CDATA[Spreadsheets to Websites]]></title>
     <link href="http://alexba.in/blog/2012/12/07/spreadsheets-to-websites/"/>
-    <updated>2012-12-07T10:29:00-08:00</updated>
+    <updated>2012-12-07T10:29:00+00:00</updated>
     <id>http://alexba.in/blog/2012/12/07/spreadsheets-to-websites</id>
     <content type="html"><![CDATA[<p>This morning I came across a two interesting JavaScript libraries designed to help
 make Google Spreadsheets a data source for websites. Given how simple it is to
@@ -210,7 +210,7 @@ auto save by Google.</p></blockquote>
   <entry>
     <title type="html"><![CDATA[Testing for missing images in JavaScript]]></title>
     <link href="http://alexba.in/blog/2012/07/07/testing-for-missing-images-in-javascript/"/>
-    <updated>2012-07-07T23:08:00-07:00</updated>
+    <updated>2012-07-07T23:08:00+00:00</updated>
     <id>http://alexba.in/blog/2012/07/07/testing-for-missing-images-in-javascript</id>
     <content type="html"><![CDATA[<p>Recently I had to determine if an image URL was properly rendering or not. Since
 this image URL was provided by a user there was a chance that it had been
