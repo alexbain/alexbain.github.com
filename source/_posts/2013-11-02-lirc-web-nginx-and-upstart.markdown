@@ -6,41 +6,38 @@ comments: true
 categories: [raspberrypi, lirc, opensourceuniversalremote, nginx, upstart]
 ---
 
-In this post I will cover how to start the ``lirc_web`` project when a RaspberryPi boots up, as well as how to run the ``lirc_web`` app behind an NGINX web server. ``lirc_web`` is an open source NodeJS app I wrote as part of the [Open Source Universal Remote](http://opensourceuniversalremote.com) project, a RaspberryPi powered universal remote I built to control the electronics within my home. If you'd like to learn more about the remote, please check out the [Open Source Universal Remote - Parts & Pictures](http://alexba.in/blog/2013/06/08/open-source-universal-remote-parts-and-pictures/) blog post.
+In this post I will cover how to start a NodeJS app (``lirc_web``) when a RaspberryPi boots up. This ensures that if the RaspberryPi ever loses power, the ``lirc_web`` app will restart when the system comes online. ``lirc_web`` is an open source NodeJS app I wrote as part of the [Open Source Universal Remote](http://opensourceuniversalremote.com) project. If you'd like to learn more about the project, please check out [Open Source Universal Remote - Parts & Pictures](http://alexba.in/blog/2013/06/08/open-source-universal-remote-parts-and-pictures/).
 
-To accomplish these goals, we'll be tackling the problem in three stages:
+To accomplish this will take three steps:
 
-1. Configure a ``http://universalremote.local`` hostname for the RaspberryPi
-2. Daemonize the ``lirc_web`` project with upstart and start it on system boot
-3. Install and configure the NGINX web server to host ``lirc_web``
+1. Configure the hostname for the RaspberryPi
+2. Install and configure Upstart
+3. Install and configure NGINX
 
-Once these steps are complete the ``lirc_web`` project will automatically launch when the RaspberryPi turns on, and be available via the web at ``http//universalremote.local``. This ensures the Open Source Universal Remote web interface will always be available, even if the RaspberryPi unexpectedly loses power.
+**Note: Not all mobile devices support ``.local`` domains. You may still need to connect via IP.**
 
-**Note: Not all mobile devices support ``.local`` domains, you may still need to connect to your RaspberryPi via IP**
 
-### Configure a ``http://universalremote.local`` hostname for the RaspberryPi
+### Configure the hostname for the RaspberryPi
 
-If you want your RaspberryPi to be accessible on your local network via hostname, instead of always typing it's IP address, you'll want to install an mDNS daemon. If you'd like to learn why, I recommend reading [How (and Why) to Assign the .local Domain to Your Raspberry Pi](http://www.howtogeek.com/167190/how-and-why-to-assign-the-.local-domain-to-your-raspberry-pi/). To accomplish this, we'll use [Avahi](http://en.wikipedia.org/wiki/Avahi_(software)) to provide mDNS on the RaspberryPi. Installation is easy, just run:
+If you want your RaspberryPi to be accessible on your local network via hostname, instead of always typing it's IP address, you'll want to install an mDNS daemon. If you'd like to learn why, I recommend reading [How (and Why) to Assign the .local Domain to Your Raspberry Pi](http://www.howtogeek.com/167190/how-and-why-to-assign-the-.local-domain-to-your-raspberry-pi/). The RaspberryPi supports Avahi, which can be installed with:
 
     sudo apt-get install avahi-daemon
 
-When that command finishes, try pinging ``raspberrypi.local`` from a different computer. Everything should just work. **Note: Some mobile devices do not support .local domains, but OSX and Windows should both do the right thing**. Next, we'll update the hostname of the RaspberryPi to be ``universalremote``. This requires three changes:
+When that finishes, try pinging ``raspberrypi.local`` from a different computer. Everything should just work. Next, we'll update the hostname of the RaspberryPi to be ``universalremote``. This requires three steps:
 
 1. Edit ``/etc/hosts`` and change the last line to ``127.0.1.1 universalremote``
 2. Edit ``/etc/hostname`` and change the hostname to ``universalremote``
 3. Reboot the RaspberryPi by running ``sudu shutdown -r now``
 
-When the RaspberryPi boots back up you should be able to access it over SSH with
-
-    ssh pi@universalremote.local
+After the RaspberryPi boots back up, you should be able to connect to the RaspberryPi via hostname (``http://universalremote.local``) or IP.
 
 
-### Daemonize the ``lirc_web`` app and start it on system boot
+### Install and configure Upstart
 
-To ensure that the ``lirc_web`` app starts whenever the RaspberryPi boots, we'll use a tool called Upstart. Upstart is a project from Ubuntu that simplifies writing init scripts. If you want to learn more about it, you can visit [http://upstart.ubuntu.com/](http://upstart.ubuntu.com/) and read more. RaspbianOS does not include Upstart by default, but it can be installed to replace sysvinit with no negative consequences. Here are the commands:
+To ensure the ``lirc_web`` app starts when the RaspberryPi boots, we will use a tool called [Upstart](http://upstart.ubuntu.com). Upstart is a project from Ubuntu that simplifies writing init scripts. If you want to learn more about it, you can visit [http://upstart.ubuntu.com/](http://upstart.ubuntu.com/) and read more. RaspbianOS does not include Upstart by default, but it can be installed to replace sysvinit with no negative consequences. Here are the commands:
 
     sudo apt-get install upstart
-    # You will be asked to type 'Yes, do as I say!' - you can do this, everything will continue to work
+    # You will be asked to type 'Yes, do as I say!'
     # You may see an error about initctl being unable to connect, which will be fixed after a reboot
 
     # Reboot the RaspberryPi
@@ -84,7 +81,7 @@ After creating the Upstart script, you should be able to start the ``lirc_web`` 
 You can verify everything works by opening ``http://universalremote.local:3000`` (or the RaspberryPi's IP address) in your web browser. You should see the ``lirc_web`` web interface.
 
 
-### Install and configure the NGINX web server to host ``lirc_web``
+### Install and Configure NGINX
 
 If you run ``lirc_web`` by itself it creates a basic web server on port 3000. This is fine, but it's more convenient when an web application runs on port 80, the default port for web traffic. We'll use the free and open source NGINX web server to accomplish this.
 
