@@ -4,7 +4,7 @@
   <title><![CDATA[Category: javascript | alexba.in]]></title>
   <link href="http://alexba.in/blog/categories/javascript/atom.xml" rel="self"/>
   <link href="http://alexba.in/"/>
-  <updated>2013-11-02T20:42:30+00:00</updated>
+  <updated>2013-11-02T20:49:48+00:00</updated>
   <id>http://alexba.in/</id>
   <author>
     <name><![CDATA[Alex Bain]]></name>
@@ -98,6 +98,8 @@ node app.js
 <p>That should do it. Now, visit <code>http://raspberrypi:3000/</code> (or the IP address of your RaspberryPi) to confirm the sample web application shows all of the remotes and commands LIRC knows about. Clicking any of the links will tell LIRC to send that IR command via the API endpoint.</p>
 
 <p><img src="http://alexba.in/images/posts/universal-remote/lirc_web.jpg" class="center" /></p>
+
+<p><strong>November 2nd 2013 Update:</strong> I have posted a follow up post that discusses how to ensure the <code>lirc_web</code> project automatically starts on boot and is accessible via port 80. Check out <a href="http://alexba.in/blog/2013/11/02/lirc-web-nginx-and-upstart/">Running lirc_web with Nginx and Upstart</a> to learn more.</p>
 
 <h3>Success!</h3>
 

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: nginx | alexba.in]]></title>
   <link href="http://alexba.in/blog/categories/nginx/atom.xml" rel="self"/>
   <link href="http://alexba.in/"/>
-  <updated>2013-11-02T20:42:30+00:00</updated>
+  <updated>2013-11-02T20:49:48+00:00</updated>
   <id>http://alexba.in/</id>
   <author>
     <name><![CDATA[Alex Bain]]></name>
@@ -43,7 +43,7 @@
 <ol>
 <li>Edit <code>/etc/hosts</code> and change the last line to <code>127.0.1.1 universalremote</code></li>
 <li>Edit <code>/etc/hostname</code> and change the hostname to <code>universalremote</code></li>
-<li>Reboot the RaspberryPi by running <code>sudu shutdown -r now</code></li>
+<li>Reboot the RaspberryPi by running <code>sudo shutdown -r now</code></li>
 </ol>
 
 

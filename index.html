@@ -132,7 +132,7 @@
 <ol>
 <li>Edit <code>/etc/hosts</code> and change the last line to <code>127.0.1.1 universalremote</code></li>
 <li>Edit <code>/etc/hostname</code> and change the hostname to <code>universalremote</code></li>
-<li>Reboot the RaspberryPi by running <code>sudu shutdown -r now</code></li>
+<li>Reboot the RaspberryPi by running <code>sudo shutdown -r now</code></li>
 </ol>
 
 
@@ -809,6 +809,8 @@ node app.js
 <p>That should do it. Now, visit <code>http://raspberrypi:3000/</code> (or the IP address of your RaspberryPi) to confirm the sample web application shows all of the remotes and commands LIRC knows about. Clicking any of the links will tell LIRC to send that IR command via the API endpoint.</p>
 
 <p><img src="/images/posts/universal-remote/lirc_web.jpg" class="center" /></p>
+
+<p><strong>November 2nd 2013 Update:</strong> I have posted a follow up post that discusses how to ensure the <code>lirc_web</code> project automatically starts on boot and is accessible via port 80. Check out <a href="http://alexba.in/blog/2013/11/02/lirc-web-nginx-and-upstart/">Running lirc_web with Nginx and Upstart</a> to learn more.</p>
 
 <h3>Success!</h3>
 
