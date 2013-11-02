@@ -67,6 +67,7 @@ That should do it. Now, visit ``http://raspberrypi:3000/`` (or the IP address of
 
 <img src="/images/posts/universal-remote/lirc_web.jpg" class="center" />
 
+**November 2nd 2013 Update:** I have posted a follow up post that discusses how to ensure the ``lirc_web`` project automatically starts on boot and is accessible via port 80. Check out [Running lirc_web with Nginx and Upstart](http://alexba.in/blog/2013/11/02/lirc-web-nginx-and-upstart/) to learn more.
 
 ### Success!
 

@@ -27,7 +27,7 @@ When that finishes, try pinging ``raspberrypi.local`` from a different computer.
 
 1. Edit ``/etc/hosts`` and change the last line to ``127.0.1.1 universalremote``
 2. Edit ``/etc/hostname`` and change the hostname to ``universalremote``
-3. Reboot the RaspberryPi by running ``sudu shutdown -r now``
+3. Reboot the RaspberryPi by running ``sudo shutdown -r now``
 
 After the RaspberryPi boots back up, you should be able to connect to the RaspberryPi via hostname (``http://universalremote.local``) or IP.
 
