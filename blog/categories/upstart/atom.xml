@@ -4,7 +4,7 @@
   <title><![CDATA[Category: upstart | alexba.in]]></title>
   <link href="http://alexba.in/blog/categories/upstart/atom.xml" rel="self"/>
   <link href="http://alexba.in/"/>
-  <updated>2013-11-02T20:49:48+00:00</updated>
+  <updated>2013-11-11T16:49:46+00:00</updated>
   <id>http://alexba.in/</id>
   <author>
     <name><![CDATA[Alex Bain]]></name>
@@ -137,7 +137,9 @@ sudo service nginx start
 }
 </code></pre>
 
-<p>Restart nginx to pick up the new configuration with <code>sudo service nginx restart</code>.</p>
+<p><strong>Update November 11th, 2013:</strong> Save this configuration data in a file called <code>/etc/nginx/conf.d/open-source-universal-remote.conf</code>. Nginx will automatically detect this file once you restart it.</p>
+
+<p>Restart nginx to pick up the new configuration file with <code>sudo service nginx restart</code>.</p>
 
 <p>Now, if you visit <code>http://universalremote.local</code> in your web browser you should now see the project running. In the future, any time you reboot the RaspberryPi <code>lirc_web</code> will start automatically.</p>
 
