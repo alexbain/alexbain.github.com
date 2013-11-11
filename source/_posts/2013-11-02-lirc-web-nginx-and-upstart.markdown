@@ -116,7 +116,9 @@ Next, we have to configure nginx to serve the ``lirc_web`` app. You can use the 
         }
     }
 
-Restart nginx to pick up the new configuration with ``sudo service nginx restart``.
+**Update November 11th, 2013:** Save this configuration data in a file called ``/etc/nginx/conf.d/open-source-universal-remote.conf``. Nginx will automatically detect this file once you restart it.
+
+Restart nginx to pick up the new configuration file with ``sudo service nginx restart``.
 
 Now, if you visit ``http://universalremote.local`` in your web browser you should now see the project running. In the future, any time you reboot the RaspberryPi ``lirc_web`` will start automatically.
 
