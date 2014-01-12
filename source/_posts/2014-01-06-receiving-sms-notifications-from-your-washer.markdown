@@ -16,19 +16,19 @@ In this post, I'm going to cover a new project I've been working on - creating a
 
 > "Progressive enhancement uses web technologies in a layered fashion that allows everyone to access the basic content and functionality of a web page, [...] while also providing an enhanced version of the page to those with more advanced browser software [...]." ([Wikipedia](http://en.wikipedia.org/wiki/Progressive_enhancement))
 
-I believe that the concept of progressive enhancement can be applied to the physical world, as well. I believe that a physical device can be enhanced (using web connected electronics) to become a "smart" or "internet of things" device without affecting it's existing functionality. In this way, an appliance can continue to operate as before, with no change in perceived behavior, while gaining new web connected functionality that enhances the user experience of interacting with the device digitally.
+I believe that the concept of progressive enhancement can also be applied to the physical world by enhancing a device (using web connected electronics) without affecting it's existing functionality. In this way, an appliance can continue to operate as before, with no change in perceived behavior or user interface, while gaining new web connected functionality that enhances the user experience of interacting with the device digitally.
 
 <img src="/images/posts/lundry/thumb_circuit_macro.jpg" class="center" />
 
 So, in this post, I'm going to cover how I built an open source device that:
 
-* Magnetically attaches to a washer or dryer, requiring no modification to the appliance.
-* Measures the vibrations of the washer and dryer using an [Electric Imp](http://electricimp.com) microcontroller and an accelerometer.
+* Magnetically attaches to a washer or dryer, requiring no modifications to the washer or dryer.
+* Measures the vibrations of a washer or dryer using an [Electric Imp](http://electricimp.com) microcontroller and an accelerometer.
 * Runs software that analyzes when the machine is running, and when it's finished a load of laundry.
-* Has a specially designed, 3D printable enclosure (designed by the talented John Steenson).
+* Has a uniquely designed, 3D printable enclosure (designed by the talented John Steenson).
 * Connects to your WiFi network, enabling you to:
-  1. Monitor the real-time state of the washer or dryer from a web page (using [Firebase](http://firebase.com)).
-  2. Receive an SMS (using [Twilio](http://twilio.com)) when the washer or dryer finishes.
+  1. Receive an SMS (using [Twilio](http://twilio.com)) when the washer or dryer finishes.
+  2. Monitor the real-time state of the washer or dryer from a web page (using [Firebase](http://firebase.com)).
 
 This project will be covered in four sections:
 
@@ -100,9 +100,9 @@ For this project, I wanted a custom enclosure that would enable the device to be
 
 <a href="/images/posts/lundry/case_with_lid.jpg"><img src="/images/posts/lundry/case_with_lid.jpg" class="center" /></a>
 
-The above photos show the device mounted in the case (with and without the lid). Inside of the case, but beneath the device, I have attached (with two sided tape) the two rare earth magnets. I then placed a thin sheet of plastic between the magnets and the device to ensure there is no chance of electrical short. I have not found that the magnets interfere with the device, even though they are in close proximity to the hardware. I have found that the two rare earth magnets are sufficiently strong to hold the device to the outside of the washer and dryer without issue.
+The above photos show the device mounted in the case (with and without the lid). Inside of the case, but beneath the device, I have attached (with two sided tape) the two rare earth magnets. I then placed a thin sheet of plastic between the magnets and the device to ensure there is no chance of electrical short. I have not found that the magnets interfere with the device in any way.
 
-**STL Files:**
+**STL files for the 3D printable enclosure:**
 
 * <a href="/stl/lundry/Enclosure_base.STL">Enclosure - Base</a>
 * <a href="/stl/lundry/Enclosure_lid.STL">Enclosure - Lid</a>
@@ -110,4 +110,9 @@ The above photos show the device mounted in the case (with and without the lid).
 
 ## Part 3: Writing the Software
 
+When writing software for the Electric Imp, you write two programs. The first program, called the "Agent", runs on the Electric Imp cloud. The second program, called the "Device", is run on the Electric Imp itself. I'm not going to go into too much detail about the software, as it's heavily commented, but if have any questions or suggestions please feel free to ask them in the comments.
+
+Here is the code for the Agent & Device:
+
+<script src="https://gist.github.com/alexbain/8392153.js"></script>
 
