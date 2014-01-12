@@ -14,28 +14,31 @@ For example, in previous posts, I covered how I built an [Open Source Universal 
 
 In this post, I'm going to cover a new project I've been working on - creating a non invasive device that monitors a washer or dryer and sends you a text message when a load of laundry finishes. I built this device because I wanted to experiment with applying the principles of [progressive enhancement](http://en.wikipedia.org/wiki/Progressive_enhancement), a web software concept, to the physical world.
 
-In the world of web software, the concept of [progressive enhancement](http://en.wikipedia.org/wiki/Progressive_enhancement) is summarized on Wikipedia as follows: "Progressive enhancement uses web technologies in a layered fashion that allows everyone to access the basic content and functionality of a web page, [...] while also providing an enhanced version of the page to those with more advanced browser software [...]." I believe this applies to the physical world, as well. I believe that a physical device can be progressive enhanced (using web connected electronics) to become a "smart" or "internet of things" device without affecting it's existing, non digital, functionality. In this way, the appliance continues to operate as before, with no change in offline behavior, while gaining new web connected functionality that enhances the user experience of interacting with the device.
+> "Progressive enhancement uses web technologies in a layered fashion that allows everyone to access the basic content and functionality of a web page, [...] while also providing an enhanced version of the page to those with more advanced browser software [...]." ([Wikipedia](http://en.wikipedia.org/wiki/Progressive_enhancement))
+
+I believe that the concept of progressive enhancement can be applied to the physical world, as well. I believe that a physical device can be enhanced (using web connected electronics) to become a "smart" or "internet of things" device without affecting it's existing functionality. In this way, an appliance can continue to operate as before, with no change in perceived behavior, while gaining new web connected functionality that enhances the user experience of interacting with the device digitally.
 
 <img src="/images/posts/lundry/thumb_circuit_macro.jpg" class="center" />
 
-So, without further ado, I'm going to cover how I built an open source device that:
+So, in this post, I'm going to cover how I built an open source device that:
 
-* Magnetically attaches to the outside of a washer or dryer, requiring no modification to the appliance
-* Measures the vibrations of the washer and dryer using an [ElectricImp](http://electricimp.com) microcontroller and an accelerometer
-* Determines when the machine is running, and when it's finished running
-* Has a specially designed, 3D printable enclosure (designed by the talented John Steenson)
-* Connects to your WiFi network, enabling:
-  1. The ability to monitor the state of the washer or dryer from a web page (using [Firebase](http://firebase.com))
-  2. The ability to send an SMS (using [Twilio](http://twilio.com)) when the washer or dryer finishes running
+* Magnetically attaches to a washer or dryer, requiring no modification to the appliance.
+* Measures the vibrations of the washer and dryer using an [Electric Imp](http://electricimp.com) microcontroller and an accelerometer.
+* Runs software that analyzes when the machine is running, and when it's finished a load of laundry.
+* Has a specially designed, 3D printable enclosure (designed by the talented John Steenson).
+* Connects to your WiFi network, enabling you to:
+  1. Monitor the real-time state of the washer or dryer from a web page (using [Firebase](http://firebase.com)).
+  2. Receive an SMS (using [Twilio](http://twilio.com)) when the washer or dryer finishes.
 
-I'll cover this project in four sections:
+This project will be covered in four sections:
 
-1. Hardware
-2. 3D printable enclosure
-3. Software
-4. Web services
+* The hardware
+* The 3D printable enclosure
+* Writing the software
+* Connecting the device to the web services
 
-## Hardware
+
+## Part 1: The Hardware
 
 <img src="/images/posts/lundry/thumb_hardware_device.jpg" class="center" />
 
@@ -48,35 +51,63 @@ For this project, I purchased most of my parts from [Adafruit](http://adafruit.c
 * [USB power supply](http://www.adafruit.com/products/501)
 * [USB A to Mini B cable](http://www.amazon.com/AmazonBasics-A-Male-Mini-B-Cable-Meters/dp/B001TH7GUK/ref=sr_1_1?ie=UTF8&qid=1388982594&sr=8-1&keywords=usb+mini)
 * [Solid core wire](http://www.adafruit.com/products/289)
+* 2 small rare earth magnets (available from any hardware store)
 
 ### Electric Imp
 
 <img src="/images/posts/lundry/thumb_electric_imp.jpg" class="center" />
 
-For the microcontroller component of the project, I chose the [Electric Imp](http://electricimp.com/product/). The Electric Imp is a microcontroller in the form factor of an SD card with a 32bit Cortex M3 processor in it. What I find exciting about the Electric Imp, however, is that it also includes an 802.11b/g/n chip, making it one of the smallest WiFi enabled microcontrollers I've found online. Combined with the fact that the card itself is only $30, and it was a no brainer for the project.
+For this project, I chose to work with the [Electric Imp](http://electricimp.com/product/) microcontroller. The Electric Imp is a microcontroller in the form factor of an SD card with a 32bit Cortex M3 processor. What I find most exciting about the Electric Imp is that it also includes an 802.11b/g/n chip, making it one of the smallest WiFi enabled microcontrollers I've found. I used the [April dev board](http://www.adafruit.com/products/1130), a breakout board from the Electric Imp team, that makes working with the Electric Imp very straightforward. You can see the dev board (green PCB) in the image underneath the "Hardware" section.
 
-Teaching the Electric Imp your WiFi credentials is done through an extremely clever process that the team calls [BlinkUp](http://electricimp.com/product/blinkup/). The Imp itself contains a phototransistor on it, which allows you to program your WiFi credentials via a smart phone app. The display of your smart phone strobes in a pattern that the Imp recognizes, which allows you to program the credentials optically, without having to connect the Imp to your computer.
+Configuring the Electric Imp with your WiFi credentials is done through a clever process called [BlinkUp](http://electricimp.com/product/blinkup/). The Imp itself contains a phototransistor, which enables you to program your WiFi credentials optically, via an app on your Android or iOS device. Once you install and configure the app, the display on your phone strobes in a pattern that the Imp recognizes, which programs the WiFi credentials into the Imp. The process only takes a few seconds, and it worked flawlessly for me the first time.
 
-Programming the Electric Imp is done via their Web based IDE, which makes pushing updates to the device a piece of cake. Later on, I'll include all of the code I wrote for both the Imp and the "Agent" - which is a program that runs on the Electric Imp Cloud, allowing you to make net requests and do more computationally heavy processing.
-
-I also used the April Dev board, which is a breakout board that makes working with the Electric Imp very easy. You can see the dev board in the image listed underneath the "Hardware" section.
+Once you've programmed your WiFi credentials onto the Imp, it will automatically connect to the Electric Imp cloud service. From there, you're able to login to the web based IDE and program the imp via your web browser. The IDE handles deploying code updates to the device, as well. I'd like to see a GitHub integration, which would provide version control, so hopefully that's on their roadmap.
 
 ### ADXL335 Analog Accelerometer
 
 <img src="/images/posts/lundry/thumb_adxl335.jpg" class="center" />
 
-For the accelerometer, I chose the [ADXL335](http://www.analog.com/static/imported-files/data_sheets/ADXL335.pdf). It's a 3.3V analog accelerometer sensitive to +- 3g. The device itself is widely used, and documentation is readily available. In addition, [Adafruit](http://adafruit.com) sells a breakout board (listed above in the bill of materials) that made including the device in my project an easy decision.
+For the accelerometer (the component that measures the vibration of the washing machine / dryer), I chose the [ADXL335](http://www.analog.com/static/imported-files/data_sheets/ADXL335.pdf). The ADXL335 is a 3.3V analog accelerometer sensitive to +- 3g. The device itself is widely used, and I found plenty of documentation online. In addition, [Adafruit](http://adafruit.com) sells a breakout board (listed above in the bill of materials) that made including the device in my project an easy decision. The breakout board that Adafruit sells also allows you to connect the accelerometer to a 5V microcontroller, such as an Arduino.
+
+### Assembling the Hardware
+
+<a href="/images/posts/lundry/hardware_device_2.jpg"><img src="/images/posts/lundry/thumb_hardware_device_2.jpg" class="center" /></a>
+
+The assembly of the device is relatively straightforward. First, you will need to assemble the April Dev board and the ADXL335 breakout board by soldering the header pins onto the breakout boards. Next, you'll need to solder both breakout boards into the perma-proto board. Lastly, you'll solder in the 5 wires to enable the two components to communicate. **If you intend to use the 3D printable enclosure, please ensure that the two components are mounted identically to the image above.**
+
+The picture above shows how the device looks when assembled, and here are the specifics:
+
+* Pin 1 from Electric Imp is connected to the X-out pin on accelerometer.
+* Pin 2 from the Electric Imp is connected to the Y-out pin on accelerometer.
+* Pin 5 from the Electric Imp is connected to the Z-out pin on accelerometer.
+* 3V3 pin from Electric Imp is connected to the Vin pin on accelerometer.
+* GND pin from Electric Imp is connected to GND pin on accelerometer.
+
+At this point you should be able to:
+
+* Boot the device up with a USB power supply
+* Program the Electric Imp to connect to your WiFi
+* Log into the Electric Imp web based IDE to program the device
 
 
-### The Software
+## Part 2: The 3D Printable Enclosure
 
-On the software side of things, we'll need:
+<a href="/images/posts/lundry/empty_case.jpg"><img src="/images/posts/lundry/thumb_empty_case.jpg" class="center" /></a>
 
-* [Twilio account](https://www.twilio.com/)
-* An Electric Imp account - http://electricimp.com
+For this project, I wanted a custom enclosure that would enable the device to be sealed from dust and debris. I contacted a friend of mine, John Steenson, who agreed to help me design a 3D printable enclosure for the project. He has agreed to let me post the STL files for the case, which you can download and have 3D printed yourself. I had my case printed from a local printer that I found on the [3D Hubs](http://3dhubs.com) service.
 
-Optional (for a real time web interface):
+<a href="/images/posts/lundry/occupied_case.jpg"><img src="/images/posts/lundry/thumb_occupied_case.jpg" class="center" /></a>
 
-* A free firebase account - http://firebase.com
-* A free GitHub account (for web hosting) - http://github.com
+<a href="/images/posts/lundry/case_with_lid.jpg"><img src="/images/posts/lundry/case_with_lid.jpg" class="center" /></a>
+
+The above photos show the device mounted in the case (with and without the lid). Inside of the case, but beneath the device, I have attached (with two sided tape) the two rare earth magnets. I then placed a thin sheet of plastic between the magnets and the device to ensure there is no chance of electrical short. I have not found that the magnets interfere with the device, even though they are in close proximity to the hardware. I have found that the two rare earth magnets are sufficiently strong to hold the device to the outside of the washer and dryer without issue.
+
+**STL Files:**
+
+* <a href="/stl/lundry/Enclosure_base.STL">Enclosure - Base</a>
+* <a href="/stl/lundry/Enclosure_lid.STL">Enclosure - Lid</a>
+
+
+## Part 3: Writing the Software
+
 
