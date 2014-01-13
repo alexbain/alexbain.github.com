@@ -100,7 +100,7 @@ For this project, I wanted a custom enclosure that would enable the device to be
 
 <a href="/images/posts/lundry/case_with_lid.jpg"><img src="/images/posts/lundry/thumb_case_with_lid.jpg" class="center" /></a>
 
-The above photos show the device mounted in the case (with and without the lid). Inside of the case, but beneath the device, I have attached (with two sided tape) the two rare earth magnets. I then placed a thin sheet of plastic between the magnets and the device to ensure there is no chance of electrical short. I have not found that the magnets interfere with the device in any way.
+The above photos show the device mounted in the case (with and without the lid). Inside of the case, but beneath the device, I have attached (with two sided tape) the two rare earth magnets. I then placed a thin sheet of plastic between the magnets and the device to ensure there is no chance of electrical short. I have not found that the magnets interfere with the device in any way. The two magnets are what enables the device to attach to the washer or dryer.
 
 **STL files for the 3D printable enclosure:**
 
@@ -110,13 +110,17 @@ The above photos show the device mounted in the case (with and without the lid).
 
 ## Part 3: Writing the Software
 
-When writing software for the Electric Imp, you write two programs. The first program, called the "Device", which runs on the Electric Imp hardware. The second program, called the "Agent", runs on the Electric Imp cloud.
+When writing software for the Electric Imp, you write two programs. The first program, called the "Device", runs on the Electric Imp hardware. The second program, called the "Agent", runs on the Electric Imp cloud. The Agent has the ability to send and receive HTTP traffic, making it a perfect candidate for the Twilio API, a RESTful API that allows you to send SMS messages.
 
-For this project, the Device samples the accelerometer 50x a second. I found this to be frequent enough to get a clear picture for how much the device is moving. Then, I determine the magnitude of the accerlometer vector and compute the percentage of change from the previous magnitude. I track the sum of that percentage of change over 5 seconds (250 samples), and return that to the Agent. In my testing, I found that the average off reading was around 100 to 250.
+For this project, the Device samples the accelerometer 50x a second. I found this to be frequent enough to get a clear picture for how much the washer or dryer is vibrating. For each sample, I determine the magnitude of the accelerometer vector and compute the percentage of change against the previous sample's magnitude. I track the amount of change over 5 seconds (250 samples), and return that value to the Agent. In my testing, I found that the average reading when the machine was turned off to be between 100 and 250. When the washer or dryer are running, I find the samples vary between 300 and 6000 depending on what stage of the cycle the machine is in.
 
-The Agent receives the total percentage of change over the past 250 samples, and compares that against a threshold. If the sample is above the threshold, the device is experiencing enough change where it's safe to call it ON. In my testing, I found 300 to be a good threshold. Once the Agent receives 18 consecutive samples above the threshold (which works out to 90 seconds of data), it enters the RUNNING state. Then, at some point in the future, once the Agent receives 36 consecutive samples below the ON threshold, it returns to the OFF state. These delays help take into account lulls in vibration during a typical laundry cycle (ex: filling the washer, draining the washer). Depending on your appliances, you may need to adjust the thresholds in the Agent to reduce false positives. Finally, the SMS notification is emitted (via [Twilio](http://twilio.com) if, upon returning the OFF state, the RUNNING state was active.
+The Agent receives the total amount change over the past 250 samples, and compares that against a threshold to determine if the machine is ON or OFF. If the value is above the threshold, the device is experiencing enough vibration where it's safe to call the machine ON. In my testing, I found 300 to be a good threshold to determine if the washer or dryer was running. Once the Agent receives 18 consecutive samples above the threshold (which works out to 90 seconds of data), it enters the RUNNING state. Then, at some point in the future, once the Agent receives 36 consecutive samples below the ON threshold, it returns to the OFF state. These delays help take into account lulls in vibration during a typical laundry cycle (ex: filling the washer, draining the washer). Depending on your appliances, you may need to adjust the thresholds in the Agent to reduce false positives. Finally, when returning to the OFF state, if the device was in the RUNNING state, an SMS notification is emitted (via [Twilio](http://twilio.com)) to each phone number stored in the phoneNumbers array.
 
 If you'd like to read more about how to process the data coming off an accelerometer, I found [A Guide To using IMU (Accelerometer and Gyroscope Devices) in Embedded Applications.](http://www.starlino.com/imu_guide.html) to be an extremely informative read.
+
+** Note:** The Agent code requires you to setup a Twilio account and enter your Twilio credentials before you can send any messages. Twilio, at the time of writing this article, charges $0.01 per text message. At the rate I do laundry, it should cost < $2 a year to send these text messages.
+
+**Note2:** If you would like to log all of your data to a persistent data store (either to show on a web page, or just to analyze output), [Firebase](http://firebase.com) is a great option, and they have a free tier. Just change ``logToFirebase`` to be ``true`` and enter your Firebase URL if you want to enable this feature.
 
 You may also <a href="https://gist.github.com/alexbain/8392153">view this code</a> on GitHub.
 
@@ -224,6 +228,7 @@ local twilioNumber = "+14155551212";
 local phoneNumbers = ["+14155555555", "+14155555556"];
 
 // Firebase
+local logToFirebase = false;
 local firebaseURL =  "https://FIREBASE_URL.firebaseIO.com/data.json";
 local firebaseHeaders = { "Content-Type": "application/json" };
 
@@ -297,12 +302,14 @@ device.on("data", function(data) {
         }
     }
 
-    // Build a post request to Firebase to log the data
-    local body = format("{\"amount\": %f, \"running\": %s, \".priority\": %d}", data, running ? "true" : "false", time());
-    local request = http.post(firebaseURL, firebaseHeaders, body);
+    if (logToFirebase == true) {
+        // Build a post request to Firebase to log the data
+        local body = format("{\"amount\": %f, \"running\": %s, \".priority\": %d}", data, running ? "true" : "false", time());
+        local request = http.post(firebaseURL, firebaseHeaders, body);
 
-    // Send the data to Firebase async
-    local response = request.sendasync(function(done) {});
+        // Send the data to Firebase async
+        local response = request.sendasync(function(done) {});
+    }
 });
 ```
 
