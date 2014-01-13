@@ -8,7 +8,7 @@ categories: [electricimp, accelerometer, electronics]
 
 <img src="/images/posts/lundry/thumb_pebble_notification.jpg" class="center" />
 
-As I've continued my experiments with embedded microcontrollers and electronics, I've found myself looking at the physical world in a new way - as an environment that can be enhanced with the application of novel smart devices, blurring the line between physical and digital. This perspective has driven me to build devices of my own imagination that enhance aspects of my day to day life. 
+As I've continued my experiments with embedded microcontrollers and electronics, I've found myself looking at the physical world in a new way - as an environment that can be enhanced with the application of novel smart devices, blurring the line between physical and digital. This perspective has driven me to build devices of my own imagination that enhance aspects of my day to day life.
 
 For example, in previous posts, I covered how I built an [Open Source Universal Remote](http://alexba.in/blog/2013/06/08/open-source-universal-remote-parts-and-pictures/) using a RaspberryPi, an expansion board I designed, and a [NodeJS web application](http://github.com/alexbain/lirc_web) I built. It allows me to control any infrared device from a phone, smart watch, laptop, or other web connected device. I use the device daily, and it's sparked my curiosity to explore new ways of enhancing my physical environment with thoughtful application of web connected electronics.
 
@@ -98,7 +98,7 @@ For this project, I wanted a custom enclosure that would enable the device to be
 
 <a href="/images/posts/lundry/occupied_case.jpg"><img src="/images/posts/lundry/thumb_occupied_case.jpg" class="center" /></a>
 
-<a href="/images/posts/lundry/case_with_lid.jpg"><img src="/images/posts/lundry/case_with_lid.jpg" class="center" /></a>
+<a href="/images/posts/lundry/case_with_lid.jpg"><img src="/images/posts/lundry/thumb_case_with_lid.jpg" class="center" /></a>
 
 The above photos show the device mounted in the case (with and without the lid). Inside of the case, but beneath the device, I have attached (with two sided tape) the two rare earth magnets. I then placed a thin sheet of plastic between the magnets and the device to ensure there is no chance of electrical short. I have not found that the magnets interfere with the device in any way.
 
@@ -110,9 +110,200 @@ The above photos show the device mounted in the case (with and without the lid).
 
 ## Part 3: Writing the Software
 
-When writing software for the Electric Imp, you write two programs. The first program, called the "Agent", runs on the Electric Imp cloud. The second program, called the "Device", is run on the Electric Imp itself. I'm not going to go into too much detail about the software, as it's heavily commented, but if have any questions or suggestions please feel free to ask them in the comments.
+When writing software for the Electric Imp, you write two programs. The first program, called the "Device", which runs on the Electric Imp hardware. The second program, called the "Agent", runs on the Electric Imp cloud.
 
-Here is the code for the Agent & Device:
+For this project, the Device samples the accelerometer 50x a second. I found this to be frequent enough to get a clear picture for how much the device is moving. Then, I determine the magnitude of the accerlometer vector and compute the percentage of change from the previous magnitude. I track the sum of that percentage of change over 5 seconds (250 samples), and return that to the Agent. In my testing, I found that the average off reading was around 100 to 250.
 
-<script src="https://gist.github.com/alexbain/8392153.js"></script>
+The Agent receives the total percentage of change over the past 250 samples, and compares that against a threshold. If the sample is above the threshold, the device is experiencing enough change where it's safe to call it ON. In my testing, I found 300 to be a good threshold. Once the Agent receives 18 consecutive samples above the threshold (which works out to 90 seconds of data), it enters the RUNNING state. Then, at some point in the future, once the Agent receives 36 consecutive samples below the ON threshold, it returns to the OFF state. These delays help take into account lulls in vibration during a typical laundry cycle (ex: filling the washer, draining the washer). Depending on your appliances, you may need to adjust the thresholds in the Agent to reduce false positives. Finally, the SMS notification is emitted (via [Twilio](http://twilio.com) if, upon returning the OFF state, the RUNNING state was active.
+
+If you'd like to read more about how to process the data coming off an accelerometer, I found [A Guide To using IMU (Accelerometer and Gyroscope Devices) in Embedded Applications.](http://www.starlino.com/imu_guide.html) to be an extremely informative read.
+
+You may also <a href="https://gist.github.com/alexbain/8392153">view this code</a> on GitHub.
+
+Here is the code for the Device, which reads in and processes the accelerometer data:
+
+```
+local total = 0; // Sum of % change from all samples
+local n = 0;     // Counter for number of samples read
+local last = 1;  // Previous reading of magnitude
+
+function readSensor() {
+    // Time interval
+    local interval = 0.02;
+
+    // Get source voltage, should be 3.3V
+    local vRef = hardware.voltage();
+
+    // Read in ADC values from accelerometer
+    local adcRx = hardware.pin1.read();
+    local adcRy = hardware.pin2.read();
+    local adcRz = hardware.pin5.read();
+    // server.log(format("Raw ADC values: %f, %f, %f", adcRx, adcRy, adcRz));
+
+    // Convert 16bit ADC accelerometer values (0-65535) into voltage
+    local voltsRx = (adcRx * vRef) / 65535.0;
+    local voltsRy = (adcRy * vRef) / 65535.0;
+    local voltsRz = (adcRz * vRef) / 65535.0;
+    // server.log(format("Voltages: %f, %f %f", voltsRx, voltsRy, voltsRz));
+
+    // Subtract 0g (1.5V at 3V, 1.65V at 3.3V)
+    local deltaVoltsRx = voltsRx - (vRef / 2);
+    local deltaVoltsRy = voltsRy - (vRef / 2);
+    local deltaVoltsRz = voltsRz - (vRef / 2);
+    // server.log(format("Adjusted voltages %f, %f, %f", deltaVoltsRx, deltaVoltsRy, deltaVoltsRz));
+
+    // Convert from voltage to g, using sensitivity of 300mV
+    local rX = deltaVoltsRx / 0.3;
+    local rY = deltaVoltsRy / 0.3;
+    local rZ = deltaVoltsRz / 0.3;
+    // server.log(format("Gs: %f, %f, %f", rX, rY, rZ));
+
+    // Compute magnitude of force
+    local magnitude = math.sqrt(math.pow(rX,2) + math.pow(rY, 2) + math.pow(rZ, 2));
+
+    // Compute % change since last reading
+    local change = math.fabs((magnitude - last)/last) * 100.0;
+
+    // Store magnitude in last for next time
+    last = magnitude;
+
+    // Log magnitude and percent change
+    // server.log(format("magnitude: %f, change amount: %f", magnitude, change));
+
+    // Increment total with % change, increment N
+    total = total + change;
+    n = n + 1;
+
+    // Log data to server once ever 250 samples (5 seconds)
+    if (n >= 250) {
+        agent.send("data", total);
+        n = 0;
+        total = 0;
+    }
+
+    // Sleep until time to read sensor again
+    imp.wakeup(interval, readSensor);
+}
+
+// X input
+hardware.pin1.configure(ANALOG_IN);
+
+// Y input
+hardware.pin2.configure(ANALOG_IN);
+
+// Z input
+hardware.pin5.configure(ANALOG_IN);
+
+// Start reading the sensor
+readSensor();
+```
+
+Here is the code for the Agent, which determines when to send an SMS
+
+```
+// Run on Agent
+
+// Thresholds to adjust for better accuracy
+local dataThreshold = 300; // Minimum accelerometer value to count as ON
+local onThreshold = 18;    // Number of ON samples before machine enters RUNNING state
+local offThreshold = 36;   // Number of OFF samples before machine enters OFF state
+
+// State variable
+local running = false;
+
+// Keep track of counts
+local onCount = 0;
+local offCount = 0;
+
+// Twilio
+local twilioURL = "https://USER:PASS@api.twilio.com/2010-04-01/Accounts/ID/Messages.json";
+local twilioHeaders = { "Content-Type": "application/x-www-form-urlencoded" };
+local twilioNumber = "+14155551212";
+
+// Array of phone numbers to be contacted with the laundry is done
+local phoneNumbers = ["+14155555555", "+14155555556"];
+
+// Firebase
+local firebaseURL =  "https://FIREBASE_URL.firebaseIO.com/data.json";
+local firebaseHeaders = { "Content-Type": "application/json" };
+
+// Called every time the imp emits data
+device.on("data", function(data) {
+
+    // Is there enough accelerometer activity for the device to be considered ON?
+    if (data >= dataThreshold) {
+        onCount = onCount + 1;
+
+        // Prevent overflow errors by resetting onCount when it gets close to limit
+        if (onCount >= 65500) {
+            onCount = onThreshold;
+        }
+
+        // If the device has been ON for long enough, set running state to be true
+        if (onCount >= onThreshold) {
+            running = true;
+
+            // Running, so reset offCount
+            offCount = 0;
+        }
+
+        // debug / logs
+        if (running == true) {
+            server.log(format("ON - RUNNING (%f), onCount (%d), offCount (%d)", data, onCount, offCount));
+        } else {
+            server.log(format("ON (%f), onCount (%d), offCount (%d)", data, onCount, offCount));
+        }
+
+    // Imp is not recording much accelerometer movement, so device seems to be OFF
+    } else {
+        offCount = offCount + 1;
+
+        // Prevent overflow errors by resetting offCount when it gets close to limit
+        if (offCount >= 65500) {
+            offCount = offThreshold;
+        }
+
+        // Has the device been off for long enough to be "done"?
+        if (offCount >= offThreshold) {
+
+            // Was the device previously running?
+            if (running == true) {
+
+                // This means that the laundry had been running, and is now done.
+
+                // Send an SMS to each phone number in the phoneNumbers array.
+                foreach (number in phoneNumbers) {
+                    local body = format("To=%s&From=%s&Body=The%%20laundry%%20is%%20done.", number, twilioNumber);
+                    local request = http.post(twilioURL, twilioHeaders, body);
+                    local response = request.sendasync(function(done) {});
+                }
+
+                // debug / logs
+                server.log("!!!! Emitting OFF event !!!!");
+            }
+
+            // Reset on count
+            onCount = 0;
+
+            // Machine is no longer running
+            running = false;
+        }
+
+        // debug / logs
+        if (running == true) {
+            server.log(format("OFF - WAS RUNNING (%f), onCount (%d), offCount (%d)", data, onCount, offCount));
+        } else {
+            server.log(format("OFF (%f), onCount (%d), offCount (%d)", data, onCount, offCount));
+        }
+    }
+
+    // Build a post request to Firebase to log the data
+    local body = format("{\"amount\": %f, \"running\": %s, \".priority\": %d}", data, running ? "true" : "false", time());
+    local request = http.post(firebaseURL, firebaseHeaders, body);
+
+    // Send the data to Firebase async
+    local response = request.sendasync(function(done) {});
+});
+```
+
 
