@@ -8,35 +8,36 @@ categories: [electricimp, accelerometer, electronics]
 
 <img src="/images/posts/lundry/thumb_pebble_notification.jpg" class="center" />
 
-As I've continued my experiments with embedded microcontrollers and electronics, I've found myself looking at the physical world in a new way - as an environment that can be enhanced with the application of novel smart devices, blurring the line between physical and digital. This perspective has driven me to build devices of my own imagination that enhance aspects of my day to day life.
+As I continue my experiments with embedded microcontrollers and electronics, I find myself increasingly fascinated by internet connected devices that blur the physical with the digital. It's almost as if I can fulfill the ubiquitous childhood dream of having super powers - I simply have to build the devices that enable them myself.
 
-For example, in previous posts, I covered how I built an [Open Source Universal Remote](http://alexba.in/blog/2013/06/08/open-source-universal-remote-parts-and-pictures/) using a RaspberryPi, an expansion board I designed, and a [NodeJS web application](http://github.com/alexbain/lirc_web) I built. It allows me to control any infrared device from a phone, smart watch, laptop, or other web connected device. I use the device daily, and it's sparked my curiosity to explore new ways of enhancing my physical environment with thoughtful application of web connected electronics.
+Previously, I discussed how I built my [open source universal remote](http://alexba.in/blog/2013/06/08/open-source-universal-remote-parts-and-pictures/) using a RaspberryPi, an expansion board I designed, and a [NodeJS web application](http://github.com/alexbain/lirc_web). This device allows me to control any infrared device in my home from my phone, smart watch, laptop, and other web connected device. I use the remote daily, and it's sparked my curiosity to devise new ways of enhancing my physical environment with thoughtful application of internet connected devices.
 
-In this post, I'm going to cover a new project I've been working on - creating a non invasive device that monitors a washer or dryer and sends you a text message when a load of laundry finishes. I built this device because I wanted to experiment with applying the principles of [progressive enhancement](http://en.wikipedia.org/wiki/Progressive_enhancement), a web software concept, to the physical world.
+In this post, I'm going to cover a new project I've been working on - creating a non invasive device that monitors a washer or dryer and sends a text message when a load of laundry finishes. I built this device for two reasons. First, I wanted a project that introduced me to accelerometers - a sensor I find fascinating. Second, I wanted to try applying the principles of [progressive enhancement](http://en.wikipedia.org/wiki/Progressive_enhancement), a web software concept, to the physical world.
 
 > "Progressive enhancement uses web technologies in a layered fashion that allows everyone to access the basic content and functionality of a web page, [...] while also providing an enhanced version of the page to those with more advanced browser software [...]." ([Wikipedia](http://en.wikipedia.org/wiki/Progressive_enhancement))
 
-I believe that the concept of progressive enhancement can also be applied to the physical world by enhancing a device (using web connected electronics) without affecting it's existing functionality. In this way, an appliance can continue to operate as before, with no change in perceived behavior or user interface, while gaining new web connected functionality that enhances the user experience of interacting with the device digitally.
+I wanted to apply the concept of progressive enhancement to the physical world by enhancing an appliance (washer or dryer) without modifying it's existing functionality or interface. I wanted the appliance to continue to operate as before, but gain new functionality that progressively enhances the user experience of interacting with the appliance digitally (SMS notifications).
 
 <img src="/images/posts/lundry/thumb_circuit_macro.jpg" class="center" />
 
-So, in this post, I'm going to cover how I built an open source device that:
+### Goals & Overview
 
-* Magnetically attaches to a washer or dryer, requiring no modifications to the washer or dryer.
-* Measures the vibrations of a washer or dryer using an [Electric Imp](http://electricimp.com) microcontroller and an accelerometer.
-* Runs software that analyzes when the machine is running, and when it's finished a load of laundry.
-* Has a uniquely designed, 3D printable enclosure (designed by the talented John Steenson).
-* Connects to your WiFi network, enabling you to:
-  1. Receive an SMS (using [Twilio](http://twilio.com)) when the washer or dryer finishes.
-  2. Monitor the real-time state of the washer or dryer from a web page (using [Firebase](http://firebase.com)).
+Here were my goals for this project:
 
-This project will be covered in four sections:
+* Magnetically attach to the appliance, requiring no modifications.
+* Contained within a 3D printed enclosure (thanks to John Steenson for his design)
+* Accurately measure vibrations of appliance using an accelerometer.
+* Analyze the accelerometer data, determining the state of the appliance.
+* Send an SMS message to a cell phone  when the appliance finishes running.
+* Open a web page to view the real time status of the appliance.
+
+This post is broken down into three sections:
 
 * The hardware
 * The 3D printable enclosure
-* Writing the software
-* Connecting the device to the web services
+* The software
 
+Lastly, I'll end with a conclusion and some thoughts now that it's complete.
 
 ## Part 1: The Hardware
 
