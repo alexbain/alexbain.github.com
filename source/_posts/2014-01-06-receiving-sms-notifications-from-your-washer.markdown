@@ -8,42 +8,33 @@ categories: [electricimp, accelerometer, electronics]
 
 <img src="/images/posts/lundry/thumb_pebble_notification.jpg" class="center" />
 
-As I continue my experiments with embedded microcontrollers and electronics, I find myself increasingly fascinated by internet connected devices that blur the physical with the digital. It's almost as if I can fulfill the ubiquitous childhood dream of having super powers - I simply have to build the devices that enable them myself.
+Previously, I discussed how I built an [open source universal remote](http://alexba.in/blog/2013/06/08/open-source-universal-remote-parts-and-pictures/) using a RaspberryPi, an expansion board, and a [NodeJS web application](http://github.com/alexbain/lirc_web). This device allows me to control any infrared device in my home from my phone, smart watch, laptop, or other web connected device. I use the remote daily, and it's sparked my curiosity to devise new ways of enhancing my environment with internet connected devices.
 
-Previously, I discussed how I built my [open source universal remote](http://alexba.in/blog/2013/06/08/open-source-universal-remote-parts-and-pictures/) using a RaspberryPi, an expansion board I designed, and a [NodeJS web application](http://github.com/alexbain/lirc_web). This device allows me to control any infrared device in my home from my phone, smart watch, laptop, and other web connected device. I use the remote daily, and it's sparked my curiosity to devise new ways of enhancing my physical environment with thoughtful application of internet connected devices.
-
-In this post, I'm going to cover a new project I've been working on - creating a non invasive device that monitors a washer or dryer and sends a text message when a load of laundry finishes. I built this device for two reasons. First, I wanted a project that introduced me to accelerometers - a sensor I find fascinating. Second, I wanted to try applying the principles of [progressive enhancement](http://en.wikipedia.org/wiki/Progressive_enhancement), a web software concept, to the physical world.
+In this post, I'm going to cover a new project I recently finished - creating a device that monitors a washer or dryer and sends a text message when it detects that a load of laundry has finished. Beyond the novelty and simplicity of receiving a text message when the laundry is done, I built this device for two reasons. First, I wanted a project that introduced me to accelerometers - a sensor I've wanted to work with. Second, I wanted to take another stab at applying the principles of [progressive enhancement](http://en.wikipedia.org/wiki/Progressive_enhancement), a web software concept, to the physical world.
 
 > "Progressive enhancement uses web technologies in a layered fashion that allows everyone to access the basic content and functionality of a web page, [...] while also providing an enhanced version of the page to those with more advanced browser software [...]." ([Wikipedia](http://en.wikipedia.org/wiki/Progressive_enhancement))
 
-I wanted to apply the concept of progressive enhancement to the physical world by enhancing an appliance (washer or dryer) without modifying it's existing functionality or interface. I wanted the appliance to continue to operate as before, but gain new functionality that progressively enhances the user experience of interacting with the appliance digitally (SMS notifications).
+I wanted to see if I could apply the concept of progressive enhancement to the physical world by enhancing an existing appliance (in this case, a washer or dryer) with new digital functionality - without modifying it's existing form or interface. I wanted the appliance to look and behave exactly as it did before the modification, and I wanted no visual evidence that my device had been installed. After some brainstorming, I came up with an approach that met my goals. Read on to learn how I build it, and how you can build one of these devices yourself.
 
 <img src="/images/posts/lundry/thumb_circuit_macro.jpg" class="center" />
 
-### Goals & Overview
+### Overview
 
-Here were my goals for this project:
+At a high level, the project works as follows: a 3D printed enclosure magnetically attaches to the outside of the washer or dryer. Inside the enclosure is an [Electric Imp](http://electricimp.com) microcontroller and an [ADXL335 accelerometer](http://www.adafruit.com/products/163). The accelerometer measures the vibrations of the washer and dryer. The microcontroller has firmware on it that samples the accelerometer, processes the output, and periodically sends a computed result to a server in the cloud. The server receives the output and runs an algorithm that determines whether the washer or dryer is currently running. Once the server has confidently determined that the washer or dryer has finished running, it sends an SMS (using [Twilio](http://twilio.com)) to one or more predefined phone numbers.
 
-* Magnetically attach to the appliance, requiring no modifications.
-* Contained within a 3D printed enclosure (thanks to John Steenson for his design)
-* Accurately measure vibrations of appliance using an accelerometer.
-* Analyze the accelerometer data, determining the state of the appliance.
-* Send an SMS message to a cell phone  when the appliance finishes running.
-* Open a web page to view the real time status of the appliance.
-
-This post is broken down into three sections:
+I'll cover the implementation in more detail below. This post is broken down into three sections:
 
 * The hardware
 * The 3D printable enclosure
 * The software
 
-Lastly, I'll end with a conclusion and some thoughts now that it's complete.
+I'll end with a conclusion and some closing thoughts.
 
 ## Part 1: The Hardware
 
 <img src="/images/posts/lundry/thumb_hardware_device.jpg" class="center" />
 
-For this project, I purchased most of my parts from [Adafruit](http://adafruit.com), a fantastic online retailer of electronic components. Here's the full bill of materials:
+For this project, I purchased most of my parts from [Adafruit](http://adafruit.com), an online retailer of electronic components. The rest of the parts I purchased from [Amazon](http://amazon.com). Here's the bill of materials:
 
 * [Electric Imp](http://www.adafruit.com/products/1129)
 * [April dev board for Electric Imp](http://www.adafruit.com/products/1130)
@@ -58,7 +49,7 @@ For this project, I purchased most of my parts from [Adafruit](http://adafruit.c
 
 <img src="/images/posts/lundry/thumb_electric_imp.jpg" class="center" />
 
-For this project, I chose to work with the [Electric Imp](http://electricimp.com/product/) microcontroller. The Electric Imp is a microcontroller in the form factor of an SD card with a 32bit Cortex M3 processor. What I find most exciting about the Electric Imp is that it also includes an 802.11b/g/n chip, making it one of the smallest WiFi enabled microcontrollers I've found. I used the [April dev board](http://www.adafruit.com/products/1130), a breakout board from the Electric Imp team, that makes working with the Electric Imp very straightforward. You can see the dev board (green PCB) in the image underneath the "Hardware" section.
+For this project, I chose to work with the [Electric Imp](http://electricimp.com/product/) microcontroller. The Electric Imp is a microcontroller in the form factor of an SD card with a 32bit Cortex M3 processor. What I find most interesting about the Electric Imp is that it also includes an 802.11b/g/n chip, making it one of the smallest WiFi enabled microcontrollers I've found. I also used the [April development board](http://www.adafruit.com/products/1130), a breakout board from the Electric Imp team, which breaks out the pins on the imp and provides a mini USB connection for power. You can see that development board, a green circuit board, in the image beneath the "Hardware" header.
 
 Configuring the Electric Imp with your WiFi credentials is done through a clever process called [BlinkUp](http://electricimp.com/product/blinkup/). The Imp itself contains a phototransistor, which enables you to program your WiFi credentials optically, via an app on your Android or iOS device. Once you install and configure the app, the display on your phone strobes in a pattern that the Imp recognizes, which programs the WiFi credentials into the Imp. The process only takes a few seconds, and it worked flawlessly for me the first time.
 
@@ -74,7 +65,7 @@ For the accelerometer (the component that measures the vibration of the washing 
 
 <a href="/images/posts/lundry/hardware_device_2.jpg"><img src="/images/posts/lundry/thumb_hardware_device_2.jpg" class="center" /></a>
 
-The assembly of the device is relatively straightforward. First, you will need to assemble the April Dev board and the ADXL335 breakout board by soldering the header pins onto the breakout boards. Next, you'll need to solder both breakout boards into the perma-proto board. Lastly, you'll solder in the 5 wires to enable the two components to communicate. **If you intend to use the 3D printable enclosure, please ensure that the two components are mounted identically to the image above.**
+The assembly of the device is relatively straightforward. First, you will need to assemble the April development board and the ADXL335 breakout board by soldering the header pins onto the breakout boards. Next, you'll need to solder both breakout boards into the perma-proto board. Lastly, you'll solder in the 5 wires to enable the two components to communicate. **If you intend to use the 3D printable enclosure, please ensure that the two components are mounted identically to the image above.**
 
 The picture above shows how the device looks when assembled, and here are the specifics:
 
@@ -95,7 +86,7 @@ At this point you should be able to:
 
 <a href="/images/posts/lundry/empty_case.jpg"><img src="/images/posts/lundry/thumb_empty_case.jpg" class="center" /></a>
 
-For this project, I wanted a custom enclosure that would enable the device to be sealed from dust and debris. I contacted a friend of mine, John Steenson, who agreed to help me design a 3D printable enclosure for the project. He has agreed to let me post the STL files for the case, which you can download and have 3D printed yourself. I had my case printed from a local printer that I found on the [3D Hubs](http://3dhubs.com) service.
+For this project, I wanted a custom enclosure that would enable the device to be sealed from dust and debris. I contacted a friend of mine, John Steenson, who agreed to help me design a 3D printable enclosure for the project. He has agreed to let me post the STL files for the case, which you can download and have 3D printed yourself. I had my case printed from a local printer that I found on the [3D Hubs](http://3dhubs.com) service. I had a great experience with 3D Hubs, and highly suggest it if you're trying to find a local 3D printer.
 
 <a href="/images/posts/lundry/occupied_case.jpg"><img src="/images/posts/lundry/thumb_occupied_case.jpg" class="center" /></a>
 
@@ -108,16 +99,26 @@ The above photos show the device mounted in the case (with and without the lid).
 * <a href="/stl/lundry/Enclosure_base.STL">Enclosure - Base</a>
 * <a href="/stl/lundry/Enclosure_lid.STL">Enclosure - Lid</a>
 
+**Screws / nuts for mounting device within enclosure and securing lid:**
+
+All part numbers are from [McMaster-Carr](http://www.mcmaster.com/). Per my friend John, quantities noted are the quantities required for assembly, not package quantity. You'll have some extra parts, but they'll probably come in handy for future projects down the road.
+
+* 3x - 91420A008
+* 2x - 92000A015
+* 2x - 93475A195
+* 5x - 90592A004
+* 1x - 8461K12 - Trim to fit
+
 
 ## Part 3: Writing the Software
 
 When writing software for the Electric Imp, you write two programs. The first program, called the "Device", runs on the Electric Imp hardware. The second program, called the "Agent", runs on the Electric Imp cloud. The Agent has the ability to send and receive HTTP traffic, making it a perfect candidate for the Twilio API, a RESTful API that allows you to send SMS messages.
 
-For this project, the Device samples the accelerometer 50x a second. I found this to be frequent enough to get a clear picture for how much the washer or dryer is vibrating. For each sample, I determine the magnitude of the accelerometer vector and compute the percentage of change against the previous sample's magnitude. I track the amount of change over 5 seconds (250 samples), and return that value to the Agent. In my testing, I found that the average reading when the machine was turned off to be between 100 and 250. When the washer or dryer are running, I find the samples vary between 300 and 6000 depending on what stage of the cycle the machine is in.
+For this project, the Device samples the accelerometer 50x a second. I found this to be frequent enough to get a clear picture for how much the washer or dryer is vibrating. For each sample, I determine the magnitude of the accelerometer vector and compute the percentage of change against the previous sample's magnitude. I track the amount of change over 5 seconds (250 samples), and return that value to the Agent. In my testing, I found that the average reading when the machine was turned off to be between 100 and 250. When the washer or dryer are running, I find the samples vary between 275 and 6000 depending on what stage of the cycle the machine is in.
 
-The Agent receives the total amount change over the past 250 samples, and compares that against a threshold to determine if the machine is ON or OFF. If the value is above the threshold, the device is experiencing enough vibration where it's safe to call the machine ON. In my testing, I found 300 to be a good threshold to determine if the washer or dryer was running. Once the Agent receives 18 consecutive samples above the threshold (which works out to 90 seconds of data), it enters the RUNNING state. Then, at some point in the future, once the Agent receives 36 consecutive samples below the ON threshold, it returns to the OFF state. These delays help take into account lulls in vibration during a typical laundry cycle (ex: filling the washer, draining the washer). Depending on your appliances, you may need to adjust the thresholds in the Agent to reduce false positives. Finally, when returning to the OFF state, if the device was in the RUNNING state, an SMS notification is emitted (via [Twilio](http://twilio.com)) to each phone number stored in the phoneNumbers array.
+The Agent receives the total amount change over the past 250 samples, and compares that against a threshold to determine if the machine is ON or OFF. If the value is above the threshold, the device is experiencing enough vibration where it's safe to call the machine ON. In my testing, I found 280 to be a good threshold to determine if the washer or dryer was running. Once the Agent receives N consecutive samples above the threshold, it enters the RUNNING state. Then, at some point in the future, once the Agent receives M consecutive samples below the ON threshold, it returns to the OFF state. These delays help take into account lulls in vibration during a typical laundry cycle (ex: filling the washer, rinse cycle, draining the washer). Depending on your appliances, you may need to adjust the thresholds in the Agent to reduce false positives. Finally, when returning to the OFF state, if the device was in the RUNNING state, an SMS notification is emitted (via [Twilio](http://twilio.com)) to each phone number stored in the ``phoneNumbers`` array.
 
-If you'd like to read more about how to process the data coming off an accelerometer, I found [A Guide To using IMU (Accelerometer and Gyroscope Devices) in Embedded Applications.](http://www.starlino.com/imu_guide.html) to be an extremely informative read.
+If you'd like to read more about how to process the data coming off an accelerometer, I found [A Guide To using IMU (Accelerometer and Gyroscope Devices) in Embedded Applications](http://www.starlino.com/imu_guide.html) to be an extremely informative read.
 
 ** Note:** The Agent code requires you to setup a Twilio account and enter your Twilio credentials before you can send any messages. Twilio, at the time of writing this article, charges $0.01 per text message. At the rate I do laundry, it should cost < $2 a year to send these text messages.
 
@@ -128,9 +129,9 @@ You may also <a href="https://gist.github.com/alexbain/8392153">view this code</
 Here is the code for the Device, which reads in and processes the accelerometer data:
 
 ```
-local total = 0; // Sum of % change from all samples
-local n = 0;     // Counter for number of samples read
-local last = 1;  // Previous reading of magnitude
+total <- 0; // Sum of % change from all samples
+n <- 0;     // Counter for number of samples read
+last <- 1;  // Previous reading of magnitude
 
 function readSensor() {
     // Time interval
@@ -209,29 +210,29 @@ Here is the code for the Agent, which determines when to send an SMS
 // Run on Agent
 
 // Thresholds to adjust for better accuracy
-local dataThreshold = 300; // Minimum accelerometer value to count as ON
-local onThreshold = 18;    // Number of ON samples before machine enters RUNNING state
-local offThreshold = 36;   // Number of OFF samples before machine enters OFF state
+dataThreshold <- 280; // Minimum accelerometer value to count as ON
+onThreshold <- 24;    // Number of ON samples before machine enters RUNNING state
+offThreshold <- 60;   // Number of OFF samples before machine enters OFF state
 
 // State variable
-local running = false;
+running <- false;
 
 // Keep track of counts
-local onCount = 0;
-local offCount = 0;
+onCount <- 0;
+offCount <- 0;
 
 // Twilio
-local twilioURL = "https://USER:PASS@api.twilio.com/2010-04-01/Accounts/ID/Messages.json";
-local twilioHeaders = { "Content-Type": "application/x-www-form-urlencoded" };
-local twilioNumber = "+14155551212";
+twilioURL <- "https://USER:PASS@api.twilio.com/2010-04-01/Accounts/ID/Messages.json";
+twilioHeaders <- { "Content-Type": "application/x-www-form-urlencoded" };
+twilioNumber <- "+14155551212";
 
 // Array of phone numbers to be contacted with the laundry is done
-local phoneNumbers = ["+14155555555", "+14155555556"];
+phoneNumbers <- ["+14155555555", "+14155555556"];
 
 // Firebase
-local logToFirebase = false;
-local firebaseURL =  "https://FIREBASE_URL.firebaseIO.com/data.json";
-local firebaseHeaders = { "Content-Type": "application/json" };
+logToFirebase <- false;
+firebaseURL <- "https://FIREBASE_URL.firebaseIO.com/data.json";
+firebaseHeaders <- { "Content-Type": "application/json" };
 
 // Called every time the imp emits data
 device.on("data", function(data) {
@@ -314,4 +315,21 @@ device.on("data", function(data) {
 });
 ```
 
+After loading these two pieces of software onto the Electric Imp (via the web IDE), you should be ready to install the device in your home! Installation is simple - just magnetically attach the device to any metal service on the washer or dryer. Give it a whirl by doing a load of laundry and watching the log files (via the web IDE). If all goes well, you should receive a text message a few minutes after the load of laundry completes.
 
+### Conclusion
+
+I set out to build a minimally invasive device that progressively enhanced an appliance into the digital age, which didn't physically modify the appliance in any way. During the project I had the opportunity to work with a few new products - the Electric Imp, an accelerometer, and 3D printing. All in all, I'd say the project was a success. The device is currently hooked up to my washer, and while there are always potential optimizations, it works well in it's current state.
+
+This project came out of a (relatively) trivial need - to know when a load of laundry is done when you aren't in close proximity to the washer or dryer. I thought it would be clever to receive a text message when the laundry is done, since all phones support SMS and Twilio has made interacting with SMS quite easy. This also gets around the need to download or install a native app on your phone, a barrier of entry I wanted to avoid.
+
+I do recognize there are other approaches I could have taken to solving this problem - monitoring the power output of the appliance, listening for the buzzer with a microphone, or placing a photodiode over a "done" indicator - but I ultimately chose the accelerometer because I wanted to get experience working with the sensor.
+
+While I do not believe I'll be spending much additional time on this project, there are a number of potential enhancements that I see:
+
+* Adding a battery, to make the device portable.
+* Swapping out a WiFi chip for a GSM chip, allowing you to take the device to a laundromat.
+* Designing a custom circuit board, to dramatically reduce the size of the device.
+* Creating a waterproof (and heat tolerant) device/enclosure so you can place the device inside the washer/dryer. This would be more secure than leaving a device on top of a machine.
+
+Hopefully you found this post helpful if you're trying to implement a similar device yourself. If you have any questions, feel free to ask in the comments. If you're interested in having one of these devices for yourself, but don't want to build one, send me an email at [alex@alexba.in](mailto:alex@alexba.in) and we can work something out.
