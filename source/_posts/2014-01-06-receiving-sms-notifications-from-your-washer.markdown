@@ -14,7 +14,7 @@ In this post, I'm going to cover a new project I recently finished - creating a 
 
 > "Progressive enhancement uses web technologies in a layered fashion that allows everyone to access the basic content and functionality of a web page, [...] while also providing an enhanced version of the page to those with more advanced browser software [...]." ([Wikipedia](http://en.wikipedia.org/wiki/Progressive_enhancement))
 
-I wanted to see if I could apply the concept of progressive enhancement to the physical world by enhancing an existing appliance (in this case, a washer or dryer) with new digital functionality - without modifying it's existing form or interface. I wanted the appliance to look and behave exactly as it did before the modification, and I wanted no visual evidence that my device had been installed. After some brainstorming, I came up with an approach that met my goals. Read on to learn how I build it, and how you can build one of these devices yourself.
+I wanted to see if I could apply the concept of progressive enhancement to the physical world by enhancing an existing appliance (in this case, a washer or dryer) with new digital functionality - without modifying it's existing form or interface. I wanted the appliance to look and behave exactly as it did before the modification, and I wanted no visual evidence that my device had been installed. After some brainstorming, I came up with an approach that met my goals. Read on to learn how I build it, and how you can build one yourself.
 
 <img src="/images/posts/lundry/thumb_circuit_macro.jpg" class="center" />
 
@@ -319,11 +319,11 @@ After loading these two pieces of software onto the Electric Imp (via the web ID
 
 ### Conclusion
 
-I set out to build a minimally invasive device that progressively enhanced an appliance into the digital age, which didn't physically modify the appliance in any way. During the project I had the opportunity to work with a few new products - the Electric Imp, an accelerometer, and 3D printing. All in all, I'd say the project was a success. The device is currently hooked up to my washer, and while there are always potential optimizations, it works well in it's current state.
+I set out to build a minimally invasive device that progressively enhanced an appliance into the digital age, which didn't physically modify the appliance in any way. During the project I had the opportunity to work with a few new technologies - the Electric Imp, an accelerometer, and 3D printing. All in all, I'd say the project was a success. The device is currently hooked up to my washer, and it works well in it's current state.
 
-This project came out of a (relatively) trivial need - to know when a load of laundry is done when you aren't in close proximity to the washer or dryer. I thought it would be clever to receive a text message when the laundry is done, since all phones support SMS and Twilio has made interacting with SMS quite easy. This also gets around the need to download or install a native app on your phone, a barrier of entry I wanted to avoid.
+This project came out of a (relatively) trivial need - to know when a load of laundry is done when you aren't in close proximity to the washer or dryer. I thought it would be clever to receive a text message when the laundry is done, since all phones support SMS and Twilio has made interacting with SMS easy. This also gets around the need to download or install a native app on your phone.
 
-I do recognize there are other approaches I could have taken to solving this problem - monitoring the power output of the appliance, listening for the buzzer with a microphone, or placing a photodiode over a "done" indicator - but I ultimately chose the accelerometer because I wanted to get experience working with the sensor.
+I do recognize there are other approaches to solving this problem - monitoring the power output of the appliance, listening for the buzzer with a microphone, or placing a photodiode over a "done" indicator - but I ultimately chose the accelerometer because I wanted to gain experience working with the sensor.
 
 While I do not believe I'll be spending much additional time on this project, there are a number of potential enhancements that I see:
 
