@@ -4,7 +4,7 @@
   <title><![CDATA[Category: osx | alexba.in]]></title>
   <link href="http://alexba.in/blog/categories/osx/atom.xml" rel="self"/>
   <link href="http://alexba.in/"/>
-  <updated>2013-11-16T17:42:55+00:00</updated>
+  <updated>2014-01-26T19:22:57+00:00</updated>
   <id>http://alexba.in/</id>
   <author>
     <name><![CDATA[Alex Bain]]></name>
@@ -42,14 +42,10 @@
 </ul>
 
 
-<p>``` bash .bash_profile</p>
-
-<pre><code>  chrome () {
-    open -a "/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome" "$1"
-  }
+<pre><code class="bash .bash_profile">      chrome () {
+        open -a "/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome" "$1"
+      }
 </code></pre>
-
-<p>```</p>
 
 <ul>
 <li>Save and close the file.</li>

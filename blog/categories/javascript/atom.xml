@@ -4,7 +4,7 @@
   <title><![CDATA[Category: javascript | alexba.in]]></title>
   <link href="http://alexba.in/blog/categories/javascript/atom.xml" rel="self"/>
   <link href="http://alexba.in/"/>
-  <updated>2013-11-16T17:42:55+00:00</updated>
+  <updated>2014-01-26T19:22:57+00:00</updated>
   <id>http://alexba.in/</id>
   <author>
     <name><![CDATA[Alex Bain]]></name>
@@ -226,27 +226,22 @@ to this error I was able to replace a missing image with an image of my choice.<
 
 <p>Here's a sample implementation that binds a callback onto the <code>onerror</code> event:</p>
 
-<p>``` javascript</p>
+<pre><code class="javascript">
+var checkForMissingImage = function (url, callback) {
 
-<p>var checkForMissingImage = function (url, callback) {</p>
+  // Create an Image object in memory
+  var img = new Image();
 
-<p>  // Create an Image object in memory
-  var img = new Image();</p>
+  // Bind the callback to the onerror event
+  img.onerror = function() {
+    callback();
+  };
 
-<p>  // Bind the callback to the onerror event
-  img.onerror = function() {</p>
+  // Set the src of the image to the url provided
+  img.src = url;
 
-<pre><code>callback();
+};
 </code></pre>
-
-<p>  };</p>
-
-<p>  // Set the src of the image to the url provided
-  img.src = url;</p>
-
-<p>};</p>
-
-<p>```</p>
 
 <p>Here's an example that involves replacing all images with class userpic on a page.</p>
 
@@ -262,9 +257,7 @@ to this error I was able to replace a missing image with an image of my choice.<
 
 <p><img src="http://placekitten.com.s3.amazonaws.com/homepage-samples/200/287.jpg" class="userpic" /></p>
 
-<p>```</p>
-
-<p>``` javascript</p>
+<pre><code></code></pre>
 
 <p>$(function() {</p>
 

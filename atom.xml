@@ -4,7 +4,7 @@
   <title><![CDATA[alexba.in]]></title>
   <link href="http://alexba.in/atom.xml" rel="self"/>
   <link href="http://alexba.in/"/>
-  <updated>2013-11-16T17:42:55+00:00</updated>
+  <updated>2014-01-26T19:22:57+00:00</updated>
   <id>http://alexba.in/</id>
   <author>
     <name><![CDATA[Alex Bain]]></name>
@@ -12,6 +12,537 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Receiving SMS notifications from your washer & dryer]]></title>
+    <link href="http://alexba.in/blog/2014/01/06/receiving-sms-notifications-from-your-washer/"/>
+    <updated>2014-01-06T03:05:00+00:00</updated>
+    <id>http://alexba.in/blog/2014/01/06/receiving-sms-notifications-from-your-washer</id>
+    <content type="html"><![CDATA[<p><img src="http://alexba.in/images/posts/lundry/thumb_pebble_notification.jpg" class="center" /></p>
+
+<p>Previously, I discussed how I built an <a href="http://alexba.in/blog/2013/06/08/open-source-universal-remote-parts-and-pictures/">open source universal remote</a> using a RaspberryPi, an expansion board, and a <a href="http://github.com/alexbain/lirc_web">NodeJS web application</a>. This device allows me to control any infrared device in my home from my phone, smart watch, laptop, or other web connected device. I use the remote daily, and it&#8217;s sparked my curiosity to devise new ways of enhancing my environment with internet connected devices.</p>
+
+<p>In this post, I&#8217;m going to cover a new project I recently finished - creating a device that monitors a washer or dryer and sends a text message when it detects that a load of laundry has finished. Beyond the novelty and simplicity of receiving a text message when the laundry is done, I built this device for two reasons. First, I wanted a project that introduced me to accelerometers - a sensor I&#8217;ve wanted to work with. Second, I wanted to take another stab at applying the principles of <a href="http://en.wikipedia.org/wiki/Progressive_enhancement">progressive enhancement</a>, a web software concept, to the physical world.</p>
+
+<blockquote><p>&#8220;Progressive enhancement uses web technologies in a layered fashion that allows everyone to access the basic content and functionality of a web page, [&#8230;] while also providing an enhanced version of the page to those with more advanced browser software [&#8230;].&#8221; (<a href="http://en.wikipedia.org/wiki/Progressive_enhancement">Wikipedia</a>)</p></blockquote>
+
+<p>I wanted to see if I could apply the concept of progressive enhancement to the physical world by enhancing an existing appliance (in this case, a washer or dryer) with new digital functionality - without modifying it&#8217;s existing form or interface. I wanted the appliance to look and behave exactly as it did before the modification, and I wanted no visual evidence that my device had been installed. After some brainstorming, I came up with an approach that met my goals. Read on to learn how I build it, and how you can build one yourself.</p>
+
+<p><img src="http://alexba.in/images/posts/lundry/thumb_circuit_macro.jpg" class="center" /></p>
+
+<h3>Overview</h3>
+
+<p>At a high level, the project works as follows: a 3D printed enclosure magnetically attaches to the outside of the washer or dryer. Inside the enclosure is an <a href="http://electricimp.com">Electric Imp</a> microcontroller and an <a href="http://www.adafruit.com/products/163">ADXL335 accelerometer</a>. The accelerometer measures the vibrations of the washer and dryer. The microcontroller has firmware on it that samples the accelerometer, processes the output, and periodically sends a computed result to a server in the cloud. The server receives the output and runs an algorithm that determines whether the washer or dryer is currently running. Once the server has confidently determined that the washer or dryer has finished running, it sends an SMS (using <a href="http://twilio.com">Twilio</a>) to one or more predefined phone numbers.</p>
+
+<p>I&#8217;ll cover the implementation in more detail below. This post is broken down into three sections:</p>
+
+<ul>
+<li>The hardware</li>
+<li>The 3D printable enclosure</li>
+<li>The software</li>
+</ul>
+
+
+<p>I&#8217;ll end with a conclusion and some closing thoughts.</p>
+
+<h2>Part 1: The Hardware</h2>
+
+<p><img src="http://alexba.in/images/posts/lundry/thumb_hardware_device.jpg" class="center" /></p>
+
+<p>For this project, I purchased most of my parts from <a href="http://adafruit.com">Adafruit</a>, an online retailer of electronic components. The rest of the parts I purchased from <a href="http://amazon.com">Amazon</a>. Here&#8217;s the bill of materials:</p>
+
+<ul>
+<li><a href="http://www.adafruit.com/products/1129">Electric Imp</a></li>
+<li><a href="http://www.adafruit.com/products/1130">April dev board for Electric Imp</a></li>
+<li><a href="http://www.adafruit.com/products/163">ADXL335 analog 3.3V +-3g accelerometer</a></li>
+<li><a href="http://www.adafruit.com/products/589">Quarter size perma-proto breadboard</a></li>
+<li><a href="http://www.adafruit.com/products/501">USB power supply</a></li>
+<li><a href="http://www.amazon.com/AmazonBasics-A-Male-Mini-B-Cable-Meters/dp/B001TH7GUK/ref=sr_1_1?ie=UTF8&amp;qid=1388982594&amp;sr=8-1&amp;keywords=usb+mini">USB A to Mini B cable</a></li>
+<li><a href="http://www.adafruit.com/products/289">Solid core wire</a></li>
+<li>2 small rare earth magnets (available from any hardware store)</li>
+</ul>
+
+
+<h3>Electric Imp</h3>
+
+<p><img src="http://alexba.in/images/posts/lundry/thumb_electric_imp.jpg" class="center" /></p>
+
+<p>For this project, I chose to work with the <a href="http://electricimp.com/product/">Electric Imp</a> microcontroller. The Electric Imp is a microcontroller in the form factor of an SD card with a 32bit Cortex M3 processor. What I find most interesting about the Electric Imp is that it also includes an 802.11b/g/n chip, making it one of the smallest WiFi enabled microcontrollers I&#8217;ve found. I also used the <a href="http://www.adafruit.com/products/1130">April development board</a>, a breakout board from the Electric Imp team, which breaks out the pins on the imp and provides a mini USB connection for power. You can see that development board, a green circuit board, in the image beneath the &#8220;Hardware&#8221; header.</p>
+
+<p>Configuring the Electric Imp with your WiFi credentials is done through a clever process called <a href="http://electricimp.com/product/blinkup/">BlinkUp</a>. The Imp itself contains a phototransistor, which enables you to program your WiFi credentials optically, via an app on your Android or iOS device. Once you install and configure the app, the display on your phone strobes in a pattern that the Imp recognizes, which programs the WiFi credentials into the Imp. The process only takes a few seconds, and it worked flawlessly for me the first time.</p>
+
+<p>Once you&#8217;ve programmed your WiFi credentials onto the Imp, it will automatically connect to the Electric Imp cloud service. From there, you&#8217;re able to login to the web based IDE and program the imp via your web browser. The IDE handles deploying code updates to the device, as well. I&#8217;d like to see a GitHub integration, which would provide version control, so hopefully that&#8217;s on their roadmap.</p>
+
+<h3>ADXL335 Analog Accelerometer</h3>
+
+<p><img src="http://alexba.in/images/posts/lundry/thumb_adxl335.jpg" class="center" /></p>
+
+<p>For the accelerometer (the component that measures the vibration of the washing machine / dryer), I chose the <a href="http://www.analog.com/static/imported-files/data_sheets/ADXL335.pdf">ADXL335</a>. The ADXL335 is a 3.3V analog accelerometer sensitive to +- 3g. The device itself is widely used, and I found plenty of documentation online. In addition, <a href="http://adafruit.com">Adafruit</a> sells a breakout board (listed above in the bill of materials) that made including the device in my project an easy decision. The breakout board that Adafruit sells also allows you to connect the accelerometer to a 5V microcontroller, such as an Arduino.</p>
+
+<h3>Assembling the Hardware</h3>
+
+<p><a href="http://alexba.in/images/posts/lundry/hardware_device_2.jpg"><img src="http://alexba.in/images/posts/lundry/thumb_hardware_device_2.jpg" class="center" /></a></p>
+
+<p>The assembly of the device is relatively straightforward. First, you will need to assemble the April development board and the ADXL335 breakout board by soldering the header pins onto the breakout boards. Next, you&#8217;ll need to solder both breakout boards into the perma-proto board. Lastly, you&#8217;ll solder in the 5 wires to enable the two components to communicate. <strong>If you intend to use the 3D printable enclosure, please ensure that the two components are mounted identically to the image above.</strong></p>
+
+<p>The picture above shows how the device looks when assembled, and here are the specifics:</p>
+
+<ul>
+<li>Pin 1 from Electric Imp is connected to the X-out pin on accelerometer.</li>
+<li>Pin 2 from the Electric Imp is connected to the Y-out pin on accelerometer.</li>
+<li>Pin 5 from the Electric Imp is connected to the Z-out pin on accelerometer.</li>
+<li>3V3 pin from Electric Imp is connected to the Vin pin on accelerometer.</li>
+<li>GND pin from Electric Imp is connected to GND pin on accelerometer.</li>
+</ul>
+
+
+<p>At this point you should be able to:</p>
+
+<ul>
+<li>Boot the device up with a USB power supply</li>
+<li>Program the Electric Imp to connect to your WiFi</li>
+<li>Log into the Electric Imp web based IDE to program the device</li>
+</ul>
+
+
+<h2>Part 2: The 3D Printable Enclosure</h2>
+
+<p><a href="http://alexba.in/images/posts/lundry/empty_case.jpg"><img src="http://alexba.in/images/posts/lundry/thumb_empty_case.jpg" class="center" /></a></p>
+
+<p>For this project, I wanted a custom enclosure that would enable the device to be sealed from dust and debris. I contacted a friend of mine, John Steenson, who agreed to help me design a 3D printable enclosure for the project. He has agreed to let me post the STL files for the case, which you can download and have 3D printed yourself. I had my case printed from a local printer that I found on the <a href="http://3dhubs.com">3D Hubs</a> service. I had a great experience with 3D Hubs, and highly suggest it if you&#8217;re trying to find a local 3D printer.</p>
+
+<p><a href="http://alexba.in/images/posts/lundry/occupied_case.jpg"><img src="http://alexba.in/images/posts/lundry/thumb_occupied_case.jpg" class="center" /></a></p>
+
+<p><a href="http://alexba.in/images/posts/lundry/case_with_lid.jpg"><img src="http://alexba.in/images/posts/lundry/thumb_case_with_lid.jpg" class="center" /></a></p>
+
+<p>The above photos show the device mounted in the case (with and without the lid). Inside of the case, but beneath the device, I have attached (with two sided tape) the two rare earth magnets. I then placed a thin sheet of plastic between the magnets and the device to ensure there is no chance of electrical short. I have not found that the magnets interfere with the device in any way. The two magnets are what enables the device to attach to the washer or dryer.</p>
+
+<p><strong>STL files for the 3D printable enclosure:</strong></p>
+
+<ul>
+<li><a href="http://alexba.in/stl/lundry/Enclosure_base.STL">Enclosure - Base</a></li>
+<li><a href="http://alexba.in/stl/lundry/Enclosure_lid.STL">Enclosure - Lid</a></li>
+</ul>
+
+
+<p><strong>Screws / nuts for mounting device within enclosure and securing lid:</strong></p>
+
+<p>All part numbers are from <a href="http://www.mcmaster.com/">McMaster-Carr</a>. Per my friend John, quantities noted are the quantities required for assembly, not package quantity. You&#8217;ll have some extra parts, but they&#8217;ll probably come in handy for future projects down the road.</p>
+
+<ul>
+<li>3x - 91420A008</li>
+<li>2x - 92000A015</li>
+<li>2x - 93475A195</li>
+<li>5x - 90592A004</li>
+<li>1x - 8461K12 - Trim to fit</li>
+</ul>
+
+
+<h2>Part 3: Writing the Software</h2>
+
+<p>When writing software for the Electric Imp, you write two programs. The first program, called the &#8220;Device&#8221;, runs on the Electric Imp hardware. The second program, called the &#8220;Agent&#8221;, runs on the Electric Imp cloud. The Agent has the ability to send and receive HTTP traffic, making it a perfect candidate for the Twilio API, a RESTful API that allows you to send SMS messages.</p>
+
+<p>For this project, the Device samples the accelerometer 50x a second. I found this to be frequent enough to get a clear picture for how much the washer or dryer is vibrating. For each sample, I determine the magnitude of the accelerometer vector and compute the percentage of change against the previous sample&#8217;s magnitude. I track the amount of change over 5 seconds (250 samples), and return that value to the Agent. In my testing, I found that the average reading when the machine was turned off to be between 100 and 250. When the washer or dryer are running, I find the samples vary between 275 and 6000 depending on what stage of the cycle the machine is in.</p>
+
+<p>The Agent receives the total amount change over the past 250 samples, and compares that against a threshold to determine if the machine is ON or OFF. If the value is above the threshold, the device is experiencing enough vibration where it&#8217;s safe to call the machine ON. In my testing, I found 280 to be a good threshold to determine if the washer or dryer was running. Once the Agent receives N consecutive samples above the threshold, it enters the RUNNING state. Then, at some point in the future, once the Agent receives M consecutive samples below the ON threshold, it returns to the OFF state. These delays help take into account lulls in vibration during a typical laundry cycle (ex: filling the washer, rinse cycle, draining the washer). Depending on your appliances, you may need to adjust the thresholds in the Agent to reduce false positives. Finally, when returning to the OFF state, if the device was in the RUNNING state, an SMS notification is emitted (via <a href="http://twilio.com">Twilio</a>) to each phone number stored in the <code>phoneNumbers</code> array.</p>
+
+<p>If you&#8217;d like to read more about how to process the data coming off an accelerometer, I found <a href="http://www.starlino.com/imu_guide.html">A Guide To using IMU (Accelerometer and Gyroscope Devices) in Embedded Applications</a> to be an extremely informative read.</p>
+
+<p><strong> Note:</strong> The Agent code requires you to setup a Twilio account and enter your Twilio credentials before you can send any messages. Twilio, at the time of writing this article, charges $0.01 per text message. At the rate I do laundry, it should cost &lt; $2 a year to send these text messages.</p>
+
+<p><strong>Note2:</strong> If you would like to log all of your data to a persistent data store (either to show on a web page, or just to analyze output), <a href="http://firebase.com">Firebase</a> is a great option, and they have a free tier. Just change <code>logToFirebase</code> to be <code>true</code> and enter your Firebase URL if you want to enable this feature.</p>
+
+<p>You may also <a href="https://gist.github.com/alexbain/8392153">view this code</a> on GitHub.</p>
+
+<p>Here is the code for the Device, which reads in and processes the accelerometer data:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>total &lt;- 0; // Sum of % change from all samples
+</span><span class='line'>n &lt;- 0;     // Counter for number of samples read
+</span><span class='line'>last &lt;- 1;  // Previous reading of magnitude
+</span><span class='line'>
+</span><span class='line'>function readSensor() {
+</span><span class='line'>    // Time interval
+</span><span class='line'>    local interval = 0.02;
+</span><span class='line'>
+</span><span class='line'>    // Get source voltage, should be 3.3V
+</span><span class='line'>    local vRef = hardware.voltage();
+</span><span class='line'>
+</span><span class='line'>    // Read in ADC values from accelerometer
+</span><span class='line'>    local adcRx = hardware.pin1.read();
+</span><span class='line'>    local adcRy = hardware.pin2.read();
+</span><span class='line'>    local adcRz = hardware.pin5.read();
+</span><span class='line'>    // server.log(format("Raw ADC values: %f, %f, %f", adcRx, adcRy, adcRz));
+</span><span class='line'>
+</span><span class='line'>    // Convert 16bit ADC accelerometer values (0-65535) into voltage
+</span><span class='line'>    local voltsRx = (adcRx * vRef) / 65535.0;
+</span><span class='line'>    local voltsRy = (adcRy * vRef) / 65535.0;
+</span><span class='line'>    local voltsRz = (adcRz * vRef) / 65535.0;
+</span><span class='line'>    // server.log(format("Voltages: %f, %f %f", voltsRx, voltsRy, voltsRz));
+</span><span class='line'>
+</span><span class='line'>    // Subtract 0g (1.5V at 3V, 1.65V at 3.3V)
+</span><span class='line'>    local deltaVoltsRx = voltsRx - (vRef / 2);
+</span><span class='line'>    local deltaVoltsRy = voltsRy - (vRef / 2);
+</span><span class='line'>    local deltaVoltsRz = voltsRz - (vRef / 2);
+</span><span class='line'>    // server.log(format("Adjusted voltages %f, %f, %f", deltaVoltsRx, deltaVoltsRy, deltaVoltsRz));
+</span><span class='line'>
+</span><span class='line'>    // Convert from voltage to g, using sensitivity of 300mV
+</span><span class='line'>    local rX = deltaVoltsRx / 0.3;
+</span><span class='line'>    local rY = deltaVoltsRy / 0.3;
+</span><span class='line'>    local rZ = deltaVoltsRz / 0.3;
+</span><span class='line'>    // server.log(format("Gs: %f, %f, %f", rX, rY, rZ));
+</span><span class='line'>
+</span><span class='line'>    // Compute magnitude of force
+</span><span class='line'>    local magnitude = math.sqrt(math.pow(rX,2) + math.pow(rY, 2) + math.pow(rZ, 2));
+</span><span class='line'>
+</span><span class='line'>    // Compute % change since last reading
+</span><span class='line'>    local change = math.fabs((magnitude - last)/last) * 100.0;
+</span><span class='line'>
+</span><span class='line'>    // Store magnitude in last for next time
+</span><span class='line'>    last = magnitude;
+</span><span class='line'>
+</span><span class='line'>    // Log magnitude and percent change
+</span><span class='line'>    // server.log(format("magnitude: %f, change amount: %f", magnitude, change));
+</span><span class='line'>
+</span><span class='line'>    // Increment total with % change, increment N
+</span><span class='line'>    total = total + change;
+</span><span class='line'>    n = n + 1;
+</span><span class='line'>
+</span><span class='line'>    // Log data to server once ever 250 samples (5 seconds)
+</span><span class='line'>    if (n &gt;= 250) {
+</span><span class='line'>        agent.send("data", total);
+</span><span class='line'>        n = 0;
+</span><span class='line'>        total = 0;
+</span><span class='line'>    }
+</span><span class='line'>
+</span><span class='line'>    // Sleep until time to read sensor again
+</span><span class='line'>    imp.wakeup(interval, readSensor);
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>// X input
+</span><span class='line'>hardware.pin1.configure(ANALOG_IN);
+</span><span class='line'>
+</span><span class='line'>// Y input
+</span><span class='line'>hardware.pin2.configure(ANALOG_IN);
+</span><span class='line'>
+</span><span class='line'>// Z input
+</span><span class='line'>hardware.pin5.configure(ANALOG_IN);
+</span><span class='line'>
+</span><span class='line'>// Start reading the sensor
+</span><span class='line'>readSensor();</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Here is the code for the Agent, which determines when to send an SMS</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>// Run on Agent
+</span><span class='line'>
+</span><span class='line'>// Thresholds to adjust for better accuracy
+</span><span class='line'>dataThreshold &lt;- 280; // Minimum accelerometer value to count as ON
+</span><span class='line'>onThreshold &lt;- 24;    // Number of ON samples before machine enters RUNNING state
+</span><span class='line'>offThreshold &lt;- 60;   // Number of OFF samples before machine enters OFF state
+</span><span class='line'>
+</span><span class='line'>// State variable
+</span><span class='line'>running &lt;- false;
+</span><span class='line'>
+</span><span class='line'>// Keep track of counts
+</span><span class='line'>onCount &lt;- 0;
+</span><span class='line'>offCount &lt;- 0;
+</span><span class='line'>
+</span><span class='line'>// Twilio
+</span><span class='line'>twilioURL &lt;- "https://USER:PASS@api.twilio.com/2010-04-01/Accounts/ID/Messages.json";
+</span><span class='line'>twilioHeaders &lt;- { "Content-Type": "application/x-www-form-urlencoded" };
+</span><span class='line'>twilioNumber &lt;- "+14155551212";
+</span><span class='line'>
+</span><span class='line'>// Array of phone numbers to be contacted with the laundry is done
+</span><span class='line'>phoneNumbers &lt;- ["+14155555555", "+14155555556"];
+</span><span class='line'>
+</span><span class='line'>// Firebase
+</span><span class='line'>logToFirebase &lt;- false;
+</span><span class='line'>firebaseURL &lt;- "https://FIREBASE_URL.firebaseIO.com/data.json";
+</span><span class='line'>firebaseHeaders &lt;- { "Content-Type": "application/json" };
+</span><span class='line'>
+</span><span class='line'>// Called every time the imp emits data
+</span><span class='line'>device.on("data", function(data) {
+</span><span class='line'>
+</span><span class='line'>    // Is there enough accelerometer activity for the device to be considered ON?
+</span><span class='line'>    if (data &gt;= dataThreshold) {
+</span><span class='line'>        onCount = onCount + 1;
+</span><span class='line'>
+</span><span class='line'>        // Prevent overflow errors by resetting onCount when it gets close to limit
+</span><span class='line'>        if (onCount &gt;= 65500) {
+</span><span class='line'>            onCount = onThreshold;
+</span><span class='line'>        }
+</span><span class='line'>
+</span><span class='line'>        // If the device has been ON for long enough, set running state to be true
+</span><span class='line'>        if (onCount &gt;= onThreshold) {
+</span><span class='line'>            running = true;
+</span><span class='line'>
+</span><span class='line'>            // Running, so reset offCount
+</span><span class='line'>            offCount = 0;
+</span><span class='line'>        }
+</span><span class='line'>
+</span><span class='line'>        // debug / logs
+</span><span class='line'>        if (running == true) {
+</span><span class='line'>            server.log(format("ON - RUNNING (%f), onCount (%d), offCount (%d)", data, onCount, offCount));
+</span><span class='line'>        } else {
+</span><span class='line'>            server.log(format("ON (%f), onCount (%d), offCount (%d)", data, onCount, offCount));
+</span><span class='line'>        }
+</span><span class='line'>
+</span><span class='line'>    // Imp is not recording much accelerometer movement, so device seems to be OFF
+</span><span class='line'>    } else {
+</span><span class='line'>        offCount = offCount + 1;
+</span><span class='line'>
+</span><span class='line'>        // Prevent overflow errors by resetting offCount when it gets close to limit
+</span><span class='line'>        if (offCount &gt;= 65500) {
+</span><span class='line'>            offCount = offThreshold;
+</span><span class='line'>        }
+</span><span class='line'>
+</span><span class='line'>        // Has the device been off for long enough to be "done"?
+</span><span class='line'>        if (offCount &gt;= offThreshold) {
+</span><span class='line'>
+</span><span class='line'>            // Was the device previously running?
+</span><span class='line'>            if (running == true) {
+</span><span class='line'>
+</span><span class='line'>                // This means that the laundry had been running, and is now done.
+</span><span class='line'>
+</span><span class='line'>                // Send an SMS to each phone number in the phoneNumbers array.
+</span><span class='line'>                foreach (number in phoneNumbers) {
+</span><span class='line'>                    local body = format("To=%s&From=%s&Body=The%%20laundry%%20is%%20done.", number, twilioNumber);
+</span><span class='line'>                    local request = http.post(twilioURL, twilioHeaders, body);
+</span><span class='line'>                    local response = request.sendasync(function(done) {});
+</span><span class='line'>                }
+</span><span class='line'>
+</span><span class='line'>                // debug / logs
+</span><span class='line'>                server.log("!!!! Emitting OFF event !!!!");
+</span><span class='line'>            }
+</span><span class='line'>
+</span><span class='line'>            // Reset on count
+</span><span class='line'>            onCount = 0;
+</span><span class='line'>
+</span><span class='line'>            // Machine is no longer running
+</span><span class='line'>            running = false;
+</span><span class='line'>        }
+</span><span class='line'>
+</span><span class='line'>        // debug / logs
+</span><span class='line'>        if (running == true) {
+</span><span class='line'>            server.log(format("OFF - WAS RUNNING (%f), onCount (%d), offCount (%d)", data, onCount, offCount));
+</span><span class='line'>        } else {
+</span><span class='line'>            server.log(format("OFF (%f), onCount (%d), offCount (%d)", data, onCount, offCount));
+</span><span class='line'>        }
+</span><span class='line'>    }
+</span><span class='line'>
+</span><span class='line'>    if (logToFirebase == true) {
+</span><span class='line'>        // Build a post request to Firebase to log the data
+</span><span class='line'>        local body = format("{\"amount\": %f, \"running\": %s, \".priority\": %d}", data, running ? "true" : "false", time());
+</span><span class='line'>        local request = http.post(firebaseURL, firebaseHeaders, body);
+</span><span class='line'>
+</span><span class='line'>        // Send the data to Firebase async
+</span><span class='line'>        local response = request.sendasync(function(done) {});
+</span><span class='line'>    }
+</span><span class='line'>});</span></code></pre></td></tr></table></div></figure>
+
+
+<p>After loading these two pieces of software onto the Electric Imp (via the web IDE), you should be ready to install the device in your home! Installation is simple - just magnetically attach the device to any metal service on the washer or dryer. Give it a whirl by doing a load of laundry and watching the log files (via the web IDE). If all goes well, you should receive a text message a few minutes after the load of laundry completes.</p>
+
+<h3>Conclusion</h3>
+
+<p>I set out to build a minimally invasive device that progressively enhanced an appliance into the digital age, which didn&#8217;t physically modify the appliance in any way. During the project I had the opportunity to work with a few new technologies - the Electric Imp, an accelerometer, and 3D printing. All in all, I&#8217;d say the project was a success. The device is currently hooked up to my washer, and it works well in it&#8217;s current state.</p>
+
+<p>This project came out of a (relatively) trivial need - to know when a load of laundry is done when you aren&#8217;t in close proximity to the washer or dryer. I thought it would be clever to receive a text message when the laundry is done, since all phones support SMS and Twilio has made interacting with SMS easy. This also gets around the need to download or install a native app on your phone.</p>
+
+<p>I do recognize there are other approaches to solving this problem - monitoring the power output of the appliance, listening for the buzzer with a microphone, or placing a photodiode over a &#8220;done&#8221; indicator - but I ultimately chose the accelerometer because I wanted to gain experience working with the sensor.</p>
+
+<p>While I do not believe I&#8217;ll be spending much additional time on this project, there are a number of potential enhancements that I see:</p>
+
+<ul>
+<li>Adding a battery, to make the device portable.</li>
+<li>Swapping out a WiFi chip for a GSM chip, allowing you to take the device to a laundromat.</li>
+<li>Designing a custom circuit board, to dramatically reduce the size of the device.</li>
+<li>Creating a waterproof (and heat tolerant) device/enclosure so you can place the device inside the washer/dryer. This would be more secure than leaving a device on top of a machine.</li>
+</ul>
+
+
+<p>Hopefully you found this post helpful if you&#8217;re trying to implement a similar device yourself. If you have any questions, feel free to ask in the comments. If you&#8217;re interested in having one of these devices for yourself, but don&#8217;t want to build one, send me an email at <a href="mailto:alex@alexba.in">alex@alexba.in</a> and we can work something out.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Running lirc_web with nginx and upstart]]></title>
@@ -1303,23 +1834,6 @@ to this error I was able to replace a missing image with an image of my choice.<
 
 <p>As <code>onerror</code> support isn&#8217;t universal across every browser this should be
 considered a visual enhancement for users with modern browsers.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Undefined macro: AC_PROG_LIBTOOL]]></title>
-    <link href="http://alexba.in/blog/2012/07/07/undefined-macro-ac-prog-libtool/"/>
-    <updated>2012-07-07T23:00:00+00:00</updated>
-    <id>http://alexba.in/blog/2012/07/07/undefined-macro-ac-prog-libtool</id>
-    <content type="html"><![CDATA[<p>While trying to install LIRC on my RaspberryPi I ran into this error:</p>
-
-<p><code>configure.ac:24: error: possibly undefined macro: AC_PROG_LIBTOOL</code></p>
-
-<p>The solution that worked for me (on Debian Wheezy) was:</p>
-
-<p><code>sudo apt-get install libtools</code></p>
-
-<p>Hope that helps someone else out there.</p>
 ]]></content>
   </entry>
   

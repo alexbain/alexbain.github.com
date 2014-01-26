@@ -9,7 +9,7 @@
   <meta name="author" content="Alex Bain">
 
   
-  <meta name="description" content="Here are five steps to follow if you want to start using a RaspberryPi to power a company dashboard. I&#8217;ve just finished putting this together &hellip;">
+  <meta name="description" content="Here&#8217;s how I installed NodeJS on my RaspberryPi: Upgrade to the latest OS / Firmware If you have not already upgraded to the latest version of &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -59,6 +59,93 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/01/15/installing-nodejs-on-your-raspberrypi/">Installing NodeJS on Your RaspberryPi</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-15T12:04:00+00:00" pubdate data-updated="true">Jan 15<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/01/15/installing-nodejs-on-your-raspberrypi/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Here&#8217;s how I installed <a href="http://nodejs.org/">NodeJS</a> on my RaspberryPi:</p>
+
+<h3>Upgrade to the latest OS / Firmware</h3>
+
+<p>If you have not already upgraded to the latest version of Raspbian OS and the
+latest RaspberryPi firmware, I recommend following my <a href="http://alexba.in/blog/2013/01/04/raspberrypi-quickstart/">RaspberryPi Quickstart</a>.</p>
+
+<h3>Getting and Compiling NodeJS</h3>
+
+<p>Once your RaspberryPi is up to date, here&#8217;s how to download and compile NodeJS:</p>
+
+<pre><code># Install some prerequisites
+sudo apt-get install python g++ make
+
+# Grab the latest version of NodeJS
+mkdir ~/nodejs &amp;&amp; cd $_
+wget -N http://nodejs.org/dist/node-latest.tar.gz
+tar xzvf node-latest.tar.gz &amp;&amp; cd `ls -rd node-v*`
+
+# Compile and install to your RaspberryPi
+./configure
+make
+sudo make install
+</code></pre>
+
+<p>Please note that it takes about two hours to compile NodeJS.</p>
+
+<h3>Confirming Installation</h3>
+
+<p>You can confirm that NodeJS was installed correctly by running:</p>
+
+<pre><code>node -v
+npm --help
+</code></pre>
+
+<p>That&#8217;s it! You&#8217;re ready to begin development.</p>
+
+<h3>Additional Reading:</h3>
+
+<p>If you&#8217;d like to do some additional reading about NodeJS or ways to access the
+GPIO pins on the RaspberryPi, check out:</p>
+
+<ul>
+<li><a href="http://nodejs.org/">NodeJS</a> - NodeJS home page</li>
+<li><a href="https://github.com/rakeshpai/pi-gpio">pi-gpio</a> - &#8220;node.js based library to help access the GPIO of the Raspberry Pi&#8221;</li>
+<li><a href="https://github.com/EnotionZ/GpiO">GpiO</a> - &#8220;Talk to your Raspberry Pi&#8217;s GPIO&#8221;</li>
+</ul>
+
+
+<p>If you have any other recommended resources please let me know!</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1056,52 +1143,6 @@ considered a visual enhancement for users with modern browsers.</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/07/07/undefined-macro-ac-prog-libtool/">Undefined Macro: AC_PROG_LIBTOOL</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-07-07T23:00:00+00:00" pubdate data-updated="true">Jul 7<span>th</span>, 2012</time>
-        
-         | <a href="/blog/2012/07/07/undefined-macro-ac-prog-libtool/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>While trying to install LIRC on my RaspberryPi I ran into this error:</p>
-
-<p><code>configure.ac:24: error: possibly undefined macro: AC_PROG_LIBTOOL</code></p>
-
-<p>The solution that worked for me (on Debian Wheezy) was:</p>
-
-<p><code>sudo apt-get install libtools</code></p>
-
-<p>Hope that helps someone else out there.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -1119,6 +1160,10 @@ considered a visual enhancement for users with modern browsers.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/01/06/receiving-sms-notifications-from-your-washer/">Receiving SMS notifications from your washer & dryer</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/11/02/lirc-web-nginx-and-upstart/">Running lirc_web with nginx and upstart</a>
       </li>
     
@@ -1134,10 +1179,6 @@ considered a visual enhancement for users with modern browsers.</p>
         <a href="/blog/2013/06/06/open-terminals-working-directory-in-finder/">Open terminal&#8217;s working directory in Finder</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2013/06/01/using-the-pebble-watch-to-control-your-home-theater/">Using a RaspberryPi and Pebble Watch to control your home theater</a>
-      </li>
-    
   </ul>
 </section>
 
@@ -1147,7 +1188,7 @@ considered a visual enhancement for users with modern browsers.</p>
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - Alex Bain -
+  Copyright &copy; 2014 - Alex Bain -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
