@@ -4,7 +4,7 @@
   <title><![CDATA[Category: nodejs | alexba.in]]></title>
   <link href="http://alexba.in/blog/categories/nodejs/atom.xml" rel="self"/>
   <link href="http://alexba.in/"/>
-  <updated>2014-08-10T19:32:43+00:00</updated>
+  <updated>2014-08-10T19:38:04+00:00</updated>
   <id>http://alexba.in/</id>
   <author>
     <name><![CDATA[Alex Bain]]></name>
@@ -66,7 +66,7 @@
 }
 </code></pre>
 
-<p>The <code>macros</code> key is an object of keys (labels) that are set to arrays of <code>[remote, command]</code>  pairs. The <code>remote</code> and <code>command</code> strings are the same as are specified in the LIRC configuration file. This is because <code>lirc_web</code> reads those values to build it's own representation. A small delay is introduced between each command to ensure they are all received - if you find that this delay is insufficient for you, you can modify the source code and change it to a value that works.</p>
+<p>The <code>macros</code> key is an object of keys (labels) that are set to arrays of <code>[remote, command]</code>  pairs. The <code>remote</code> and <code>command</code> strings should match what is defined in the LIRC configuration file. A small delay is introduced between each command to ensure they are all received.</p>
 
 <p>After you create or change anything in <code>config.json</code>, you will have to restart <code>lirc_web</code>. Afterwards, you'll see your macros listed at the bottom of the user interface.</p>
 
@@ -77,7 +77,7 @@
 
 <h3>Repeaters</h3>
 
-<p>Repeaters are a type of button that repeatedly send it's command as long as it is held down. The use case for a repeater would be a volume button that should continue to change the volume as long as it's pressed - rather than tapping it many times.</p>
+<p>Repeaters are a type of button that repeatedly send it's command as long as it is held down. The use case for a repeater would be a volume button that should continue to change the volume as long as it's pressed - rather than needing to tap it many times.</p>
 
 <p>Repeaters are also specified in the configuration file. Here's an example:</p>
 
@@ -91,7 +91,7 @@
 }
 </code></pre>
 
-<p>Similar to macros, the name of the <code>remote</code> and <code>commands</code> must match the names you gave these commands in the LIRC configuration file. If you want to change the name of a button, update the LIRC configuration file and restart LIRC / lirc_web.</p>
+<p>Similar to macros, the name of the <code>remote</code> and <code>command</code> must match the names you gave these commands in the LIRC configuration file. If you want to change the name of a button, update the LIRC configuration file and restart LIRC / lirc_web.</p>
 
 <h3>Enjoy</h3>
 
