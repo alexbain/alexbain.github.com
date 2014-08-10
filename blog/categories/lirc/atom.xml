@@ -4,7 +4,7 @@
   <title><![CDATA[Category: lirc | alexba.in]]></title>
   <link href="http://alexba.in/blog/categories/lirc/atom.xml" rel="self"/>
   <link href="http://alexba.in/"/>
-  <updated>2014-08-10T19:49:51+00:00</updated>
+  <updated>2014-08-10T20:13:27+00:00</updated>
   <id>http://alexba.in/</id>
   <author>
     <name><![CDATA[Alex Bain]]></name>
@@ -252,7 +252,9 @@ sudo service nginx start
     <link href="http://alexba.in/blog/2013/04/14/lirc-web-v0-dot-0-3/"/>
     <updated>2013-04-14T13:00:00+00:00</updated>
     <id>http://alexba.in/blog/2013/04/14/lirc-web-v0-dot-0-3</id>
-    <content type="html"><![CDATA[<p>As part of the <a href="http://opensourceuniversalremote.com">Open Source Universal Remote</a> project I've been creating a simple and touch friendly user interface for LIRC. In a previous post I covered <a href="/blog/2013/02/23/controlling-lirc-from-the-web/">Controlling LIRC From the Web</a>, where I introduced version 0.0.1 of <a href="http://github.com/alexbain/lirc_web">lirc_web</a>. Lirc_web is a simple NodeJS app I created for controlling LIRC from the web.</p>
+    <content type="html"><![CDATA[<p><strong>August 10, 2014 Update:</strong> Latest version is now <a href="http://alexba.in/blog/2014/08/10/lirc-web-v0-0-8/">lirc_web v0.0.8</a></p>
+
+<p>As part of the <a href="http://opensourceuniversalremote.com">Open Source Universal Remote</a> project I've been creating a simple and touch friendly user interface for LIRC. In a previous post I covered <a href="/blog/2013/02/23/controlling-lirc-from-the-web/">Controlling LIRC From the Web</a>, where I introduced version 0.0.1 of <a href="http://github.com/alexbain/lirc_web">lirc_web</a>. Lirc_web is a simple NodeJS app I created for controlling LIRC from the web.</p>
 
 <p>Since then, I've created a set of UI styles and fixed a number of touch related bugs with the project. I'm excited to announce <a href="http://github.com/alexbain/lirc_web">v0.0.3 of lirc_web</a> which is now on GitHub.</p>
 
