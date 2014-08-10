@@ -4,7 +4,7 @@
   <title><![CDATA[Category: nodejs | alexba.in]]></title>
   <link href="http://alexba.in/blog/categories/nodejs/atom.xml" rel="self"/>
   <link href="http://alexba.in/"/>
-  <updated>2014-08-10T19:38:04+00:00</updated>
+  <updated>2014-08-10T19:49:51+00:00</updated>
   <id>http://alexba.in/</id>
   <author>
     <name><![CDATA[Alex Bain]]></name>
@@ -19,6 +19,8 @@
     <updated>2014-08-10T19:18:00+00:00</updated>
     <id>http://alexba.in/blog/2014/08/10/lirc-web-v0-0-8</id>
     <content type="html"><![CDATA[<p>In this post I'm going to talk about two features I've added to the <a href="https://github.com/alexbain/lirc_web">lirc_web</a> project. <a href="https://github.com/alexbain/lirc_web">lirc_web</a> is a NodeJS app I wrote that provides a web interface and JSON based API for controlling <a href="http://lirc.org/">LIRC</a>, an open source project that lets you control IR devices from the command line. I built <a href="https://github.com/alexbain/lirc_web">lirc_web</a> to run on a RaspberryPi along with an expansion board I designed so that anyone could build their own fully customizable universal remote that is controllable via a web interface from any web connected device (phone, tablet, laptop, smart watch, etc).</p>
+
+<p><img src="http://alexba.in/images/posts/universal-remote/lirc_web_v0_0_8.png" height="640px" width="384px" class="center" /></p>
 
 <p>If you'd like additional context about the project, you may be interested in:</p>
 
