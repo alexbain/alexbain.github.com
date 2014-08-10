@@ -49,7 +49,7 @@ Macros are defined in a [JSON](http://en.wikipedia.org/wiki/JSON) configuration 
 }
 ```
 
-The ``macros`` key is an object of keys (labels) that are set to arrays of ``[remote, command]``  pairs. The ``remote`` and ``command`` strings are the same as are specified in the LIRC configuration file. This is because ``lirc_web`` reads those values to build it's own representation. A small delay is introduced between each command to ensure they are all received - if you find that this delay is insufficient for you, you can modify the source code and change it to a value that works.
+The ``macros`` key is an object of keys (labels) that are set to arrays of ``[remote, command]``  pairs. The ``remote`` and ``command`` strings should match what is defined in the LIRC configuration file. A small delay is introduced between each command to ensure they are all received.
 
 After you create or change anything in ``config.json``, you will have to restart ``lirc_web``. Afterwards, you'll see your macros listed at the bottom of the user interface.
 
@@ -61,7 +61,7 @@ http://ip-of-remote/macros/Play%20Xbox%20360
 
 ### Repeaters
 
-Repeaters are a type of button that repeatedly send it's command as long as it is held down. The use case for a repeater would be a volume button that should continue to change the volume as long as it's pressed - rather than tapping it many times.
+Repeaters are a type of button that repeatedly send it's command as long as it is held down. The use case for a repeater would be a volume button that should continue to change the volume as long as it's pressed - rather than needing to tap it many times.
 
 Repeaters are also specified in the configuration file. Here's an example:
 
@@ -76,7 +76,7 @@ Repeaters are also specified in the configuration file. Here's an example:
 }
 ```
 
-Similar to macros, the name of the ``remote`` and ``commands`` must match the names you gave these commands in the LIRC configuration file. If you want to change the name of a button, update the LIRC configuration file and restart LIRC / lirc_web.
+Similar to macros, the name of the ``remote`` and ``command`` must match the names you gave these commands in the LIRC configuration file. If you want to change the name of a button, update the LIRC configuration file and restart LIRC / lirc_web.
 
 ### Enjoy
 
