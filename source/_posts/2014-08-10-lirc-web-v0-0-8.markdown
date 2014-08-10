@@ -8,6 +8,8 @@ categories: [raspberrypi, lirc, opensourceuniversalremote, nodejs]
 
 In this post I'm going to talk about two features I've added to the [lirc_web](https://github.com/alexbain/lirc_web) project. [lirc_web](https://github.com/alexbain/lirc_web) is a NodeJS app I wrote that provides a web interface and JSON based API for controlling [LIRC](http://lirc.org/), an open source project that lets you control IR devices from the command line. I built [lirc_web](https://github.com/alexbain/lirc_web) to run on a RaspberryPi along with an expansion board I designed so that anyone could build their own fully customizable universal remote that is controllable via a web interface from any web connected device (phone, tablet, laptop, smart watch, etc).
 
+<img src="/images/posts/universal-remote/lirc_web_v0_0_8.png" height="640px" width="384px" class="center" />
+
 If you'd like additional context about the project, you may be interested in:
 
 * [Open Source Univeral Remote](http://opensourceuniversalremote.com/)
