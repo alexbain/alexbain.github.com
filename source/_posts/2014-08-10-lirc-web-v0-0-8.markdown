@@ -1,0 +1,83 @@
+---
+layout: post
+title: "lirc_web v0.0.8"
+date: 2014-08-10 19:18
+comments: true
+categories: [raspberrypi, lirc, opensourceuniversalremote, nodejs]
+---
+
+In this post I'm going to talk about two features I've added to the [lirc_web](https://github.com/alexbain/lirc_web) project. [lirc_web](https://github.com/alexbain/lirc_web) is a NodeJS app I wrote that provides a web interface and JSON based API for controlling [LIRC](http://lirc.org/), an open source project that lets you control IR devices from the command line. I built [lirc_web](https://github.com/alexbain/lirc_web) to run on a RaspberryPi along with an expansion board I designed so that anyone could build their own fully customizable universal remote that is controllable via a web interface from any web connected device (phone, tablet, laptop, smart watch, etc).
+
+If you'd like additional context about the project, you may be interested in:
+
+* [Open Source Univeral Remote](http://opensourceuniversalremote.com/)
+* [Open Source Universal Remote - Parts & Pictures](http://alexba.in/blog/2013/06/08/open-source-universal-remote-parts-and-pictures/)
+* [RaspberryPi IR Schematic for LIRC](http://alexba.in/blog/2013/03/09/raspberrypi-ir-schematic-for-lirc/)
+* [Controlling LIRC From the Web](http://alexba.in/blog/2013/02/23/controlling-lirc-from-the-web/)
+
+In v0.0.8 I've added two new features - macros and repeaters.
+
+### Macros
+
+Macros allowing you to execute multiple IR commands in rapid succession from a single button tap or HTTP request. The use case for this would be when you need multiple devices to be turned on and set to a certain mode to perform an activity (say, playing a video game or watching a movie). An example macro might be:
+
+* Turn TV on
+* Set TV to input 3
+* Turn receiver on
+* Set receiver input HDMI2
+* Turn game console on
+
+Macros make performing common multi-step tasks simpler. In addition, Macros are exposed via the API, which means you can execute macros by sending an HTTP request from a growing number of internet of things or web connected devices. For example, you could adjust the volume of the TV from your [Pebble watch](https://getpebble.com/steel) or change the TV channel by waving your arm while wearing a [Myo armband](https://www.thalmic.com/en/myo/).
+
+Macros are defined in a [JSON](http://en.wikipedia.org/wiki/JSON) configuration file (``config.json``) that ``lirc_web`` expects to find in the root of the project. Here's an example:
+
+```
+{
+  "macros": {
+    "Play Xbox 360": [
+      [ "SonyTV", "Power" ],
+      [ "SonyTV", "Xbox360" ],
+      [ "Yamaha", "Power" ],
+      [ "Yamaha", "Xbox360" ],
+      [ "Xbox360", "Power" ]
+    ],
+    "Listen to Music": [
+      [ "Yamaha", "Power" ],
+      [ "Yamaha", "AirPlay" ]
+    ]
+  }
+}
+```
+
+The ``macros`` key is an object of keys (labels) that are set to arrays of ``[remote, command]``  pairs. The ``remote`` and ``command`` strings are the same as are specified in the LIRC configuration file. This is because ``lirc_web`` reads those values to build it's own representation. A small delay is introduced between each command to ensure they are all received - if you find that this delay is insufficient for you, you can modify the source code and change it to a value that works.
+
+After you create or change anything in ``config.json``, you will have to restart ``lirc_web``. Afterwards, you'll see your macros listed at the bottom of the user interface.
+
+Macros are also available via the API. You can execute them by creating a POST request to a url like so:
+
+```
+http://ip-of-remote/macros/Play%20Xbox%20360
+```
+
+### Repeaters
+
+Repeaters are a type of button that repeatedly send it's command as long as it is held down. The use case for a repeater would be a volume button that should continue to change the volume as long as it's pressed - rather than tapping it many times.
+
+Repeaters are also specified in the configuration file. Here's an example:
+
+```
+{
+  "repeaters": {
+    "SonyTV": {
+      "VolumeUp": true,
+      "VolumeDown": true
+    }
+  }
+}
+```
+
+Similar to macros, the name of the ``remote`` and ``commands`` must match the names you gave these commands in the LIRC configuration file. If you want to change the name of a button, update the LIRC configuration file and restart LIRC / lirc_web.
+
+### Enjoy
+
+I've found these two features make the [Open Source Universal Remote](http://opensourceuniversalremote.com/) significantly more useful for common tasks. If you have any suggestions for new features or ideas on how to improve the project, please share your ideas in the comments.
