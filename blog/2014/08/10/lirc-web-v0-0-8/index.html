@@ -1,0 +1,371 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>lirc_web v0.0.8 - alexba.in</title>
+  <meta name="author" content="Alex Bain">
+
+  
+  <meta name="description" content="In this post I&#8217;m going to talk about two features I&#8217;ve added to the lirc_web project. lirc_web is a NodeJS app I wrote that provides a &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://alexba.in/blog/2014/08/10/lirc-web-v0-0-8/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="http://feeds.feedburner.com/alexbain" rel="alternate" title="alexba.in" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">alexba.in</a></h1>
+  
+    <h2>A technical blog about open source hardware and software.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/alexbain" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:alexba.in" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Lirc_web v0.0.8</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-10T19:18:00+00:00" pubdate data-updated="true">Aug 10<span>th</span>, 2014</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>In this post I&#8217;m going to talk about two features I&#8217;ve added to the <a href="https://github.com/alexbain/lirc_web">lirc_web</a> project. <a href="https://github.com/alexbain/lirc_web">lirc_web</a> is a NodeJS app I wrote that provides a web interface and JSON based API for controlling <a href="http://lirc.org/">LIRC</a>, an open source project that lets you control IR devices from the command line. I built <a href="https://github.com/alexbain/lirc_web">lirc_web</a> to run on a RaspberryPi along with an expansion board I designed so that anyone could build their own fully customizable universal remote that is controllable via a web interface from any web connected device (phone, tablet, laptop, smart watch, etc).</p>
+
+<p>If you&#8217;d like additional context about the project, you may be interested in:</p>
+
+<ul>
+<li><a href="http://opensourceuniversalremote.com/">Open Source Univeral Remote</a></li>
+<li><a href="http://alexba.in/blog/2013/06/08/open-source-universal-remote-parts-and-pictures/">Open Source Universal Remote - Parts &amp; Pictures</a></li>
+<li><a href="http://alexba.in/blog/2013/03/09/raspberrypi-ir-schematic-for-lirc/">RaspberryPi IR Schematic for LIRC</a></li>
+<li><a href="http://alexba.in/blog/2013/02/23/controlling-lirc-from-the-web/">Controlling LIRC From the Web</a></li>
+</ul>
+
+
+<p>In v0.0.8 I&#8217;ve added two new features - macros and repeaters.</p>
+
+<h3>Macros</h3>
+
+<p>Macros allowing you to execute multiple IR commands in rapid succession from a single button tap or HTTP request. The use case for this would be when you need multiple devices to be turned on and set to a certain mode to perform an activity (say, playing a video game or watching a movie). An example macro might be:</p>
+
+<ul>
+<li>Turn TV on</li>
+<li>Set TV to input 3</li>
+<li>Turn receiver on</li>
+<li>Set receiver input HDMI2</li>
+<li>Turn game console on</li>
+</ul>
+
+
+<p>Macros make performing common multi-step tasks simpler. In addition, Macros are exposed via the API, which means you can execute macros by sending an HTTP request from a growing number of internet of things or web connected devices. For example, you could adjust the volume of the TV from your <a href="https://getpebble.com/steel">Pebble watch</a> or change the TV channel by waving your arm while wearing a <a href="https://www.thalmic.com/en/myo/">Myo armband</a>.</p>
+
+<p>Macros are defined in a <a href="http://en.wikipedia.org/wiki/JSON">JSON</a> configuration file (<code>config.json</code>) that <code>lirc_web</code> expects to find in the root of the project. Here&#8217;s an example:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>{
+</span><span class='line'>  "macros": {
+</span><span class='line'>    "Play Xbox 360": [
+</span><span class='line'>      [ "SonyTV", "Power" ],
+</span><span class='line'>      [ "SonyTV", "Xbox360" ],
+</span><span class='line'>      [ "Yamaha", "Power" ],
+</span><span class='line'>      [ "Yamaha", "Xbox360" ],
+</span><span class='line'>      [ "Xbox360", "Power" ]
+</span><span class='line'>    ],
+</span><span class='line'>    "Listen to Music": [
+</span><span class='line'>      [ "Yamaha", "Power" ],
+</span><span class='line'>      [ "Yamaha", "AirPlay" ]
+</span><span class='line'>    ]
+</span><span class='line'>  }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The <code>macros</code> key is an object of keys (labels) that are set to arrays of <code>[remote, command]</code>  pairs. The <code>remote</code> and <code>command</code> strings are the same as are specified in the LIRC configuration file. This is because <code>lirc_web</code> reads those values to build it&#8217;s own representation. A small delay is introduced between each command to ensure they are all received - if you find that this delay is insufficient for you, you can modify the source code and change it to a value that works.</p>
+
+<p>After you create or change anything in <code>config.json</code>, you will have to restart <code>lirc_web</code>. Afterwards, you&#8217;ll see your macros listed at the bottom of the user interface.</p>
+
+<p>Macros are also available via the API. You can execute them by creating a POST request to a url like so:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>http://ip-of-remote/macros/Play%20Xbox%20360</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Repeaters</h3>
+
+<p>Repeaters are a type of button that repeatedly send it&#8217;s command as long as it is held down. The use case for a repeater would be a volume button that should continue to change the volume as long as it&#8217;s pressed - rather than tapping it many times.</p>
+
+<p>Repeaters are also specified in the configuration file. Here&#8217;s an example:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>{
+</span><span class='line'>  "repeaters": {
+</span><span class='line'>    "SonyTV": {
+</span><span class='line'>      "VolumeUp": true,
+</span><span class='line'>      "VolumeDown": true
+</span><span class='line'>    }
+</span><span class='line'>  }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Similar to macros, the name of the <code>remote</code> and <code>commands</code> must match the names you gave these commands in the LIRC configuration file. If you want to change the name of a button, update the LIRC configuration file and restart LIRC / lirc_web.</p>
+
+<h3>Enjoy</h3>
+
+<p>I&#8217;ve found these two features make the <a href="http://opensourceuniversalremote.com/">Open Source Universal Remote</a> significantly more useful for common tasks. If you have any suggestions for new features or ideas on how to improve the project, please share your ideas in the comments.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Alex Bain</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-10T19:18:00+00:00" pubdate data-updated="true">Aug 10<span>th</span>, 2014</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/lirc/'>lirc</a>, <a class='category' href='/blog/categories/nodejs/'>nodejs</a>, <a class='category' href='/blog/categories/opensourceuniversalremote/'>opensourceuniversalremote</a>, <a class='category' href='/blog/categories/raspberrypi/'>raspberrypi</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://alexba.in/blog/2014/08/10/lirc-web-v0-0-8/" data-via="alexsbain" data-counturl="http://alexba.in/blog/2014/08/10/lirc-web-v0-0-8/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/01/06/receiving-sms-notifications-from-your-washer/" title="Previous Post: Receiving SMS notifications from your washer & dryer">&laquo; Receiving SMS notifications from your washer & dryer</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/08/10/lirc-web-v0-0-8/">lirc_web v0.0.8</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/06/receiving-sms-notifications-from-your-washer/">Receiving SMS notifications from your washer & dryer</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/11/02/lirc-web-nginx-and-upstart/">Running lirc_web with nginx and upstart</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/08/21/lirc-web-v0-0-5/">lirc_web v0.0.5</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/08/open-source-universal-remote-parts-and-pictures/">Open Source Universal Remote - Parts &amp; Pictures</a>
+      </li>
+    
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Alex Bain -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'alexbain';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://alexba.in/blog/2014/08/10/lirc-web-v0-0-8/';
+        var disqus_url = 'http://alexba.in/blog/2014/08/10/lirc-web-v0-0-8/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-25918073-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</body>
+</html>

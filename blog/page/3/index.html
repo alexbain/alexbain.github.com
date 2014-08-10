@@ -9,7 +9,8 @@
   <meta name="author" content="Alex Bain">
 
   
-  <meta name="description" content="While trying to install LIRC on my RaspberryPi I ran into this error: configure.ac:24: error: possibly undefined macro: AC_PROG_LIBTOOL The solution &hellip;">
+  <meta name="description" content="Recently I had to determine if an image URL was properly rendering or not. Since
+this image URL was provided by a user there was a chance that it had &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -59,6 +60,160 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/07/07/testing-for-missing-images-in-javascript/">Testing for Missing Images in JavaScript</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-07T23:08:00+00:00" pubdate data-updated="true">Jul 7<span>th</span>, 2012</time>
+        
+         | <a href="/blog/2012/07/07/testing-for-missing-images-in-javascript/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Recently I had to determine if an image URL was properly rendering or not. Since
+this image URL was provided by a user there was a chance that it had been
+deleted or moved since they first set it. In that case I wanted to show a
+different image - perhaps a &#8220;missing user&#8221; image - rather than just an empty
+box.</p>
+
+<p>My solution was to bind a callback to the <code>onerror</code> event that fires on an
+<code>Image</code> object if the image source could not be loaded. By binding a callback
+to this error I was able to replace a missing image with an image of my choice.</p>
+
+<p>Here&#8217;s a sample implementation that binds a callback onto the <code>onerror</code> event:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">checkForMissingImage</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1">// Create an Image object in memory</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">img</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Image</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1">// Bind the callback to the onerror event</span>
+</span><span class='line'>  <span class="nx">img</span><span class="p">.</span><span class="nx">onerror</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">callback</span><span class="p">();</span>
+</span><span class='line'>  <span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1">// Set the src of the image to the url provided</span>
+</span><span class='line'>  <span class="nx">img</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="nx">url</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Here&#8217;s an example that involves replacing all images with class userpic on a page.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="c">&lt;!-- Userpic that will render as a missing image and needs replacing --&gt;</span>
+</span><span class='line'><span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;http://brokenhost.com/does_not_exist.png&quot;</span> <span class="na">class=</span><span class="s">&quot;userpic&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">&lt;!-- Userpic that will render properly --&gt;</span>
+</span><span class='line'><span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;http://placekitten.com.s3.amazonaws.com/homepage-samples/200/287.jpg&quot;</span> <span class="na">class=</span><span class="s">&quot;userpic&quot;</span> <span class="nt">/&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1">// Define a custom image to replace all missing images with</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">replacementImage</span> <span class="o">=</span> <span class="s1">&#39;http://placekitten.com.s3.amazonaws.com/homepage-samples/408/287.jpg&#39;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1">// Find all userpics on the page</span>
+</span><span class='line'>  <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.userpic&#39;</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">userpic</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// Create a cached reference of this userpic</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">$userpic</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">userpic</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// Get the source of the userpic</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">src</span> <span class="o">=</span> <span class="nx">$userpic</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;src&#39;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// Check to see if this image still exists. If it does not exist, execute</span>
+</span><span class='line'>    <span class="c1">// the callback function and replace it.</span>
+</span><span class='line'>    <span class="nx">checkForMissingImage</span><span class="p">(</span><span class="nx">src</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="c1">// Update the missing image with our replacement image.</span>
+</span><span class='line'>      <span class="nx">$userpic</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;src&#39;</span><span class="p">,</span> <span class="nx">replacementImage</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>As <code>onerror</code> support isn&#8217;t universal across every browser this should be
+considered a visual enhancement for users with modern browsers.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -501,6 +656,10 @@ it&#8217;s a fantastic option.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/08/10/lirc-web-v0-0-8/">lirc_web v0.0.8</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/01/06/receiving-sms-notifications-from-your-washer/">Receiving SMS notifications from your washer & dryer</a>
       </li>
     
@@ -514,10 +673,6 @@ it&#8217;s a fantastic option.</p>
     
       <li class="post">
         <a href="/blog/2013/06/08/open-source-universal-remote-parts-and-pictures/">Open Source Universal Remote - Parts &amp; Pictures</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/06/06/open-terminals-working-directory-in-finder/">Open terminal&#8217;s working directory in Finder</a>
       </li>
     
   </ul>

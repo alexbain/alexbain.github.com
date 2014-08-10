@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: RaspberryPi | alexba.in]]></title>
+  <title><![CDATA[Category: raspberrypi | alexba.in]]></title>
   <link href="http://alexba.in/blog/categories/raspberrypi/atom.xml" rel="self"/>
   <link href="http://alexba.in/"/>
-  <updated>2014-01-26T19:22:57+00:00</updated>
+  <updated>2014-08-10T19:33:05+00:00</updated>
   <id>http://alexba.in/</id>
   <author>
     <name><![CDATA[Alex Bain]]></name>
@@ -14,116 +14,325 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Using a RaspberryPi and Pebble Watch to control your home theater]]></title>
-    <link href="http://alexba.in/blog/2013/06/01/using-the-pebble-watch-to-control-your-home-theater/"/>
-    <updated>2013-06-01T13:23:00+00:00</updated>
-    <id>http://alexba.in/blog/2013/06/01/using-the-pebble-watch-to-control-your-home-theater</id>
-    <content type="html"><![CDATA[<p>This post will serve as a guide to using a <a href="http://www.raspberrypi.org/">RaspberryPi</a>, a <a href="http://getpebble.com/">Pebble Watch</a>, and an Android phone (<a href="http://www.google.com/nexus/4/">Google Nexus 4</a>) to control your home theater from your wrist. The result is something like this:</p>
+    <title type="html"><![CDATA[lirc_web v0.0.8]]></title>
+    <link href="http://alexba.in/blog/2014/08/10/lirc-web-v0-0-8/"/>
+    <updated>2014-08-10T19:18:00+00:00</updated>
+    <id>http://alexba.in/blog/2014/08/10/lirc-web-v0-0-8</id>
+    <content type="html"><![CDATA[<p>In this post I'm going to talk about two features I've added to the <a href="https://github.com/alexbain/lirc_web">lirc_web</a> project. <a href="https://github.com/alexbain/lirc_web">lirc_web</a> is a NodeJS app I wrote that provides a web interface and JSON based API for controlling <a href="http://lirc.org/">LIRC</a>, an open source project that lets you control IR devices from the command line. I built <a href="https://github.com/alexbain/lirc_web">lirc_web</a> to run on a RaspberryPi along with an expansion board I designed so that anyone could build their own fully customizable universal remote that is controllable via a web interface from any web connected device (phone, tablet, laptop, smart watch, etc).</p>
 
-<p><img src="http://alexba.in/images/posts/open-source-universal-remote-pebble-watch.jpg" height="450px" width="600px" class="center" /></p>
-
-<h3>Introduction</h3>
-
-<p>For a bit of backstory, around eighteen months ago I decided to start experimenting with and teaching myself electronics. I started working with an <a href="http://arduino.cc/en/Main/arduinoBoardUno">Arduino Uno</a> and eventually moved to a <a href="http://www.raspberrypi.org">RasperryPi</a>. I wanted to build open hardware, open source, web connected devices and these seemed like the right tools for the job. I wanted to ensure that every device I built could, down the road, be controlled in entirely new ways with novel human computer interfaces like the <a href="http://getpebble.com">Pebble Watch</a>, <a href="https://www.thalmic.com/myo/?autoplay=true">Thalmic Labs Myo</a>, <a href="http://www.emotiv.com/">Emotiv EPOC EEG Headset</a>, <a href="https://www.leapmotion.com/">Leap Motion</a>, <a href="http://www.google.com/glass/start/">Google Glass</a>, and others.</p>
-
-<p>So, after some consideration, I chose to build a RaspberryPi powered device that controls all of the infrared devices in my home. This project has turned into the <a href="http://opensourceuniversalremote.com">Open Source Universal Remote</a>, an open hardware/open source device you can make yourself with a RaspberryPi and $10 of electronic parts. This post will discuss how I wired up my Pebble Watch to control my Open Source Universal remote using my Android phone.</p>
-
-<p>Let's get started!</p>
-
-<h3>Outline</h3>
+<p>If you'd like additional context about the project, you may be interested in:</p>
 
 <ul>
-<li>Part 0: How it Works</li>
-<li>Part 1: Open Source Universal Remote</li>
-<li>Part 2: The Android Phone</li>
-<li>Part 3: The Pebble Watch</li>
-<li>Part 4: Conclusion / What's next</li>
+<li><a href="http://opensourceuniversalremote.com/">Open Source Univeral Remote</a></li>
+<li><a href="http://alexba.in/blog/2013/06/08/open-source-universal-remote-parts-and-pictures/">Open Source Universal Remote - Parts &amp; Pictures</a></li>
+<li><a href="http://alexba.in/blog/2013/03/09/raspberrypi-ir-schematic-for-lirc/">RaspberryPi IR Schematic for LIRC</a></li>
+<li><a href="http://alexba.in/blog/2013/02/23/controlling-lirc-from-the-web/">Controlling LIRC From the Web</a></li>
 </ul>
 
 
-<h3>Part 0: How it Works</h3>
+<p>In v0.0.8 I've added two new features - macros and repeaters.</p>
 
-<p>At a high level, the project works like this:</p>
+<h3>Macros</h3>
+
+<p>Macros allowing you to execute multiple IR commands in rapid succession from a single button tap or HTTP request. The use case for this would be when you need multiple devices to be turned on and set to a certain mode to perform an activity (say, playing a video game or watching a movie). An example macro might be:</p>
+
+<ul>
+<li>Turn TV on</li>
+<li>Set TV to input 3</li>
+<li>Turn receiver on</li>
+<li>Set receiver input HDMI2</li>
+<li>Turn game console on</li>
+</ul>
+
+
+<p>Macros make performing common multi-step tasks simpler. In addition, Macros are exposed via the API, which means you can execute macros by sending an HTTP request from a growing number of internet of things or web connected devices. For example, you could adjust the volume of the TV from your <a href="https://getpebble.com/steel">Pebble watch</a> or change the TV channel by waving your arm while wearing a <a href="https://www.thalmic.com/en/myo/">Myo armband</a>.</p>
+
+<p>Macros are defined in a <a href="http://en.wikipedia.org/wiki/JSON">JSON</a> configuration file (<code>config.json</code>) that <code>lirc_web</code> expects to find in the root of the project. Here's an example:</p>
+
+<pre><code>{
+  "macros": {
+    "Play Xbox 360": [
+      [ "SonyTV", "Power" ],
+      [ "SonyTV", "Xbox360" ],
+      [ "Yamaha", "Power" ],
+      [ "Yamaha", "Xbox360" ],
+      [ "Xbox360", "Power" ]
+    ],
+    "Listen to Music": [
+      [ "Yamaha", "Power" ],
+      [ "Yamaha", "AirPlay" ]
+    ]
+  }
+}
+</code></pre>
+
+<p>The <code>macros</code> key is an object of keys (labels) that are set to arrays of <code>[remote, command]</code>  pairs. The <code>remote</code> and <code>command</code> strings are the same as are specified in the LIRC configuration file. This is because <code>lirc_web</code> reads those values to build it's own representation. A small delay is introduced between each command to ensure they are all received - if you find that this delay is insufficient for you, you can modify the source code and change it to a value that works.</p>
+
+<p>After you create or change anything in <code>config.json</code>, you will have to restart <code>lirc_web</code>. Afterwards, you'll see your macros listed at the bottom of the user interface.</p>
+
+<p>Macros are also available via the API. You can execute them by creating a POST request to a url like so:</p>
+
+<pre><code>http://ip-of-remote/macros/Play%20Xbox%20360
+</code></pre>
+
+<h3>Repeaters</h3>
+
+<p>Repeaters are a type of button that repeatedly send it's command as long as it is held down. The use case for a repeater would be a volume button that should continue to change the volume as long as it's pressed - rather than tapping it many times.</p>
+
+<p>Repeaters are also specified in the configuration file. Here's an example:</p>
+
+<pre><code>{
+  "repeaters": {
+    "SonyTV": {
+      "VolumeUp": true,
+      "VolumeDown": true
+    }
+  }
+}
+</code></pre>
+
+<p>Similar to macros, the name of the <code>remote</code> and <code>commands</code> must match the names you gave these commands in the LIRC configuration file. If you want to change the name of a button, update the LIRC configuration file and restart LIRC / lirc_web.</p>
+
+<h3>Enjoy</h3>
+
+<p>I've found these two features make the <a href="http://opensourceuniversalremote.com/">Open Source Universal Remote</a> significantly more useful for common tasks. If you have any suggestions for new features or ideas on how to improve the project, please share your ideas in the comments.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Running lirc_web with nginx and upstart]]></title>
+    <link href="http://alexba.in/blog/2013/11/02/lirc-web-nginx-and-upstart/"/>
+    <updated>2013-11-02T09:50:00+00:00</updated>
+    <id>http://alexba.in/blog/2013/11/02/lirc-web-nginx-and-upstart</id>
+    <content type="html"><![CDATA[<p>In this post I will cover how to start a NodeJS app (<code>lirc_web</code>) when a RaspberryPi boots up. This ensures that if the RaspberryPi ever loses power, the <code>lirc_web</code> app will restart when the system comes online. <code>lirc_web</code> is an open source NodeJS app I wrote as part of the <a href="http://opensourceuniversalremote.com">Open Source Universal Remote</a> project. If you'd like to learn more about the project, please check out <a href="http://alexba.in/blog/2013/06/08/open-source-universal-remote-parts-and-pictures/">Open Source Universal Remote - Parts &amp; Pictures</a>.</p>
+
+<p>To accomplish this will take three steps:</p>
 
 <ol>
-<li>User taps button on Pebble Watch.</li>
-<li>Pebble Watch tells Android phone that a button has been tapped.</li>
-<li>Android phone makes web request to Open Source Universal Remote API.</li>
-<li>Open Source Universal Remote receives web request and sends out infrared pulses.</li>
-<li>Home theater device detects infrared pulses and responds accordingly.</li>
+<li>Configure the hostname for the RaspberryPi</li>
+<li>Install and configure Upstart</li>
+<li>Install and configure NGINX</li>
 </ol>
 
 
-<p>I'll work backwards from the Open Source Universal Remote to the Pebble Watch.</p>
+<p><strong>Note: Not all mobile devices support <code>.local</code> domains. You may still need to connect via IP.</strong></p>
 
-<h3>Part 1: Open Source Universal Remote</h3>
+<h3>Configure the hostname for the RaspberryPi</h3>
 
-<p><img src="http://alexba.in/images/posts/open-source-universal-remote.jpg" height="320px" width="640px" class="center" /></p>
+<p>If you want your RaspberryPi to be accessible on your local network via hostname, instead of always typing it's IP address, you'll want to install an mDNS daemon. If you'd like to learn why, I recommend reading <a href="http://www.howtogeek.com/167190/how-and-why-to-assign-the-.local-domain-to-your-raspberry-pi/">How (and Why) to Assign the .local Domain to Your Raspberry Pi</a>. The RaspberryPi supports Avahi, which can be installed with:</p>
 
-<p>The foundation of this project is the <a href="http://opensourceuniversalremote.com">Open Source Universal Remote</a>. I won't be going into detail about how to make one here, but if you're interested in learning more or making your own, here is all the information you need:</p>
+<pre><code>sudo apt-get install avahi-daemon
+</code></pre>
+
+<p>When that finishes, try pinging <code>raspberrypi.local</code> from a different computer. Everything should just work. Next, we'll update the hostname of the RaspberryPi to be <code>universalremote</code>. This requires three steps:</p>
 
 <ol>
-<li><a href="http://opensourceuniversalremote.com">Open Source Universal Remote</a> - The open source universal remote home page. This is an overview of the project and how it works.</li>
-<li><a href="http://alexba.in/blog/2013/01/04/raspberrypi-quickstart/">RaspberryPi QuickStart</a> - A guide I wrote to purchasing and doing the initial configuration on a RaspberryPi.</li>
-<li><a href="http://alexba.in/blog/2013/01/06/setting-up-lirc-on-the-raspberrypi/">Setting up LIRC on the RaspberryPi</a> - How to setup and install the <a href="http://lirc.org">Linux Infrared Remote Control (LIRC)</a> software on the RaspberryPi</li>
-<li><a href="http://alexba.in/blog/2013/02/23/controlling-lirc-from-the-web/">Controlling LIRC from the Web</a> - How to install and configure two open source projects I wrote (<a href="https://github.com/alexbain/lirc_node">lirc_node</a> and <a href="https://github.com/alexbain/lirc_web">lirc_web</a>) to enable you to control LIRC from the web.</li>
-<li><a href="http://alexba.in/blog/2013/06/08/open-source-universal-remote-parts-and-pictures/">Open Source Universal Remote - Parts &amp; Picturse</a> - Finalized parts list and build pictures from a protoboard I soldered together.</li>
+<li>Edit <code>/etc/hosts</code> and change the last line to <code>127.0.1.1 universalremote</code></li>
+<li>Edit <code>/etc/hostname</code> and change the hostname to <code>universalremote</code></li>
+<li>Reboot the RaspberryPi by running <code>sudo shutdown -r now</code></li>
 </ol>
 
 
-<p>For this project, I'll be using the HTTP based API that the Open Source Universal Remote generates based on the remotes and commands you teach it. Here are the three URLs I used for this project:</p>
+<p>After the RaspberryPi boots back up, you should be able to connect to the RaspberryPi via hostname (<code>http://universalremote.local</code>) or IP.</p>
 
-<pre><code>http://192.168.1.115:3000/remotes/Yamaha/power
-http://192.168.1.115:3000/remotes/Microsoft_xbox360/onoff
-http://192.168.1.115:3000/remotes/sonytv/power
+<h3>Install and configure Upstart</h3>
+
+<p>To ensure the <code>lirc_web</code> app starts when the RaspberryPi boots, we will use a tool called <a href="http://upstart.ubuntu.com">Upstart</a>. Upstart is a project from Ubuntu that simplifies writing init scripts. If you want to learn more about it, you can visit <a href="http://upstart.ubuntu.com/">http://upstart.ubuntu.com/</a> and read more. RaspbianOS does not include Upstart by default, but it can be installed to replace sysvinit with no negative consequences. Here are the commands:</p>
+
+<pre><code>sudo apt-get install upstart
+# You will be asked to type 'Yes, do as I say!'
+# You may see an error about initctl being unable to connect, which will be fixed after a reboot
+
+# Reboot the RaspberryPi
+sudo shutdown -r now
 </code></pre>
 
-<p>You could get clever and use the hostname of the open source remote, I'm just using the static IP address here.</p>
+<p>Once the RaspberryPi reboots Upstart should be installed. Upstart configuration files are placed in <code>/etc/init</code>. You can either use the sample Upstart configuration that comes with the <code>lirc_web</code> Git repository, or you can use this example (place in <code>/etc/init/open-source-universal-remote.conf</code>):</p>
 
-<h3>Part 2: The Android Phone</h3>
+<pre><code># /etc/init/open-source-universal-remote.conf
+description "universalremote.local"
 
-<p>The second component of this project is an Android phone with the <a href="https://play.google.com/store/apps/details?id=net.dinglisch.android.taskerm">Tasker</a> app installed on it. <a href="https://play.google.com/store/apps/details?id=net.dinglisch.android.taskerm">Tasker</a> is a great app that provides a rich way to control your Android phone. One of the functions is the ability to send HTTP POST requests to specific URLs, which is the feature we'll be using for this project.</p>
+start on runlevel [2345]
+stop on runlevel [016]
 
-<p>Within the Tasker app you'll need to create three new tasks, one for each button on the Pebble watch. Each task should be created with a descriptive name (like "Yamaha Power") and will contain a single <code>HTTP POST</code> action (found in the <code>Net</code> menu), which will be sent to the open source remote. Here's where the <code>HTTP POST</code> action can be found:</p>
+# Restart when job dies
+respawn
 
-<p><img src="http://alexba.in/images/posts/tasker-http-post.jpg" height="640px" width="384px" class="center" /></p>
+# Give up restart after 5 respawns in 60 seconds
+respawn limit 5 60
 
-<p>The <code>HTTP POST</code> action should be setup like this:</p>
+script
 
-<p><img src="http://alexba.in/images/posts/tasker-action-example.jpg" height="640px" width="384px" class="center" /></p>
+  echo $$ &gt; /var/run/open-source-universal-remote.pid
+  exec /usr/local/bin/node /home/pi/lirc_web/app.js 2&gt;&amp;1 &gt;&gt; /var/log/open-source-universal-remote.upstart.log
 
-<pre><code># IP / Port of the Open Source Universal Remote
-Server:Port   http://192.168.1.115:3000
+end script
 
-# Path to the remote/command combo you want to call
-Path          /remotes/Yamaha/power
+pre-start script
+    # Date format same as (new Date()).toISOString() for consistency
+    echo "[`date -u +%Y-%m-%dT%T.%3NZ`] (sys) Starting" &gt;&gt; /var/log/open-source-universal-remote.upstart.log
+end script
+
+pre-stop script
+    rm /var/run/open-source-universal-remote.pid
+    echo "[`date -u +%Y-%m-%dT%T.%3NZ`] (sys) Stopping" &gt;&gt; /var/log/open-source-universal-remote.upstart.log
+end script
 </code></pre>
 
-<p>Once you've created those three Tasks, you're ready to setup the Pebble Watch.</p>
+<p>After creating the Upstart script, you should be able to start the <code>lirc_web</code> project by running:</p>
 
-<h3>Part 3: Pebble Watch</h3>
+<pre><code>sudo initctl start open-source-universal-remote
+</code></pre>
 
-<p>The <a href="http://getpebble.com">Pebble Watch</a> was a successful Kickstarter project that launched in 2012. It's a smart watch which connects to your cell phone via Bluetooth. It has a software development kit enabling anyone to write apps for the watch. I participated in the Kickstarter project, and have been very excited to start using my watch as a "remote control for reality."</p>
+<p>You can verify everything works by opening <code>http://universalremote.local:3000</code> (or the RaspberryPi's IP address) in your web browser. You should see the <code>lirc_web</code> web interface.</p>
 
-<p>For this project we'll be using the Android/Pebble combo app called <a href="https://play.google.com/store/apps/details?id=com.kodek.pebbletasker">PebbleTasker</a>. This is a very straightforward app. You install the app on your phone, which gives you the option to install the PebbleTasker app on the watch.</p>
+<h3>Install and Configure NGINX</h3>
 
-<p>Once the watch app has been installed, you use the Android app to define which Tasker actions should be assigned to which button. Select the three Tasker actions that you created above and you should be set!</p>
+<p>If you run <code>lirc_web</code> by itself it creates a basic web server on port 3000. This is fine, but it's more convenient when an web application runs on port 80, the default port for web traffic. We'll use the free and open source NGINX web server to accomplish this.</p>
 
-<p><img src="http://alexba.in/images/posts/pebble-tasker.jpg" height="640px" width="384px" class="center" /></p>
+<p>To install nginx and ensure it starts on boot, run:</p>
 
-<p>Here's a photograph of my Pebble Watch with the above Tasker actions programmed into the watch:</p>
+<pre><code>sudo apt-get install nginx
+update-rc.d nginx defaults
+sudo service nginx start
+</code></pre>
 
-<p><img src="http://alexba.in/images/posts/open-source-universal-remote-pebble-watch-2.jpg" height="450px" width="600px" class="center" /></p>
+<p>When this completes, confirm everything installed correctly by trying to  access <code>http://universalremote.local</code> in your web browser. You should see a "Welcome to nginx!" web page.</p>
 
-<h3>Part 4: Conclusion / What's Next</h3>
+<p>Next, we have to configure nginx to serve the <code>lirc_web</code> app. You can use the sample config file included in the <code>lirc_web</code> Git repository (within the config directory), or use this example:</p>
 
-<p>Not to wax too philosophical, but I believe that next generation user interface devices like the Pebble Watch have the potential to transform how humans interact with the digital world. The cell phone was revolutionary - it enabled humans to interact with their data while away from a desktop or laptop computer. Now, devices like the Pebble Watch and the RaspberryPi allow you to move beyond the phone and begin interacting with the digital world in an entirely new way.</p>
+<pre><code>server {
+    listen            80;
+    server_name       universalremote.local;
 
-<p>As additional web connected devices are made that control lights, garage doors, cars, appliances, and beyond, the interplay between those devices and user interface devices like the Pebble Watch, Myo, Emotiv EPOC, Google Glass, and others are going to give us new and powerful interactions to control the digital and physical world. These interactions were, until now, the stuff of science fiction. These are exciting times we live in.</p>
+    # Change this to the location you installed lirc_web
+    root              /home/pi/lirc_web;
+    index             index.html index.htm;
 
-<p>If you found this post interesting, please subscribe to the <a href="http://feeds.feedburner.com/alexbain">RSS feed</a> to receive future updates or share this post with your social network. If you have any questions, feel free to leave a comment or send me an email (alex[at]thisdomain).</p>
+    access_log        /var/log/open-source-universal-remote.nginx.log;
 
-<p>Tune in next time where I'll be writing up how to control the Open Source Universal Remote with your mind using an Emotiv EPOC EEG headset.</p>
+    location / {
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $http_host;
+        proxy_set_header X-NginX-Proxy true;
+
+        proxy_pass http://127.0.0.1:3000/;
+        proxy_redirect off;
+    }
+}
+</code></pre>
+
+<p><strong>Update November 11th, 2013:</strong> Save this configuration data in a file called <code>/etc/nginx/conf.d/open-source-universal-remote.conf</code>. Nginx will automatically detect this file once you restart it.</p>
+
+<p>Restart nginx to pick up the new configuration file with <code>sudo service nginx restart</code>.</p>
+
+<p>Now, if you visit <code>http://universalremote.local</code> in your web browser you should now see the project running. In the future, any time you reboot the RaspberryPi <code>lirc_web</code> will start automatically.</p>
+
+<h3>Conclusion</h3>
+
+<p>If everything went smoothly you should now have a daemonzized version of <code>lirc_web</code> running on your RaspberryPi, which is being served via nginx over port 80. In addition, any time you restart your RaspberryPi the <code>lirc_web</code> app will start up at boot.</p>
+
+<p>Are you interested in reading more about the Open Source Universal Remote project? Check out:</p>
+
+<ul>
+<li><a href="http://alexba.in/blog/2013/01/06/setting-up-lirc-on-the-raspberrypi/">Setting up LIRC on the RaspberryPi</a></li>
+<li><a href="http://alexba.in/blog/2013/02/23/controlling-lirc-from-the-web/">Controlling LIRC from the web</a></li>
+<li><a href="http://alexba.in/blog/2013/06/01/using-the-pebble-watch-to-control-your-home-theater/">Using a RaspberryPi and a Pebble Watch to control your home theater</a></li>
+<li><a href="http://alexba.in/blog/2013/06/08/open-source-universal-remote-parts-and-pictures/">Open Source Universal Remote - Parts &amp; Pictures</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[lirc_web v0.0.5]]></title>
+    <link href="http://alexba.in/blog/2013/08/21/lirc-web-v0-0-5/"/>
+    <updated>2013-08-21T10:25:00+00:00</updated>
+    <id>http://alexba.in/blog/2013/08/21/lirc-web-v0-0-5</id>
+    <content type="html"><![CDATA[<p>I've updated the <code>lirc_web</code> project (available at <a href="http://github.com/alexbain/lirc_web">http://github.com/alexbain/lirc_web</a>) to v0.0.5. This version fixes a bug related to the <a href="https://npmjs.org/package/swig">swig</a> npm module that was causing an error when trying to view the project in a browser.</p>
+
+<p>If you were encountering a JavaScript error after trying to install <code>lirc_web</code> this should fix it. Thanks to the folks that reported this.</p>
+
+<p>Please let me know if you encounter any other errors!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Open Source Universal Remote - Parts &amp; Pictures]]></title>
+    <link href="http://alexba.in/blog/2013/06/08/open-source-universal-remote-parts-and-pictures/"/>
+    <updated>2013-06-08T16:17:00+00:00</updated>
+    <id>http://alexba.in/blog/2013/06/08/open-source-universal-remote-parts-and-pictures</id>
+    <content type="html"><![CDATA[<p><a href="http://alexba.in/images/posts/protoboard_v1/protoboard_v1_installed.jpg"><img src="http://alexba.in/images/posts/protoboard_v1/thumb_protoboard_v1_installed.jpg" class="center" /></a></p>
+
+<p>This past weekend I converted my <a href="http://opensourceuniversalremote.com">Open Source Universal Remote</a> breadboard layout into a more permanent soldered circuit. I used the <a href="http://octopart.com/ada801-adafruit+industries-27056076">Adafruit Protoboard</a> as a base instead of having a custom circuit board printed, which worked out well. The protoboard is perfectly sized for the RaspberryPi and I highly recommend it for any RaspberryPi related hardware projects.</p>
+
+<p>Below, I've attached some high resolution photographs of the finished protoboard (front and back). I've also created separate versions of the photographs which are fully annotated and explain how all of the components are laid out. Please note that I did make one miscalculation in my circuit which I have corrected with a yellow jumper wire. I've pointed out the miscalculation on both annotated photographs.</p>
+
+<h3>Parts list:</h3>
+
+<ul>
+<li><a href="http://octopart.com/ada801-adafruit+industries-27056076">1 Adafruit RaspberryPi Protoboard</a></li>
+<li><a href="http://octopart.com/ir333c-everlight-17677690">2 940nm 40deg IR LEDs</a></li>
+<li><a href="http://octopart.com/hlmp-5029-avago-549484">2 right angle LED holders</a></li>
+<li><a href="http://octopart.com/p2n2222ag-on+semiconductor-358561">1 P2N2222AGOD-ND transistor</a></li>
+<li><a href="http://octopart.com/od103je-ohmite-133027">1 10k Ohm resistor</a></li>
+<li><a href="http://octopart.com/tsop38238-vishay-11814552">1 TSOP38238 38KHz IR receiver</a></li>
+<li><a href="http://www.adafruit.com/products/1311">Hook-up Wire Spool Set - 22AWG Solid Core - 6 x 25 ft</a></li>
+<li>RaspberryPi running LIRC (See: <a href="http://alexba.in/blog/2013/01/04/raspberrypi-quickstart/">RaspberryPi Quickstart</a>, <a href="http://alexba.in/blog/2013/01/06/setting-up-lirc-on-the-raspberrypi/">Setting Up LIRC on the RaspberryPi</a>, <a href="http://alexba.in/blog/2013/01/15/installing-nodejs-on-your-raspberrypi/">Installing NodeJS on your RaspberryPi</a>, and <a href="http://alexba.in/blog/2013/02/23/controlling-lirc-from-the-web/">Controlling LIRC from the Web</a>)</li>
+</ul>
+
+
+<h3>Schematic:</h3>
+
+<p><a href="http://upverter.com/alexbain/f24516375cfae8b9/Open-Source-Universal-Remote/#/"><img src="http://upverter.com/alexbain/f24516375cfae8b9/Open-Source-Universal-Remote/embed_img/13715285520000/" alt="Open Source Universal Remote by alexbain f24516375cfae8b9 - Upverter" /></a></p>
+
+<h3>Project pictures:</h3>
+
+<p>All pictures link to a full resolution image (10+ megapixel) which provides plenty of additional resolution for examining the circuit. The annotated photographs should help fill in anything that is unclear. If you have any questions, please leave them in the comments.</p>
+
+<p><a href="http://alexba.in/images/posts/protoboard_v1/protoboard_v1_top.jpg"><img src="http://alexba.in/images/posts/protoboard_v1/thumb_protoboard_v1_top.jpg" class="center" /></a></p>
+
+<p><a href="http://alexba.in/images/posts/protoboard_v1/protoboard_v1_top_annotated.jpg"><img src="http://alexba.in/images/posts/protoboard_v1/thumb_protoboard_v1_top_annotated.jpg" class="center" /></a></p>
+
+<p><a href="http://alexba.in/images/posts/protoboard_v1/protoboard_v1_bottom.jpg"><img src="http://alexba.in/images/posts/protoboard_v1/thumb_protoboard_v1_bottom.jpg" class="center" /></a></p>
+
+<p><a href="http://alexba.in/images/posts/protoboard_v1/protoboard_v1_bottom_annotated.jpg"><img src="http://alexba.in/images/posts/protoboard_v1/thumb_protoboard_v1_bottom_annotated.jpg" class="center" /></a></p>
+
+<p><a href="http://alexba.in/images/posts/protoboard_v1/protoboard_v1_installed_alt.jpg"><img src="http://alexba.in/images/posts/protoboard_v1/thumb_protoboard_v1_installed_alt.jpg" class="center" /></a></p>
+
+<p><a href="http://alexba.in/images/posts/protoboard_v1/protoboard_v1_installed_back.jpg"><img src="http://alexba.in/images/posts/protoboard_v1/thumb_protoboard_v1_installed_back.jpg" class="center" /></a></p>
+
+<p>If you'd like to read more about this project, here is some further reading:</p>
+
+<ul>
+<li><a href="http://alexba.in/blog/2013/03/06/open-source-universal-remote/">Open Source Universal Remote intro</a> - Intro post to the project</li>
+<li><a href="http://alexba.in/blog/2013/03/09/raspberrypi-ir-schematic-for-lirc/">RaspberryPi IR Schematic for LIRC</a> - Electrical schematic for the hardware</li>
+<li><a href="http://alexba.in/blog/2013/01/06/setting-up-lirc-on-the-raspberrypi/">Setting up LIRC on the RaspberryPi</a> - Installing and configuring IR software</li>
+<li><a href="http://alexba.in/blog/2013/02/23/controlling-lirc-from-the-web/">Controlling LIRC From the Web</a> - Installing (mobile/desktop) web interface</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[lirc_web v0.0.3]]></title>
+    <link href="http://alexba.in/blog/2013/04/14/lirc-web-v0-dot-0-3/"/>
+    <updated>2013-04-14T13:00:00+00:00</updated>
+    <id>http://alexba.in/blog/2013/04/14/lirc-web-v0-dot-0-3</id>
+    <content type="html"><![CDATA[<p>As part of the <a href="http://opensourceuniversalremote.com">Open Source Universal Remote</a> project I've been creating a simple and touch friendly user interface for LIRC. In a previous post I covered <a href="/blog/2013/02/23/controlling-lirc-from-the-web/">Controlling LIRC From the Web</a>, where I introduced version 0.0.1 of <a href="http://github.com/alexbain/lirc_web">lirc_web</a>. Lirc_web is a simple NodeJS app I created for controlling LIRC from the web.</p>
+
+<p>Since then, I've created a set of UI styles and fixed a number of touch related bugs with the project. I'm excited to announce <a href="http://github.com/alexbain/lirc_web">v0.0.3 of lirc_web</a> which is now on GitHub.</p>
+
+<p>Here is a screen shot of the remote listing page:</p>
+
+<p><img src="http://alexba.in/images/posts/universal-remote/lirc_web_v003_remotes.png" class="center" /></p>
+
+<p>Upon tapping on any remote, you'll be taken to a page that shows all known commands for that remote:</p>
+
+<p><img src="http://alexba.in/images/posts/universal-remote/lirc_web_v003_commands.png" class="center" /></p>
+
+<p>I have a long list of intended improvements, so if you're interested in contributing to the project please let me know. As always, if you discover any bugs or have any feedback, please let me know in the comments.</p>
 ]]></content>
   </entry>
   

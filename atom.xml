@@ -4,7 +4,7 @@
   <title><![CDATA[alexba.in]]></title>
   <link href="http://alexba.in/atom.xml" rel="self"/>
   <link href="http://alexba.in/"/>
-  <updated>2014-01-26T19:22:57+00:00</updated>
+  <updated>2014-08-10T19:32:43+00:00</updated>
   <id>http://alexba.in/</id>
   <author>
     <name><![CDATA[Alex Bain]]></name>
@@ -12,6 +12,116 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[lirc_web v0.0.8]]></title>
+    <link href="http://alexba.in/blog/2014/08/10/lirc-web-v0-0-8/"/>
+    <updated>2014-08-10T19:18:00+00:00</updated>
+    <id>http://alexba.in/blog/2014/08/10/lirc-web-v0-0-8</id>
+    <content type="html"><![CDATA[<p>In this post I&#8217;m going to talk about two features I&#8217;ve added to the <a href="https://github.com/alexbain/lirc_web">lirc_web</a> project. <a href="https://github.com/alexbain/lirc_web">lirc_web</a> is a NodeJS app I wrote that provides a web interface and JSON based API for controlling <a href="http://lirc.org/">LIRC</a>, an open source project that lets you control IR devices from the command line. I built <a href="https://github.com/alexbain/lirc_web">lirc_web</a> to run on a RaspberryPi along with an expansion board I designed so that anyone could build their own fully customizable universal remote that is controllable via a web interface from any web connected device (phone, tablet, laptop, smart watch, etc).</p>
+
+<p>If you&#8217;d like additional context about the project, you may be interested in:</p>
+
+<ul>
+<li><a href="http://opensourceuniversalremote.com/">Open Source Univeral Remote</a></li>
+<li><a href="http://alexba.in/blog/2013/06/08/open-source-universal-remote-parts-and-pictures/">Open Source Universal Remote - Parts &amp; Pictures</a></li>
+<li><a href="http://alexba.in/blog/2013/03/09/raspberrypi-ir-schematic-for-lirc/">RaspberryPi IR Schematic for LIRC</a></li>
+<li><a href="http://alexba.in/blog/2013/02/23/controlling-lirc-from-the-web/">Controlling LIRC From the Web</a></li>
+</ul>
+
+
+<p>In v0.0.8 I&#8217;ve added two new features - macros and repeaters.</p>
+
+<h3>Macros</h3>
+
+<p>Macros allowing you to execute multiple IR commands in rapid succession from a single button tap or HTTP request. The use case for this would be when you need multiple devices to be turned on and set to a certain mode to perform an activity (say, playing a video game or watching a movie). An example macro might be:</p>
+
+<ul>
+<li>Turn TV on</li>
+<li>Set TV to input 3</li>
+<li>Turn receiver on</li>
+<li>Set receiver input HDMI2</li>
+<li>Turn game console on</li>
+</ul>
+
+
+<p>Macros make performing common multi-step tasks simpler. In addition, Macros are exposed via the API, which means you can execute macros by sending an HTTP request from a growing number of internet of things or web connected devices. For example, you could adjust the volume of the TV from your <a href="https://getpebble.com/steel">Pebble watch</a> or change the TV channel by waving your arm while wearing a <a href="https://www.thalmic.com/en/myo/">Myo armband</a>.</p>
+
+<p>Macros are defined in a <a href="http://en.wikipedia.org/wiki/JSON">JSON</a> configuration file (<code>config.json</code>) that <code>lirc_web</code> expects to find in the root of the project. Here&#8217;s an example:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>{
+</span><span class='line'>  "macros": {
+</span><span class='line'>    "Play Xbox 360": [
+</span><span class='line'>      [ "SonyTV", "Power" ],
+</span><span class='line'>      [ "SonyTV", "Xbox360" ],
+</span><span class='line'>      [ "Yamaha", "Power" ],
+</span><span class='line'>      [ "Yamaha", "Xbox360" ],
+</span><span class='line'>      [ "Xbox360", "Power" ]
+</span><span class='line'>    ],
+</span><span class='line'>    "Listen to Music": [
+</span><span class='line'>      [ "Yamaha", "Power" ],
+</span><span class='line'>      [ "Yamaha", "AirPlay" ]
+</span><span class='line'>    ]
+</span><span class='line'>  }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The <code>macros</code> key is an object of keys (labels) that are set to arrays of <code>[remote, command]</code>  pairs. The <code>remote</code> and <code>command</code> strings are the same as are specified in the LIRC configuration file. This is because <code>lirc_web</code> reads those values to build it&#8217;s own representation. A small delay is introduced between each command to ensure they are all received - if you find that this delay is insufficient for you, you can modify the source code and change it to a value that works.</p>
+
+<p>After you create or change anything in <code>config.json</code>, you will have to restart <code>lirc_web</code>. Afterwards, you&#8217;ll see your macros listed at the bottom of the user interface.</p>
+
+<p>Macros are also available via the API. You can execute them by creating a POST request to a url like so:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>http://ip-of-remote/macros/Play%20Xbox%20360</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Repeaters</h3>
+
+<p>Repeaters are a type of button that repeatedly send it&#8217;s command as long as it is held down. The use case for a repeater would be a volume button that should continue to change the volume as long as it&#8217;s pressed - rather than tapping it many times.</p>
+
+<p>Repeaters are also specified in the configuration file. Here&#8217;s an example:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>{
+</span><span class='line'>  "repeaters": {
+</span><span class='line'>    "SonyTV": {
+</span><span class='line'>      "VolumeUp": true,
+</span><span class='line'>      "VolumeDown": true
+</span><span class='line'>    }
+</span><span class='line'>  }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Similar to macros, the name of the <code>remote</code> and <code>commands</code> must match the names you gave these commands in the LIRC configuration file. If you want to change the name of a button, update the LIRC configuration file and restart LIRC / lirc_web.</p>
+
+<h3>Enjoy</h3>
+
+<p>I&#8217;ve found these two features make the <a href="http://opensourceuniversalremote.com/">Open Source Universal Remote</a> significantly more useful for common tasks. If you have any suggestions for new features or ideas on how to improve the project, please share your ideas in the comments.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Receiving SMS notifications from your washer & dryer]]></title>
@@ -1709,131 +1819,6 @@ sending and receiving. Once that works I should be back to &#8220;adding a web p
 which will be significantly easier when powered by an entire Linux stack.</p>
 
 <p>I&#8217;ll post another update down the road once I&#8217;ve gotten this step working.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Testing for missing images in JavaScript]]></title>
-    <link href="http://alexba.in/blog/2012/07/07/testing-for-missing-images-in-javascript/"/>
-    <updated>2012-07-07T23:08:00+00:00</updated>
-    <id>http://alexba.in/blog/2012/07/07/testing-for-missing-images-in-javascript</id>
-    <content type="html"><![CDATA[<p>Recently I had to determine if an image URL was properly rendering or not. Since
-this image URL was provided by a user there was a chance that it had been
-deleted or moved since they first set it. In that case I wanted to show a
-different image - perhaps a &#8220;missing user&#8221; image - rather than just an empty
-box.</p>
-
-<p>My solution was to bind a callback to the <code>onerror</code> event that fires on an
-<code>Image</code> object if the image source could not be loaded. By binding a callback
-to this error I was able to replace a missing image with an image of my choice.</p>
-
-<p>Here&#8217;s a sample implementation that binds a callback onto the <code>onerror</code> event:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">checkForMissingImage</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="c1">// Create an Image object in memory</span>
-</span><span class='line'>  <span class="kd">var</span> <span class="nx">img</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Image</span><span class="p">();</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="c1">// Bind the callback to the onerror event</span>
-</span><span class='line'>  <span class="nx">img</span><span class="p">.</span><span class="nx">onerror</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">callback</span><span class="p">();</span>
-</span><span class='line'>  <span class="p">};</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="c1">// Set the src of the image to the url provided</span>
-</span><span class='line'>  <span class="nx">img</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="nx">url</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">};</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Here&#8217;s an example that involves replacing all images with class userpic on a page.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="c">&lt;!-- Userpic that will render as a missing image and needs replacing --&gt;</span>
-</span><span class='line'><span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;http://brokenhost.com/does_not_exist.png&quot;</span> <span class="na">class=</span><span class="s">&quot;userpic&quot;</span> <span class="nt">/&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="c">&lt;!-- Userpic that will render properly --&gt;</span>
-</span><span class='line'><span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;http://placekitten.com.s3.amazonaws.com/homepage-samples/200/287.jpg&quot;</span> <span class="na">class=</span><span class="s">&quot;userpic&quot;</span> <span class="nt">/&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="c1">// Define a custom image to replace all missing images with</span>
-</span><span class='line'>  <span class="kd">var</span> <span class="nx">replacementImage</span> <span class="o">=</span> <span class="s1">&#39;http://placekitten.com.s3.amazonaws.com/homepage-samples/408/287.jpg&#39;</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="c1">// Find all userpics on the page</span>
-</span><span class='line'>  <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.userpic&#39;</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">userpic</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// Create a cached reference of this userpic</span>
-</span><span class='line'>    <span class="kd">var</span> <span class="nx">$userpic</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">userpic</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// Get the source of the userpic</span>
-</span><span class='line'>    <span class="kd">var</span> <span class="nx">src</span> <span class="o">=</span> <span class="nx">$userpic</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;src&#39;</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// Check to see if this image still exists. If it does not exist, execute</span>
-</span><span class='line'>    <span class="c1">// the callback function and replace it.</span>
-</span><span class='line'>    <span class="nx">checkForMissingImage</span><span class="p">(</span><span class="nx">src</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>
-</span><span class='line'>      <span class="c1">// Update the missing image with our replacement image.</span>
-</span><span class='line'>      <span class="nx">$userpic</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;src&#39;</span><span class="p">,</span> <span class="nx">replacementImage</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="p">});</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="p">});</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>As <code>onerror</code> support isn&#8217;t universal across every browser this should be
-considered a visual enhancement for users with modern browsers.</p>
 ]]></content>
   </entry>
   
