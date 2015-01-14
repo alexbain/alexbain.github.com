@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Installing NodeJS on your RaspberryPi - alexba.in</title>
+  <title>Automatically reconnecting WiFi on a RaspberryPi - alexba.in</title>
   <meta name="author" content="Alex Bain">
 
   
-  <meta name="description" content="Here&#8217;s how I installed NodeJS on my RaspberryPi: Upgrade to the latest OS / Firmware If you have not already upgraded to the latest version of &hellip;">
+  <meta name="description" content="In this post, I&#8217;m going to cover writing a short script that automatically reconnects a RaspberryPi to a WiFi network. The script will check to &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://alexba.in/blog/2013/01/15/installing-nodejs-on-your-raspberrypi/">
+  <link rel="canonical" href="http://alexba.in/blog/2015/01/14/automatically-reconnecting-wifi-on-a-raspberrypi/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="http://feeds.feedburner.com/alexbain" rel="alternate" title="alexba.in" type="application/atom+xml">
@@ -62,7 +62,7 @@
   
   <header>
     
-      <h1 class="entry-title">Installing NodeJS on Your RaspberryPi</h1>
+      <h1 class="entry-title">Automatically Reconnecting WiFi on a RaspberryPi</h1>
     
     
       <p class="meta">
@@ -78,7 +78,7 @@
   
 
 
-<time datetime="2013-01-15T12:04:00+00:00" pubdate data-updated="true">Jan 15<span>th</span>, 2013</time>
+<time datetime="2015-01-14T03:55:00+00:00" pubdate data-updated="true">Jan 14<span>th</span>, 2015</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -87,56 +87,77 @@
   </header>
 
 
-<div class="entry-content"><p>Here&#8217;s how I installed <a href="http://nodejs.org/">NodeJS</a> on my RaspberryPi:</p>
+<div class="entry-content"><p>In this post, I&#8217;m going to cover writing a short script that automatically reconnects a RaspberryPi to a WiFi network. The script will check to see if the Pi has network connectivity and, if it&#8217;s offline, will restart the wireless interface to bring it back online. We&#8217;ll use <code>cron</code> to schedule the execution of this script at a regular interval.</p>
 
-<h3>Upgrade to the latest OS / Firmware</h3>
+<p>There are a few ways to determine if the RaspberryPi has network connectivity. For this script, we&#8217;ll be using <code>ping</code>.</p>
 
-<p>If you have not already upgraded to the latest version of Raspbian OS and the
-latest RaspberryPi firmware, I recommend following my <a href="http://alexba.in/blog/2013/01/04/raspberrypi-quickstart/">RaspberryPi Quickstart</a>.</p>
+<h3>Writing the script</h3>
 
-<h3>Getting and Compiling NodeJS</h3>
+<p>To get started, we&#8217;ll need to determine if the RaspberryPi is connected to the network. To do this, we&#8217;ll attempt to ping a server and see if we get a response. If the command succeeds (RaspberryPi receives a response from the server), we have network connectivity. If the command fails, we&#8217;ll turn <code>wlan0</code> off and back on.</p>
 
-<p>Once your RaspberryPi is up to date, here&#8217;s how to download and compile NodeJS:</p>
-
-<pre><code># Install some prerequisites
-sudo apt-get install python g++ make
-
-# Grab the latest version of NodeJS
-mkdir ~/nodejs &amp;&amp; cd $_
-wget -N http://nodejs.org/dist/node-latest.tar.gz
-tar xzvf node-latest.tar.gz &amp;&amp; cd `ls -rd node-v*`
-
-# Compile and install to your RaspberryPi
-./configure
-make
-sudo make install
-</code></pre>
-
-<p>Please note that it takes about two hours to compile NodeJS.</p>
-
-<h3>Confirming Installation</h3>
-
-<p>You can confirm that NodeJS was installed correctly by running:</p>
-
-<pre><code>node -v
-npm --help
-</code></pre>
-
-<p>That&#8217;s it! You&#8217;re ready to begin development.</p>
-
-<h3>Additional Reading:</h3>
-
-<p>If you&#8217;d like to do some additional reading about NodeJS or ways to access the
-GPIO pins on the RaspberryPi, check out:</p>
-
-<ul>
-<li><a href="http://nodejs.org/">NodeJS</a> - NodeJS home page</li>
-<li><a href="https://github.com/rakeshpai/pi-gpio">pi-gpio</a> - &#8220;node.js based library to help access the GPIO of the Raspberry Pi&#8221;</li>
-<li><a href="https://github.com/EnotionZ/GpiO">GpiO</a> - &#8220;Talk to your Raspberry Pi&#8217;s GPIO&#8221;</li>
-</ul>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#!/bin/bash
+</span><span class='line'>
+</span><span class='line'># The IP for the server you wish to ping (8.8.8.8 is a public Google DNS server)
+</span><span class='line'>SERVER=8.8.8.8
+</span><span class='line'>
+</span><span class='line'># Only send two pings, sending output to /dev/null
+</span><span class='line'>ping -c2 ${SERVER} &gt; /dev/null
+</span><span class='line'>
+</span><span class='line'># If the return code from ping ($?) is not 0 (meaning there was an error)
+</span><span class='line'>if [ $? != 0 ]
+</span><span class='line'>then
+</span><span class='line'>    # Restart the wireless interface
+</span><span class='line'>    ifdown --force wlan0
+</span><span class='line'>    ifup wlan0
+</span><span class='line'>fi</span></code></pre></td></tr></table></div></figure>
 
 
-<p>If you have any other recommended resources please let me know!</p>
+<p>Name the script something memorable (<code>wifi_rebooter.sh</code>), and place this script in <code>/usr/local/bin</code>. Make sure it&#8217;s executable by running:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>chmod +x /usr/local/bin/wifi_rebooter.sh</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Scheduling regular execution</h3>
+
+<p>To ensure the script runs automatically, we&#8217;ll use <code>cron</code>. The frequency that you run this script is a matter of personal preference - I chose to run the script every five minutes.</p>
+
+<p>To schedule the script, open <code>/etc/crontab</code> for editing and add this line to the bottom:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>*/5 *   * * *   root    /usr/local/bin/wifi_rebooter.sh</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This will ensure that the script is run, as root, every 5 minutes. If you&#8217;re unfamiliar with <code>cron</code> syntax, take a look at the <a href="http://www.nncron.ru/help/EN/working/cron-format.htm">cron format</a>.</p>
+
+<h3>Testing</h3>
+
+<p>To test that the script works as expected, we are going to take down the <code>wlan0</code> interface and wait for the script to bring it back up. Before taking down <code>wlan0</code>, you may want to adjust the interval in <code>/etc/crontab</code> to 1 minute. Also, note that this will immediately disconnect you from your shell session.</p>
+
+<p>To take down <code>wlan0</code> to confirm the script works, run:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ifdown --force wlan0</span></code></pre></td></tr></table></div></figure>
+
+
+<p>After waiting patiently for ~1 minute, try SSHing back into your RaspberryPi. Assuming everything worked, your RaspberryPi should have automatically reconnected to WiFi. Don&#8217;t forget to adjust the interval in <code>/etc/crontab</code> back to a more appropriate value, if you set it to one minute for testing.</p>
+
+<p>Hopefully this helps keep your RaspberryPi projects online! if you have any questions, or have an alternative method to suggest, feel free to leave a comment.</p>
 </div>
 
 
@@ -159,12 +180,12 @@ GPIO pins on the RaspberryPi, check out:</p>
   
 
 
-<time datetime="2013-01-15T12:04:00+00:00" pubdate data-updated="true">Jan 15<span>th</span>, 2013</time>
+<time datetime="2015-01-14T03:55:00+00:00" pubdate data-updated="true">Jan 14<span>th</span>, 2015</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/javascript/'>javascript</a>, <a class='category' href='/blog/categories/nodejs/'>nodejs</a>, <a class='category' href='/blog/categories/raspberrypi/'>raspberrypi</a>
+    <a class='category' href='/blog/categories/raspberrypi/'>raspberrypi</a>
   
 </span>
 
@@ -173,7 +194,7 @@ GPIO pins on the RaspberryPi, check out:</p>
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://alexba.in/blog/2013/01/15/installing-nodejs-on-your-raspberrypi/" data-via="alexsbain" data-counturl="http://alexba.in/blog/2013/01/15/installing-nodejs-on-your-raspberrypi/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://alexba.in/blog/2015/01/14/automatically-reconnecting-wifi-on-a-raspberrypi/" data-via="alexsbain" data-counturl="http://alexba.in/blog/2015/01/14/automatically-reconnecting-wifi-on-a-raspberrypi/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -186,10 +207,8 @@ GPIO pins on the RaspberryPi, check out:</p>
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2013/01/07/use-your-raspberrypi-to-power-a-company-dashboard/" title="Previous Post: Use your RaspberryPi to power a company dashboard">&laquo; Use your RaspberryPi to power a company dashboard</a>
+        <a class="basic-alignment left" href="/blog/2014/08/10/lirc-web-v0-0-8/" title="Previous Post: lirc_web v0.0.8">&laquo; lirc_web v0.0.8</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2013/02/23/controlling-lirc-from-the-web/" title="Next Post: Controlling LIRC from the web">Controlling LIRC from the web &raquo;</a>
       
     </p>
   </footer>
@@ -251,8 +270,8 @@ GPIO pins on the RaspberryPi, check out:</p>
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://alexba.in/blog/2013/01/15/installing-nodejs-on-your-raspberrypi/';
-        var disqus_url = 'http://alexba.in/blog/2013/01/15/installing-nodejs-on-your-raspberrypi/';
+        var disqus_identifier = 'http://alexba.in/blog/2015/01/14/automatically-reconnecting-wifi-on-a-raspberrypi/';
+        var disqus_url = 'http://alexba.in/blog/2015/01/14/automatically-reconnecting-wifi-on-a-raspberrypi/';
         var disqus_script = 'embed.js';
       
     (function () {

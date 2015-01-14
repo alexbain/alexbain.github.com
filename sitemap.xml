@@ -2,124 +2,130 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://alexba.in/blog/2011/12/23/first-post/</loc>
-        <lastmod>2014-01-26T19:02:22+00:00</lastmod>
+        <lastmod>2014-11-18T20:10:38+00:00</lastmod>
     </url>
     <url>
         <loc>http://alexba.in/blog/2012/01/05/javascript-equivalence-operators/</loc>
-        <lastmod>2014-01-26T19:02:22+00:00</lastmod>
+        <lastmod>2014-11-18T20:10:38+00:00</lastmod>
     </url>
     <url>
         <loc>http://alexba.in/blog/2012/02/03/adventures-with-microprocessors/</loc>
-        <lastmod>2014-01-26T19:02:22+00:00</lastmod>
+        <lastmod>2014-11-18T20:10:38+00:00</lastmod>
     </url>
     <url>
         <loc>http://alexba.in/blog/2012/03/16/time-to-information/</loc>
-        <lastmod>2014-01-26T19:02:22+00:00</lastmod>
+        <lastmod>2014-11-18T20:10:38+00:00</lastmod>
     </url>
     <url>
         <loc>http://alexba.in/blog/2012/03/23/open-chrome-from-terminal/</loc>
-        <lastmod>2014-01-26T19:02:22+00:00</lastmod>
+        <lastmod>2014-11-18T20:10:38+00:00</lastmod>
     </url>
     <url>
         <loc>http://alexba.in/blog/2012/07/07/undefined-macro-ac-prog-libtool/</loc>
-        <lastmod>2014-01-26T19:02:22+00:00</lastmod>
+        <lastmod>2014-11-18T20:10:38+00:00</lastmod>
     </url>
     <url>
         <loc>http://alexba.in/blog/2012/07/07/testing-for-missing-images-in-javascript/</loc>
-        <lastmod>2014-01-26T19:02:22+00:00</lastmod>
+        <lastmod>2014-11-18T20:10:38+00:00</lastmod>
     </url>
     <url>
         <loc>http://alexba.in/blog/2012/07/08/universal-remote-experiments/</loc>
-        <lastmod>2014-01-26T19:02:22+00:00</lastmod>
+        <lastmod>2014-11-18T20:10:38+00:00</lastmod>
     </url>
     <url>
         <loc>http://alexba.in/blog/2012/07/14/ardusat-doing-it/</loc>
-        <lastmod>2014-01-26T19:02:22+00:00</lastmod>
+        <lastmod>2014-11-18T20:10:38+00:00</lastmod>
     </url>
     <url>
         <loc>http://alexba.in/blog/2012/10/16/native-gem-extensions-failing-to-install/</loc>
-        <lastmod>2014-01-26T19:02:22+00:00</lastmod>
+        <lastmod>2014-11-18T20:10:38+00:00</lastmod>
     </url>
     <url>
         <loc>http://alexba.in/blog/2012/10/16/user-agent-stylesheets-and-border-box/</loc>
-        <lastmod>2014-01-26T19:02:22+00:00</lastmod>
+        <lastmod>2014-11-18T20:10:38+00:00</lastmod>
     </url>
     <url>
         <loc>http://alexba.in/blog/2012/12/07/spreadsheets-to-websites/</loc>
-        <lastmod>2014-01-26T19:02:22+00:00</lastmod>
+        <lastmod>2014-11-18T20:10:38+00:00</lastmod>
     </url>
     <url>
         <loc>http://alexba.in/blog/2013/01/04/raspberrypi-quickstart/</loc>
-        <lastmod>2014-01-26T19:02:22+00:00</lastmod>
+        <lastmod>2014-11-18T20:10:38+00:00</lastmod>
     </url>
     <url>
         <loc>http://alexba.in/blog/2013/01/06/setting-up-lirc-on-the-raspberrypi/</loc>
-        <lastmod>2014-01-26T19:02:22+00:00</lastmod>
+        <lastmod>2014-11-18T20:10:38+00:00</lastmod>
     </url>
     <url>
         <loc>
             http://alexba.in/blog/2013/01/07/use-your-raspberrypi-to-power-a-company-dashboard/
         </loc>
-        <lastmod>2014-01-26T19:02:22+00:00</lastmod>
+        <lastmod>2014-11-18T20:10:38+00:00</lastmod>
     </url>
     <url>
         <loc>http://alexba.in/blog/2013/01/15/installing-nodejs-on-your-raspberrypi/</loc>
-        <lastmod>2014-01-26T19:02:22+00:00</lastmod>
+        <lastmod>2014-11-18T20:10:38+00:00</lastmod>
     </url>
     <url>
         <loc>http://alexba.in/blog/2013/02/23/controlling-lirc-from-the-web/</loc>
-        <lastmod>2014-01-26T19:02:22+00:00</lastmod>
+        <lastmod>2014-11-18T20:10:38+00:00</lastmod>
     </url>
     <url>
         <loc>http://alexba.in/blog/2013/03/06/open-source-universal-remote/</loc>
-        <lastmod>2014-01-26T19:02:22+00:00</lastmod>
+        <lastmod>2014-11-18T20:10:38+00:00</lastmod>
     </url>
     <url>
         <loc>http://alexba.in/blog/2013/03/09/raspberrypi-ir-schematic-for-lirc/</loc>
-        <lastmod>2014-01-26T19:02:22+00:00</lastmod>
+        <lastmod>2014-11-18T20:10:38+00:00</lastmod>
     </url>
     <url>
         <loc>http://alexba.in/blog/2013/04/14/lirc-web-v0-dot-0-3/</loc>
-        <lastmod>2014-08-10T20:10:53+00:00</lastmod>
+        <lastmod>2014-11-18T20:10:38+00:00</lastmod>
     </url>
     <url>
         <loc>
             http://alexba.in/blog/2013/06/01/using-the-pebble-watch-to-control-your-home-theater/
         </loc>
-        <lastmod>2014-01-26T19:02:22+00:00</lastmod>
+        <lastmod>2014-11-18T20:10:38+00:00</lastmod>
     </url>
     <url>
         <loc>http://alexba.in/blog/2013/06/06/open-terminals-working-directory-in-finder/</loc>
-        <lastmod>2014-01-26T19:02:22+00:00</lastmod>
+        <lastmod>2014-11-18T20:10:38+00:00</lastmod>
     </url>
     <url>
         <loc>
             http://alexba.in/blog/2013/06/08/open-source-universal-remote-parts-and-pictures/
         </loc>
-        <lastmod>2014-01-26T19:02:22+00:00</lastmod>
+        <lastmod>2014-11-18T20:10:38+00:00</lastmod>
     </url>
     <url>
         <loc>http://alexba.in/blog/2013/08/21/lirc-web-v0-0-5/</loc>
-        <lastmod>2014-08-10T20:11:10+00:00</lastmod>
+        <lastmod>2014-11-18T20:10:38+00:00</lastmod>
     </url>
     <url>
         <loc>http://alexba.in/blog/2013/11/02/lirc-web-nginx-and-upstart/</loc>
-        <lastmod>2014-01-26T19:02:22+00:00</lastmod>
+        <lastmod>2014-11-18T20:10:38+00:00</lastmod>
     </url>
     <url>
         <loc>http://alexba.in/blog/2014/01/06/receiving-sms-notifications-from-your-washer/</loc>
-        <lastmod>2014-01-26T19:46:42+00:00</lastmod>
+        <lastmod>2014-11-18T20:10:38+00:00</lastmod>
     </url>
     <url>
         <loc>http://alexba.in/blog/2014/08/10/lirc-web-v0-0-8/</loc>
-        <lastmod>2014-08-10T19:47:48+00:00</lastmod>
+        <lastmod>2014-11-18T20:10:38+00:00</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://alexba.in/blog/2015/01/14/automatically-reconnecting-wifi-on-a-raspberrypi/
+        </loc>
+        <lastmod>2015-01-14T05:06:09+00:00</lastmod>
     </url>
     <url>
         <loc>http://alexba.in/blog/archives/</loc>
-        <lastmod>2014-08-10T20:11:10+00:00</lastmod>
+        <lastmod>2015-01-14T05:06:09+00:00</lastmod>
     </url>
     <url>
         <loc>http://alexba.in/</loc>
-        <lastmod>2014-08-10T20:11:10+00:00</lastmod>
+        <lastmod>2015-01-14T05:06:09+00:00</lastmod>
     </url>
 </urlset>

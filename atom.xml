@@ -4,7 +4,7 @@
   <title><![CDATA[alexba.in]]></title>
   <link href="http://alexba.in/atom.xml" rel="self"/>
   <link href="http://alexba.in/"/>
-  <updated>2014-08-10T20:13:27+00:00</updated>
+  <updated>2015-01-14T05:09:16+00:00</updated>
   <id>http://alexba.in/</id>
   <author>
     <name><![CDATA[Alex Bain]]></name>
@@ -12,6 +12,85 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Automatically reconnecting WiFi on a RaspberryPi]]></title>
+    <link href="http://alexba.in/blog/2015/01/14/automatically-reconnecting-wifi-on-a-raspberrypi/"/>
+    <updated>2015-01-14T03:55:00+00:00</updated>
+    <id>http://alexba.in/blog/2015/01/14/automatically-reconnecting-wifi-on-a-raspberrypi</id>
+    <content type="html"><![CDATA[<p>In this post, I&#8217;m going to cover writing a short script that automatically reconnects a RaspberryPi to a WiFi network. The script will check to see if the Pi has network connectivity and, if it&#8217;s offline, will restart the wireless interface to bring it back online. We&#8217;ll use <code>cron</code> to schedule the execution of this script at a regular interval.</p>
+
+<p>There are a few ways to determine if the RaspberryPi has network connectivity. For this script, we&#8217;ll be using <code>ping</code>.</p>
+
+<h3>Writing the script</h3>
+
+<p>To get started, we&#8217;ll need to determine if the RaspberryPi is connected to the network. To do this, we&#8217;ll attempt to ping a server and see if we get a response. If the command succeeds (RaspberryPi receives a response from the server), we have network connectivity. If the command fails, we&#8217;ll turn <code>wlan0</code> off and back on.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#!/bin/bash
+</span><span class='line'>
+</span><span class='line'># The IP for the server you wish to ping (8.8.8.8 is a public Google DNS server)
+</span><span class='line'>SERVER=8.8.8.8
+</span><span class='line'>
+</span><span class='line'># Only send two pings, sending output to /dev/null
+</span><span class='line'>ping -c2 ${SERVER} &gt; /dev/null
+</span><span class='line'>
+</span><span class='line'># If the return code from ping ($?) is not 0 (meaning there was an error)
+</span><span class='line'>if [ $? != 0 ]
+</span><span class='line'>then
+</span><span class='line'>    # Restart the wireless interface
+</span><span class='line'>    ifdown --force wlan0
+</span><span class='line'>    ifup wlan0
+</span><span class='line'>fi</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Name the script something memorable (<code>wifi_rebooter.sh</code>), and place this script in <code>/usr/local/bin</code>. Make sure it&#8217;s executable by running:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>chmod +x /usr/local/bin/wifi_rebooter.sh</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Scheduling regular execution</h3>
+
+<p>To ensure the script runs automatically, we&#8217;ll use <code>cron</code>. The frequency that you run this script is a matter of personal preference - I chose to run the script every five minutes.</p>
+
+<p>To schedule the script, open <code>/etc/crontab</code> for editing and add this line to the bottom:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>*/5 *   * * *   root    /usr/local/bin/wifi_rebooter.sh</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This will ensure that the script is run, as root, every 5 minutes. If you&#8217;re unfamiliar with <code>cron</code> syntax, take a look at the <a href="http://www.nncron.ru/help/EN/working/cron-format.htm">cron format</a>.</p>
+
+<h3>Testing</h3>
+
+<p>To test that the script works as expected, we are going to take down the <code>wlan0</code> interface and wait for the script to bring it back up. Before taking down <code>wlan0</code>, you may want to adjust the interval in <code>/etc/crontab</code> to 1 minute. Also, note that this will immediately disconnect you from your shell session.</p>
+
+<p>To take down <code>wlan0</code> to confirm the script works, run:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ifdown --force wlan0</span></code></pre></td></tr></table></div></figure>
+
+
+<p>After waiting patiently for ~1 minute, try SSHing back into your RaspberryPi. Assuming everything worked, your RaspberryPi should have automatically reconnected to WiFi. Don&#8217;t forget to adjust the interval in <code>/etc/crontab</code> back to a more appropriate value, if you set it to one minute for testing.</p>
+
+<p>Hopefully this helps keep your RaspberryPi projects online! if you have any questions, or have an alternative method to suggest, feel free to leave a comment.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[lirc_web v0.0.8]]></title>
@@ -1734,97 +1813,6 @@ might end up being beautiful.</p>
 
 <p>Hopefully my output from this will be a beautiful print I can hang in my home
 to remember the first (of many, I can only hope) time I was able to run code in space.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Universal remote experiments]]></title>
-    <link href="http://alexba.in/blog/2012/07/08/universal-remote-experiments/"/>
-    <updated>2012-07-08T09:51:00+00:00</updated>
-    <id>http://alexba.in/blog/2012/07/08/universal-remote-experiments</id>
-    <content type="html"><![CDATA[<p>Over the past few months I&#8217;ve decided to teach myself a bit about embedded
-microcontrollers and electronics. I&#8217;ve never worked with hardware before and,
-after a bit of Googling, found an amazing Maker / Open Hardware movement going
-on that I could leverage to help bootstrap my ideas.</p>
-
-<p>Since I&#8217;ve found the best way to motivate myself is with a concrete project I
-decided that, for my first project, I wanted to build a universal remote that I
-could control from my phone. I have a Harmony remote, which I use regularly,
-but it&#8217;s limited by line of sight and requires customization through a
-cumbersome software interface.</p>
-
-<p>My initial requirements were:</p>
-
-<ul>
-<li>Must be small enough to place discreetly in the room</li>
-<li>Must be WiFi enabled</li>
-<li>Must have great IR range and coverage</li>
-<li>Must be able to learn existing commands</li>
-<li>Must have a responsive web interface</li>
-</ul>
-
-
-<h4>Version 1: Arduino</h4>
-
-<p>The first prototype I built was using an <a href="http://arduino.cc">Arduino Uno</a> microcontroller along with
-<a href="http://www.arcfn.com/2009/08/multi-protocol-infrared-remote-library.html">Ken Shirriff&#8217;s</a> multi protocol IR library. I had wired a 940nm IR LED to one
-of the Arduino&#8217;s pins and was able to get about two feet of range out of it.</p>
-
-<p>Next, I extended the code and attached a <a href="http://www.sparkfun.com/products/10822">Roving Networks RN-XV</a> WiFi chip to
-my project so it was WiFi enabled. So far so good. I could now send or receive
-IR commands (relatively well, it wasn&#8217;t perfect) over Wifi with about a two foot
-range for the IR signal. I also had to hard code the WiFi credentials which meant
-the device wasn&#8217;t very portable, but at least it worked. This was version 1.1.</p>
-
-<p>Version 1.2 was an updated hardware schematic that added a 2N2222 transistor to
-the mix. Using a transistor meant that the output from the Arduino&#8217;s pin was not
-trying to power the LED but just telling a transitor to switch current on and off.
-Since the transistor switches current significantly better than the output
-pin of the Arduino I was able to extend the range for the IR blaster to about 15ft.
-This change was inspired by open source schematics like <a href="http://www.ladyada.net/images/tvbgone/schematic.jpg">TV-B-Gone</a>.</p>
-
-<p>Version 1.3 was to be the version with the web interface. This was where I realized
-the limitations of the Arduino platform. I could not easily run a WiFi libray,
-an IR library, and a web server off of an 8bit micro controller. I simply didn&#8217;t
-have the resources.</p>
-
-<p>I had considered a few alternatives:</p>
-
-<ul>
-<li>Run a webserver on my laptop and just send commands to/from the Arduino</li>
-<li>Run a webserver on the internet and relay commands that way</li>
-<li>Purchase a device like a <a href="http://raspberrypi.org/">RaspberryPi</a> or <a href="http://beagleboard.org/bone/">Beaglebone</a> and run the web
-server on that device. Communicate with the Arduino perhaps via XBee or over WiFi.</li>
-</ul>
-
-
-<p>Ultimately I decided that adding a second device increased the complexity of the
-project beyond what I wanted. So, I scrapped the idea of using an Arduino and I&#8217;m
-starting over with a <a href="http://raspberrypi.org/">RaspberryPi</a>.</p>
-
-<h4>Version 2: RaspberryPi</h4>
-
-<p>The <a href="http://raspberrypi.org/">RaspberryPi</a> is a completely different beast than the <a href="http://arduino.cc">Arduino</a>. The <a href="http://raspberrypi.org/">RaspberryPi</a>
-is about as powerful as a mobile phone. It&#8217;s got an ARM processor,
-ethernet port, RAM, SD card for storage, and a bunch of <a href="http://en.wikipedia.org/wiki/General_Purpose_Input/Output">GPIO</a> pins for a hardware
-interface.</p>
-
-<p>So first up was finding an IR software package (designed for a Linux OS) that
-could handle the transmission and receiving of IR signals. This lead me to
-<a href="http://www.lirc.org/">LIRC</a> - the Linux Infrared Remote Control project. This project has been
-around for a while, has a bunch of hardware schematics available (sending and
-receiving) for it, and is open source. Perfect.</p>
-
-<p>This lead me to getting LIRC working on my RaspberryPi. Luckily a chap who goes
-by the name <a href="http://aron.ws/projects/lirc_rpi/">ar0n</a> has already opened a <a href="https://github.com/raspberrypi/linux/pull/38">pull request</a> that adds preliminary
-LIRC support to the RaspberryPi linux kernel.</p>
-
-<p>So, at this very moment, I am attempting to recompile the RaspberryPi linux kernel
-with LIRC support. Once this step is done I&#8217;ll wire up some hardware to test
-sending and receiving. Once that works I should be back to &#8220;adding a web platform&#8221;
-which will be significantly easier when powered by an entire Linux stack.</p>
-
-<p>I&#8217;ll post another update down the road once I&#8217;ve gotten this step working.</p>
 ]]></content>
   </entry>
   

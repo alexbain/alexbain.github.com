@@ -9,7 +9,7 @@
   <meta name="author" content="Alex Bain">
 
   
-  <meta name="description" content="In this post I&#8217;m going to talk about two features I&#8217;ve added to the lirc_web project. lirc_web is a NodeJS app I wrote that provides a &hellip;">
+  <meta name="description" content="In this post, I&#8217;m going to cover writing a short script that automatically reconnects a RaspberryPi to a WiFi network. The script will check to &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -59,6 +59,114 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/01/14/automatically-reconnecting-wifi-on-a-raspberrypi/">Automatically Reconnecting WiFi on a RaspberryPi</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-01-14T03:55:00+00:00" pubdate data-updated="true">Jan 14<span>th</span>, 2015</time>
+        
+         | <a href="/blog/2015/01/14/automatically-reconnecting-wifi-on-a-raspberrypi/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>In this post, I&#8217;m going to cover writing a short script that automatically reconnects a RaspberryPi to a WiFi network. The script will check to see if the Pi has network connectivity and, if it&#8217;s offline, will restart the wireless interface to bring it back online. We&#8217;ll use <code>cron</code> to schedule the execution of this script at a regular interval.</p>
+
+<p>There are a few ways to determine if the RaspberryPi has network connectivity. For this script, we&#8217;ll be using <code>ping</code>.</p>
+
+<h3>Writing the script</h3>
+
+<p>To get started, we&#8217;ll need to determine if the RaspberryPi is connected to the network. To do this, we&#8217;ll attempt to ping a server and see if we get a response. If the command succeeds (RaspberryPi receives a response from the server), we have network connectivity. If the command fails, we&#8217;ll turn <code>wlan0</code> off and back on.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#!/bin/bash
+</span><span class='line'>
+</span><span class='line'># The IP for the server you wish to ping (8.8.8.8 is a public Google DNS server)
+</span><span class='line'>SERVER=8.8.8.8
+</span><span class='line'>
+</span><span class='line'># Only send two pings, sending output to /dev/null
+</span><span class='line'>ping -c2 ${SERVER} &gt; /dev/null
+</span><span class='line'>
+</span><span class='line'># If the return code from ping ($?) is not 0 (meaning there was an error)
+</span><span class='line'>if [ $? != 0 ]
+</span><span class='line'>then
+</span><span class='line'>    # Restart the wireless interface
+</span><span class='line'>    ifdown --force wlan0
+</span><span class='line'>    ifup wlan0
+</span><span class='line'>fi</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Name the script something memorable (<code>wifi_rebooter.sh</code>), and place this script in <code>/usr/local/bin</code>. Make sure it&#8217;s executable by running:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>chmod +x /usr/local/bin/wifi_rebooter.sh</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Scheduling regular execution</h3>
+
+<p>To ensure the script runs automatically, we&#8217;ll use <code>cron</code>. The frequency that you run this script is a matter of personal preference - I chose to run the script every five minutes.</p>
+
+<p>To schedule the script, open <code>/etc/crontab</code> for editing and add this line to the bottom:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>*/5 *   * * *   root    /usr/local/bin/wifi_rebooter.sh</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This will ensure that the script is run, as root, every 5 minutes. If you&#8217;re unfamiliar with <code>cron</code> syntax, take a look at the <a href="http://www.nncron.ru/help/EN/working/cron-format.htm">cron format</a>.</p>
+
+<h3>Testing</h3>
+
+<p>To test that the script works as expected, we are going to take down the <code>wlan0</code> interface and wait for the script to bring it back up. Before taking down <code>wlan0</code>, you may want to adjust the interval in <code>/etc/crontab</code> to 1 minute. Also, note that this will immediately disconnect you from your shell session.</p>
+
+<p>To take down <code>wlan0</code> to confirm the script works, run:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ifdown --force wlan0</span></code></pre></td></tr></table></div></figure>
+
+
+<p>After waiting patiently for ~1 minute, try SSHing back into your RaspberryPi. Assuming everything worked, your RaspberryPi should have automatically reconnected to WiFi. Don&#8217;t forget to adjust the interval in <code>/etc/crontab</code> back to a more appropriate value, if you set it to one minute for testing.</p>
+
+<p>Hopefully this helps keep your RaspberryPi projects online! if you have any questions, or have an alternative method to suggest, feel free to leave a comment.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1360,52 +1468,6 @@ Path          /remotes/Yamaha/power
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/03/06/open-source-universal-remote/">Open Source Universal Remote</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-03-06T11:55:00+00:00" pubdate data-updated="true">Mar 6<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/03/06/open-source-universal-remote/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><img src="/images/posts/universal-remote/transistor.jpg" /></p>
-
-<p>Almost a year ago I decided to teach myself electronics by creating my own WiFi enabled universal remote. Initially I tried to build the project with an Arduino, but later switched to a RaspberryPi. As I&#8217;ve made progress on my project I&#8217;ve open sourced the software I&#8217;ve written and blogged about every step of the process.</p>
-
-<p>To date, I&#8217;ve had over nine thousand unique visitors check out the posts related to this project. Based on the positive feedback I&#8217;ve received and the questions asked, I believe it makes sense to aggregate all of the data I&#8217;ve spread out across numerous blog posts into one guide. Over the coming weeks I&#8217;ll be creating a step by step guide for building your own RaspberryPi powered universal remote. In addition, I&#8217;ll be creating and open sourcing additional components of the project such as a printed circuit board and a 3D printable case to enclose the project.</p>
-
-<p>Check out the <a href="http://opensourceuniversalremote.com">Open Source Universal Remote</a> landing page I created for the project. In the coming weeks I&#8217;ll be adding additional content to that page.</p>
-
-<p>If you have any requests or ideas for this project please don&#8217;t hesitate to ask in the comments. In addition, if you have hardware engineering experience or industrial design experience and would like to contribute please get in touch.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1419,6 +1481,10 @@ Path          /remotes/Yamaha/power
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/01/14/automatically-reconnecting-wifi-on-a-raspberrypi/">Automatically reconnecting WiFi on a RaspberryPi</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/08/10/lirc-web-v0-0-8/">lirc_web v0.0.8</a>
@@ -1436,10 +1502,6 @@ Path          /remotes/Yamaha/power
         <a href="/blog/2013/08/21/lirc-web-v0-0-5/">lirc_web v0.0.5</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2013/06/08/open-source-universal-remote-parts-and-pictures/">Open Source Universal Remote - Parts &amp; Pictures</a>
-      </li>
-    
   </ul>
 </section>
 
@@ -1449,7 +1511,7 @@ Path          /remotes/Yamaha/power
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2014 - Alex Bain -
+  Copyright &copy; 2015 - Alex Bain -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
