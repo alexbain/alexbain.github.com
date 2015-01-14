@@ -62,4 +62,4 @@ ifdown --force wlan0
 
 After waiting patiently for ~1 minute, try SSHing back into your RaspberryPi. Assuming everything worked, your RaspberryPi should have automatically reconnected to WiFi. Don't forget to adjust the interval in ``/etc/crontab`` back to a more appropriate value, if you set it to one minute for testing.
 
-Hopefully this helps keep your RaspberryPi projects online! if you have any questions, or have an alternative method to suggest, feel free to leave a comment.
+Hopefully this helps keep your RaspberryPi projects online! If you have any questions, or have an alternative method to suggest, feel free to leave a comment.
