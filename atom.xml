@@ -4,7 +4,7 @@
   <title><![CDATA[alexba.in]]></title>
   <link href="http://alexba.in/atom.xml" rel="self"/>
   <link href="http://alexba.in/"/>
-  <updated>2015-01-14T05:09:16+00:00</updated>
+  <updated>2015-01-14T05:14:13+00:00</updated>
   <id>http://alexba.in/</id>
   <author>
     <name><![CDATA[Alex Bain]]></name>
@@ -88,7 +88,7 @@
 
 <p>After waiting patiently for ~1 minute, try SSHing back into your RaspberryPi. Assuming everything worked, your RaspberryPi should have automatically reconnected to WiFi. Don&#8217;t forget to adjust the interval in <code>/etc/crontab</code> back to a more appropriate value, if you set it to one minute for testing.</p>
 
-<p>Hopefully this helps keep your RaspberryPi projects online! if you have any questions, or have an alternative method to suggest, feel free to leave a comment.</p>
+<p>Hopefully this helps keep your RaspberryPi projects online! If you have any questions, or have an alternative method to suggest, feel free to leave a comment.</p>
 ]]></content>
   </entry>
   
