@@ -53,6 +53,8 @@ All caught up? Great! We're ready to install a basic web application for LIRC.
 
 The easiest way to setup a NodeJS web application using ``lirc_node`` is to use v0.0.1 of [lirc_web](https://github.com/alexbain/lirc_web), a sample NodeJS application I wrote as a proof of concept for ``lirc_node``. This web application is extremely basic, and only proves that ``lirc_node`` works. I have plans to grow this application with additional functionality and an improved interface. You may also use the basic API included in this web application to connect your universal remote with services like [Tasker](https://play.google.com/store/apps/details?id=net.dinglisch.android.taskerm&hl=en) or [IFTTT](https://ifttt.com/).
 
+**January 17th 2015 Update:** [lirc_web](https://github.com/alexbain/lirc_web) is now at v0.0.8 and contains bugfixes and additional functionality. The user interface has been improved since v0.0.1, as well.
+
 To download and install [lirc_web](https://github.com/alexbain/lirc_web):
 
     wget https://github.com/alexbain/lirc_web/archive/master.zip
