@@ -4,7 +4,7 @@
   <title><![CDATA[alexba.in]]></title>
   <link href="http://alexba.in/atom.xml" rel="self"/>
   <link href="http://alexba.in/"/>
-  <updated>2015-01-26T16:09:01+00:00</updated>
+  <updated>2015-01-26T16:11:20+00:00</updated>
   <id>http://alexba.in/</id>
   <author>
     <name><![CDATA[Alex Bain]]></name>
@@ -1467,7 +1467,7 @@ LIRCMD_CONF=""
 sudo /etc/init.d/lirc start
 </code></pre>
 
-<p><strong>January 25th 2015:</strong> Mark W. in the comments pointed out that in the 3.18.x RaspberryPi firmware you must modify one additional file for the <code>lirc-rpi</code> kernel extension to be loaded:</p>
+<p><strong>January 25th 2015:</strong> Marc W. in the comments pointed out that in the 3.18.x RaspberryPi firmware you must modify one additional file for the <code>lirc-rpi</code> kernel extension to be loaded:</p>
 
 <p>Edit your <code>/boot/config.txt</code> file and add:</p>
 
