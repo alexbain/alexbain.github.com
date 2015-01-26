@@ -76,7 +76,7 @@ Now restart ``lircd`` so it picks up these changes:
     sudo /etc/init.d/lirc stop
     sudo /etc/init.d/lirc start
 
-**January 25th 2015:** Mark W. in the comments pointed out that in the 3.18.x RaspberryPi firmware you must modify one additional file for the ``lirc-rpi`` kernel extension to be loaded:
+**January 25th 2015:** Marc W. in the comments pointed out that in the 3.18.x RaspberryPi firmware you must modify one additional file for the ``lirc-rpi`` kernel extension to be loaded:
 
 Edit your ``/boot/config.txt`` file and add:
 
