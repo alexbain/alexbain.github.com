@@ -4,7 +4,7 @@
   <title><![CDATA[alexba.in]]></title>
   <link href="http://alexba.in/atom.xml" rel="self"/>
   <link href="http://alexba.in/"/>
-  <updated>2015-01-18T02:20:41+00:00</updated>
+  <updated>2015-01-26T16:09:01+00:00</updated>
   <id>http://alexba.in/</id>
   <author>
     <name><![CDATA[Alex Bain]]></name>
@@ -1466,6 +1466,15 @@ LIRCMD_CONF=""
 <pre><code>sudo /etc/init.d/lirc stop
 sudo /etc/init.d/lirc start
 </code></pre>
+
+<p><strong>January 25th 2015:</strong> Mark W. in the comments pointed out that in the 3.18.x RaspberryPi firmware you must modify one additional file for the <code>lirc-rpi</code> kernel extension to be loaded:</p>
+
+<p>Edit your <code>/boot/config.txt</code> file and add:</p>
+
+<pre><code>dtoverlay=lirc-rpi,gpio_in_pin=23,gpio_out_pin=22
+</code></pre>
+
+<p>Reboot your RaspberryPi after making this change.</p>
 
 <h3>Wiring up the IR transceiver</h3>
 

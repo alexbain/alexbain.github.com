@@ -161,6 +161,15 @@ LIRCMD_CONF=""
 sudo /etc/init.d/lirc start
 </code></pre>
 
+<p><strong>January 25th 2015:</strong> Mark W. in the comments pointed out that in the 3.18.x RaspberryPi firmware you must modify one additional file for the <code>lirc-rpi</code> kernel extension to be loaded:</p>
+
+<p>Edit your <code>/boot/config.txt</code> file and add:</p>
+
+<pre><code>dtoverlay=lirc-rpi,gpio_in_pin=23,gpio_out_pin=22
+</code></pre>
+
+<p>Reboot your RaspberryPi after making this change.</p>
+
 <h3>Wiring up the IR transceiver</h3>
 
 <p><strong>June 8th 2013 Update:</strong> I&#8217;ve finished a more permanent build and documented the process in my <a href="http://alexba.in/blog/2013/06/08/open-source-universal-remote-parts-and-pictures/">Open Source Universal Remote - Parts &amp; Picturse</a> blog post.</p>
