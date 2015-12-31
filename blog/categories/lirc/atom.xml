@@ -4,7 +4,7 @@
   <title><![CDATA[Category: lirc | alexba.in]]></title>
   <link href="http://alexba.in/blog/categories/lirc/atom.xml" rel="self"/>
   <link href="http://alexba.in/"/>
-  <updated>2015-01-26T16:11:20+00:00</updated>
+  <updated>2015-12-31T05:10:06+00:00</updated>
   <id>http://alexba.in/</id>
   <author>
     <name><![CDATA[Alex Bain]]></name>
@@ -12,6 +12,38 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[lirc_web v0.2.0]]></title>
+    <link href="http://alexba.in/blog/2015/12/31/lirc-web-v0-2-0/"/>
+    <updated>2015-12-31T04:56:00+00:00</updated>
+    <id>http://alexba.in/blog/2015/12/31/lirc-web-v0-2-0</id>
+    <content type="html"><![CDATA[<p>The <code>lirc_web</code> project (available at <a href="https://github.com/alexbain/lirc_web">https://github.com/alexbain/lirc_web</a>) has been updated to <code>v0.2.0</code>, which contains some new features and bugfixes. Here's the summary of the new functionality now available in the project:</p>
+
+<pre><code>[0.2.0] - 2015-12-30
+
+Adding blacklist configuration option to hide unused keys from UI (thanks @OvisMaximus)
+Adding support for SSL (thanks @de-live-gdev)
+Fixing example config in the README (thanks @de-live-gdev)
+Fixes url escaping bug with macros and remotes (issue #23)
+
+[0.1.0] - 2015-12-30
+
+Locking npm versions to ensure future install work
+Adding CHANGELOG.md
+Adding /refresh link on bottom to reload UI after making changes to LIRC (thanks @f00f)
+Adding ability to set custom labels on command and remote names (thanks @elysion)
+Adding Apple mobile app capability, disabling zoom (thanks @elysion)
+Moving Lato fonts locally to remove external network dependency
+</code></pre>
+
+<p>New features are documented in the <a href="https://github.com/alexbain/lirc_web/blob/master/README.md">README</a>.</p>
+
+<p>On a related note, <code>lirc_node</code> (available at <a href="https://github.com/alexbain/lirc_node">https://github.com/alexbain/lirc_node</a>) has been updated to <code>v0.0.4</code>. There's no new functionality in this release, simply locked NPM dependency versions and the addition of a change log.</p>
+
+<p>If you run into any issues with either project, let me know in the comments or (ideally) via the <a href="https://github.com/alexbain/lirc_web/issues">issues page</a>.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[lirc_web v0.0.8]]></title>
@@ -292,99 +324,6 @@ sudo service nginx start
 <p>Interested in installing LIRC on your RaspberryPi? You may be interested in reading <a href="/blog/2013/01/06/setting-up-lirc-on-the-raspberrypi/">Setting up LIRC on the RaspberryPi</a> and <a href="/blog/2013/02/23/controlling-lirc-from-the-web/">Controlling LIRC From the Web</a>.</p>
 
 <p><strong>Update:</strong> Thanks to Steve in the comments for pointing out a few errors I had in the schematic.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Controlling LIRC from the web]]></title>
-    <link href="http://alexba.in/blog/2013/02/23/controlling-lirc-from-the-web/"/>
-    <updated>2013-02-23T13:06:00+00:00</updated>
-    <id>http://alexba.in/blog/2013/02/23/controlling-lirc-from-the-web</id>
-    <content type="html"><![CDATA[<p>In this post I will cover how to create a web interface + API for <a href="http://lirc.org">LIRC</a>, the Linux Infrared Remote Control project. I will be using NodeJS and a RaspberryPi in this post, but the ideas generalize to other languages and hardware. This post will serve as Part 3 of my open source universal remote project posts. If you haven't had an opportunity to read the first two posts, I suggest checking out <a href="/blog/2012/07/08/universal-remote-experiments/">Universal remote experiments</a> (Part 1) and <a href="/blog/2013/01/06/setting-up-lirc-on-the-raspberrypi">Setting up LIRC on the RaspberryPi</a> (Part 2) before proceeding. You may also want to read <a href="/blog/2013/01/15/installing-nodejs-on-your-raspberrypi">Installing NodeJS on your RaspberryPi</a>, where I cover installing NodeJS.</p>
-
-<p>If you're completely new to the RaspberryPi and want to learn more I wrote a <a href="/blog/2013/01/04/raspberrypi-quickstart">RaspberryPi Quickstart</a> post which covers everything from purchasing the parts to configuring the WiFi. Check that out if you're new to the RaspberryPi ecosystem.</p>
-
-<p>With that out of the way, let's get started!</p>
-
-<p><img src="http://alexba.in/images/posts/universal-remote/ir-leds.jpg" class="center" /></p>
-
-<h3>Why a web interface + API?</h3>
-
-<p>LIRC is an awesome open source project that handles all of the low level requirements of sending and receiving Infrared commands from a Linux computer. It's well documented, well supported, and thanks to the work of the open source community there is now a <code>lirc_rpi</code> driver included in the latest version of RaspbianOS. This means that, as long as you're running a RaspberryPi with the latest OS and firmware, LIRC can interface with the RaspberryPi GPIO pins. Fantastic.</p>
-
-<p>Once you have LIRC installed and configured (which I cover in my <a href="/blog/2013/01/06/setting-up-lirc-on-the-raspberrypi">Setting up LIRC on the RaspberryPi</a> post), you can use LIRC executables like <a href="http://www.lirc.org/html/irsend.html">irsend</a> and <a href="http://www.lirc.org/html/irrecord.html">irrecord</a> to send and record IR commands for all your IR devices - right from the command line! This is great fun, but not very user friendly.</p>
-
-<p>I wanted a way to control LIRC from the web. I wanted a web application that enabled me to interact with LIRC from any web connected device. If I had that, I could create a mobile web app for my phone, a regular web app for a desktop, and a RESTful API for web services. The API would give me a way to connect LIRC with any external web service - opening the door for future integrations. All I needed to do was find a way to call LIRC commands from within a web application.</p>
-
-<p>Which brings us to the meat of this post. Getting NodeJS and LIRC to talk.</p>
-
-<p><img src="http://alexba.in/images/posts/universal-remote/breadboard-wires.jpg" class="center" /></p>
-
-<h3>Getting LIRC and NodeJS to talk</h3>
-
-<p>To make LIRC usable from the web I needed a client library in a language I could build a web application in. The client library would provide some way to make calls from the web application to LIRC. This would give me the building blocks I needed to build a web application. The usual web languages include PHP, Python, Ruby, and NodeJS.</p>
-
-<p>For this project I chose to work in NodeJS. If you would prefer to implement a web application in a different language, I found two existing LIRC client libraries. Sadly, neither seem maintained. I found <a href="https://github.com/fugalh/lircr">lircr</a> for Ruby and <a href="http://sourceforge.net/projects/pylirc/">pyLirc</a> for Python.</p>
-
-<p>Since I could not find an existing NodeJS LIRC client library, and the existing libraries I did find were not up to date, I built my own. I created <a href="https://github.com/alexbain/lirc_node">lirc_node</a>, a lightweight NodeJS client library that interfaces with LIRC. v0.0.1 of <code>lirc_node</code> only supports <code>irsend</code>. This allows you to send IR commands to devices that LIRC knows about.</p>
-
-<p>Before trying to install and use <code>lirc_node</code> make sure you have completed these steps:</p>
-
-<ul>
-<li>Purchased, setup, and configured a RaspberryPi to join a network</li>
-<li>Wired up an IR LED and an IR Receiver to your RaspberryPi</li>
-<li>Installed and configured LIRC to interface with your IR LED and IR Receiver</li>
-<li>Programmed LIRC to understand your remote controls</li>
-<li>Installed NodeJS on your RaspberryPi</li>
-</ul>
-
-
-<p>If you have not completed all of those steps scroll back to the top of this post and check out my earlier posts. I have written detailed step by step guides to get you through each of those steps.</p>
-
-<p>All caught up? Great! We're ready to install a basic web application for LIRC.</p>
-
-<p><img src="http://alexba.in/images/posts/universal-remote/ir-receiver.jpg" class="center" /></p>
-
-<h3>Creating a NodeJS web application using <code>lirc_node</code> and <code>lirc_web</code></h3>
-
-<p>The easiest way to setup a NodeJS web application using <code>lirc_node</code> is to use v0.0.1 of <a href="https://github.com/alexbain/lirc_web">lirc_web</a>, a sample NodeJS application I wrote as a proof of concept for <code>lirc_node</code>. This web application is extremely basic, and only proves that <code>lirc_node</code> works. I have plans to grow this application with additional functionality and an improved interface. You may also use the basic API included in this web application to connect your universal remote with services like <a href="https://play.google.com/store/apps/details?id=net.dinglisch.android.taskerm&amp;hl=en">Tasker</a> or <a href="https://ifttt.com/">IFTTT</a>.</p>
-
-<p><strong>January 17th 2015 Update:</strong> <a href="https://github.com/alexbain/lirc_web">lirc_web</a> is now at v0.0.8 and contains bugfixes and additional functionality. The user interface has been improved since v0.0.1, as well.</p>
-
-<p>To download and install <a href="https://github.com/alexbain/lirc_web">lirc_web</a>:</p>
-
-<pre><code>wget https://github.com/alexbain/lirc_web/archive/master.zip
-unzip master.zip
-mv lirc_web-master lirc_web
-rm master.zip
-cd lirc_web
-npm install
-node app.js
-</code></pre>
-
-<p>That should do it. Now, visit <code>http://raspberrypi:3000/</code> (or the IP address of your RaspberryPi) to confirm the sample web application shows all of the remotes and commands LIRC knows about. Clicking any of the links will tell LIRC to send that IR command via the API endpoint.</p>
-
-<p><img src="http://alexba.in/images/posts/universal-remote/lirc_web.jpg" class="center" /></p>
-
-<p><strong>November 2nd 2013 Update:</strong> I have posted a follow up post that discusses how to ensure the <code>lirc_web</code> project automatically starts on boot and is accessible via port 80. Check out <a href="http://alexba.in/blog/2013/11/02/lirc-web-nginx-and-upstart/">Running lirc_web with Nginx and Upstart</a> to learn more.</p>
-
-<h3>Success!</h3>
-
-<p>At this point, assuming you've been able to get each step working, you should have a web application you can use to control any IR device that LIRC knows about.</p>
-
-<h3>What's next?</h3>
-
-<p>In the coming months I hope to:</p>
-
-<ul>
-<li>Create an open hardware schematic and PCB board that anyone can use for the hardware.</li>
-<li>3D print an enclosure for the RaspberryPi + expansion board.</li>
-<li>Improve the web application and give it a proper mobile web interface.</li>
-<li>Write about how to connect <a href="https://github.com/alexbain/lirc_web">lirc_web</a> to Tasker or IFTTT.</li>
-</ul>
-
-
-<p>If you have any questions, suggestions, or run into any issues - please let me know.</p>
 ]]></content>
   </entry>
   

@@ -4,7 +4,7 @@
   <title><![CDATA[alexba.in]]></title>
   <link href="http://alexba.in/atom.xml" rel="self"/>
   <link href="http://alexba.in/"/>
-  <updated>2015-01-26T16:11:20+00:00</updated>
+  <updated>2015-12-31T05:10:06+00:00</updated>
   <id>http://alexba.in/</id>
   <author>
     <name><![CDATA[Alex Bain]]></name>
@@ -12,6 +12,53 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[lirc_web v0.2.0]]></title>
+    <link href="http://alexba.in/blog/2015/12/31/lirc-web-v0-2-0/"/>
+    <updated>2015-12-31T04:56:00+00:00</updated>
+    <id>http://alexba.in/blog/2015/12/31/lirc-web-v0-2-0</id>
+    <content type="html"><![CDATA[<p>The <code>lirc_web</code> project (available at <a href="https://github.com/alexbain/lirc_web">https://github.com/alexbain/lirc_web</a>) has been updated to <code>v0.2.0</code>, which contains some new features and bugfixes. Here&#8217;s the summary of the new functionality now available in the project:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[0.2.0] - 2015-12-30
+</span><span class='line'>
+</span><span class='line'>Adding blacklist configuration option to hide unused keys from UI (thanks @OvisMaximus)
+</span><span class='line'>Adding support for SSL (thanks @de-live-gdev)
+</span><span class='line'>Fixing example config in the README (thanks @de-live-gdev)
+</span><span class='line'>Fixes url escaping bug with macros and remotes (issue #23)
+</span><span class='line'>
+</span><span class='line'>[0.1.0] - 2015-12-30
+</span><span class='line'>
+</span><span class='line'>Locking npm versions to ensure future install work
+</span><span class='line'>Adding CHANGELOG.md
+</span><span class='line'>Adding /refresh link on bottom to reload UI after making changes to LIRC (thanks @f00f)
+</span><span class='line'>Adding ability to set custom labels on command and remote names (thanks @elysion)
+</span><span class='line'>Adding Apple mobile app capability, disabling zoom (thanks @elysion)
+</span><span class='line'>Moving Lato fonts locally to remove external network dependency</span></code></pre></td></tr></table></div></figure>
+
+
+<p>New features are documented in the <a href="https://github.com/alexbain/lirc_web/blob/master/README.md">README</a>.</p>
+
+<p>On a related note, <code>lirc_node</code> (available at <a href="https://github.com/alexbain/lirc_node">https://github.com/alexbain/lirc_node</a>) has been updated to <code>v0.0.4</code>. There&#8217;s no new functionality in this release, simply locked NPM dependency versions and the addition of a change log.</p>
+
+<p>If you run into any issues with either project, let me know in the comments or (ideally) via the <a href="https://github.com/alexbain/lirc_web/issues">issues page</a>.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Automatically reconnecting WiFi on a RaspberryPi]]></title>
@@ -1796,34 +1843,6 @@ fail to compile if that&#8217;s missing. When I checked <code>/usr/bin</code> I 
 </code></pre>
 
 <p>Hope this helps someone!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[ArduSat: Doing it.]]></title>
-    <link href="http://alexba.in/blog/2012/07/14/ardusat-doing-it/"/>
-    <updated>2012-07-14T11:26:00+00:00</updated>
-    <id>http://alexba.in/blog/2012/07/14/ardusat-doing-it</id>
-    <content type="html"><![CDATA[<p>I&#8217;ve been enamored with space for as long as I can remember. The barrier of entry
-for space/satellites, however, has always been a bit outside of the individual&#8217;s grasp.</p>
-
-<p>Until now. The other day I stumbled across an amazing Kickstarter project -
-the <a href="http://www.kickstarter.com/projects/575960623/ardusat-your-arduino-experiment-in-space">ArduSat</a>. The goal of the project is to be the first open platform for
-individuals to design and run their own space experiments. Yup. That&#8217;s right.
-For $325 you can now run your own space experiments.</p>
-
-<p>For the first time you can get access to a satellite and execute whatever code
-you like to gather data, run experiments, or otherwise just take photos from space.
-It&#8217;s an amazing idea and one I&#8217;m proud to say I&#8217;m a backer of.</p>
-
-<p>I haven&#8217;t decided what to do with the time yet. Since photography is such
-a passion of mine, however, I&#8217;d love to find some way to analyze the surroundings,
-determine if something interesting is happening, and start taking photographs. Given
-that the user has good control over the camera I was thinking that some HDR shots
-might end up being beautiful.</p>
-
-<p>Hopefully my output from this will be a beautiful print I can hang in my home
-to remember the first (of many, I can only hope) time I was able to run code in space.</p>
 ]]></content>
   </entry>
   

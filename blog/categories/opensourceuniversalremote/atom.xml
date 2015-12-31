@@ -4,7 +4,7 @@
   <title><![CDATA[Category: opensourceuniversalremote | alexba.in]]></title>
   <link href="http://alexba.in/blog/categories/opensourceuniversalremote/atom.xml" rel="self"/>
   <link href="http://alexba.in/"/>
-  <updated>2015-01-26T16:11:20+00:00</updated>
+  <updated>2015-12-31T05:10:06+00:00</updated>
   <id>http://alexba.in/</id>
   <author>
     <name><![CDATA[Alex Bain]]></name>
@@ -12,6 +12,38 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[lirc_web v0.2.0]]></title>
+    <link href="http://alexba.in/blog/2015/12/31/lirc-web-v0-2-0/"/>
+    <updated>2015-12-31T04:56:00+00:00</updated>
+    <id>http://alexba.in/blog/2015/12/31/lirc-web-v0-2-0</id>
+    <content type="html"><![CDATA[<p>The <code>lirc_web</code> project (available at <a href="https://github.com/alexbain/lirc_web">https://github.com/alexbain/lirc_web</a>) has been updated to <code>v0.2.0</code>, which contains some new features and bugfixes. Here's the summary of the new functionality now available in the project:</p>
+
+<pre><code>[0.2.0] - 2015-12-30
+
+Adding blacklist configuration option to hide unused keys from UI (thanks @OvisMaximus)
+Adding support for SSL (thanks @de-live-gdev)
+Fixing example config in the README (thanks @de-live-gdev)
+Fixes url escaping bug with macros and remotes (issue #23)
+
+[0.1.0] - 2015-12-30
+
+Locking npm versions to ensure future install work
+Adding CHANGELOG.md
+Adding /refresh link on bottom to reload UI after making changes to LIRC (thanks @f00f)
+Adding ability to set custom labels on command and remote names (thanks @elysion)
+Adding Apple mobile app capability, disabling zoom (thanks @elysion)
+Moving Lato fonts locally to remove external network dependency
+</code></pre>
+
+<p>New features are documented in the <a href="https://github.com/alexbain/lirc_web/blob/master/README.md">README</a>.</p>
+
+<p>On a related note, <code>lirc_node</code> (available at <a href="https://github.com/alexbain/lirc_node">https://github.com/alexbain/lirc_node</a>) has been updated to <code>v0.0.4</code>. There's no new functionality in this release, simply locked NPM dependency versions and the addition of a change log.</p>
+
+<p>If you run into any issues with either project, let me know in the comments or (ideally) via the <a href="https://github.com/alexbain/lirc_web/issues">issues page</a>.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[lirc_web v0.0.8]]></title>
@@ -316,29 +348,6 @@ sudo service nginx start
 <li><a href="http://alexba.in/blog/2013/02/23/controlling-lirc-from-the-web/">Controlling LIRC From the Web</a> - Installing (mobile/desktop) web interface</li>
 </ul>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[lirc_web v0.0.3]]></title>
-    <link href="http://alexba.in/blog/2013/04/14/lirc-web-v0-dot-0-3/"/>
-    <updated>2013-04-14T13:00:00+00:00</updated>
-    <id>http://alexba.in/blog/2013/04/14/lirc-web-v0-dot-0-3</id>
-    <content type="html"><![CDATA[<p><strong>August 10, 2014 Update:</strong> Latest version is now <a href="http://alexba.in/blog/2014/08/10/lirc-web-v0-0-8/">lirc_web v0.0.8</a></p>
-
-<p>As part of the <a href="http://opensourceuniversalremote.com">Open Source Universal Remote</a> project I've been creating a simple and touch friendly user interface for LIRC. In a previous post I covered <a href="/blog/2013/02/23/controlling-lirc-from-the-web/">Controlling LIRC From the Web</a>, where I introduced version 0.0.1 of <a href="http://github.com/alexbain/lirc_web">lirc_web</a>. Lirc_web is a simple NodeJS app I created for controlling LIRC from the web.</p>
-
-<p>Since then, I've created a set of UI styles and fixed a number of touch related bugs with the project. I'm excited to announce <a href="http://github.com/alexbain/lirc_web">v0.0.3 of lirc_web</a> which is now on GitHub.</p>
-
-<p>Here is a screen shot of the remote listing page:</p>
-
-<p><img src="http://alexba.in/images/posts/universal-remote/lirc_web_v003_remotes.png" class="center" /></p>
-
-<p>Upon tapping on any remote, you'll be taken to a page that shows all known commands for that remote:</p>
-
-<p><img src="http://alexba.in/images/posts/universal-remote/lirc_web_v003_commands.png" class="center" /></p>
-
-<p>I have a long list of intended improvements, so if you're interested in contributing to the project please let me know. As always, if you discover any bugs or have any feedback, please let me know in the comments.</p>
 ]]></content>
   </entry>
   

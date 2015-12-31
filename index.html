@@ -9,7 +9,7 @@
   <meta name="author" content="Alex Bain">
 
   
-  <meta name="description" content="In this post, I&#8217;m going to cover writing a short script that automatically reconnects a RaspberryPi to a WiFi network. The script will check to &hellip;">
+  <meta name="description" content="The lirc_web project (available at https://github.com/alexbain/lirc_web) has been updated to v0.2.0, which contains some new features and bugfixes. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -59,6 +59,82 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/12/31/lirc-web-v0-2-0/">Lirc_web v0.2.0</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-12-31T04:56:00+00:00" pubdate data-updated="true">Dec 31<span>st</span>, 2015</time>
+        
+         | <a href="/blog/2015/12/31/lirc-web-v0-2-0/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>The <code>lirc_web</code> project (available at <a href="https://github.com/alexbain/lirc_web">https://github.com/alexbain/lirc_web</a>) has been updated to <code>v0.2.0</code>, which contains some new features and bugfixes. Here&#8217;s the summary of the new functionality now available in the project:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[0.2.0] - 2015-12-30
+</span><span class='line'>
+</span><span class='line'>Adding blacklist configuration option to hide unused keys from UI (thanks @OvisMaximus)
+</span><span class='line'>Adding support for SSL (thanks @de-live-gdev)
+</span><span class='line'>Fixing example config in the README (thanks @de-live-gdev)
+</span><span class='line'>Fixes url escaping bug with macros and remotes (issue #23)
+</span><span class='line'>
+</span><span class='line'>[0.1.0] - 2015-12-30
+</span><span class='line'>
+</span><span class='line'>Locking npm versions to ensure future install work
+</span><span class='line'>Adding CHANGELOG.md
+</span><span class='line'>Adding /refresh link on bottom to reload UI after making changes to LIRC (thanks @f00f)
+</span><span class='line'>Adding ability to set custom labels on command and remote names (thanks @elysion)
+</span><span class='line'>Adding Apple mobile app capability, disabling zoom (thanks @elysion)
+</span><span class='line'>Moving Lato fonts locally to remove external network dependency</span></code></pre></td></tr></table></div></figure>
+
+
+<p>New features are documented in the <a href="https://github.com/alexbain/lirc_web/blob/master/README.md">README</a>.</p>
+
+<p>On a related note, <code>lirc_node</code> (available at <a href="https://github.com/alexbain/lirc_node">https://github.com/alexbain/lirc_node</a>) has been updated to <code>v0.0.4</code>. There&#8217;s no new functionality in this release, simply locked NPM dependency versions and the addition of a change log.</p>
+
+<p>If you run into any issues with either project, let me know in the comments or (ideally) via the <a href="https://github.com/alexbain/lirc_web/issues">issues page</a>.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1414,60 +1490,6 @@ Path          /remotes/Yamaha/power
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/03/09/raspberrypi-ir-schematic-for-lirc/">RaspberryPi IR Schematic for LIRC</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-03-09T09:19:00+00:00" pubdate data-updated="true">Mar 9<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/03/09/raspberrypi-ir-schematic-for-lirc/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Here is a <a href="http://upverter.com/alexbain/f24516375cfae8b9/Open-Source-Universal-Remote/">schematic</a> I designed that demonstrates you how you could create an IR transceiver for your RaspberryPi. You can use this schematic with the <a href="http://lirc.org">LIRC</a> software package to create your own universal remote. It&#8217;s hosted on <a href="http://upverter.com">Upverter</a> and contains a parts list for where to purchase the parts I used.</p>
-
-<p><strong>June 1st, 2013: Thanks to some feedback and experimentation I&#8217;ve updated the schematic. This latest version reflects the best combination of parts I&#8217;ve found so far.</strong></p>
-
-<p><strong>June 3rd, 2013: Two more schematic bugfixes.</strong></p>
-
-<p><strong>June 8th, 2013:</strong> Read about the finished protoboard build in my <a href="http://alexba.in/blog/2013/06/08/open-source-universal-remote-parts-and-pictures/">Open Source Universal Remote - Parts &amp; Picturse</a> blog post.</p>
-
-<p><a href="http://upverter.com/alexbain/f24516375cfae8b9/Open-Source-Universal-Remote/#/"><img src="http://upverter.com/alexbain/f24516375cfae8b9/Open-Source-Universal-Remote/embed_img/13702922880000/" alt="Open Source Universal Remote by alexbain f24516375cfae8b9 - Upverter" /></a></p>
-
-<p><a href="http://upverter.com/alexbain/f24516375cfae8b9/Open-Source-Universal-Remote/#">View the schematic and parts list</a></p>
-
-<p>If you have any suggestions for improvements feel free to tinker on it and submit them.</p>
-
-<p>Interested in installing LIRC on your RaspberryPi? You may be interested in reading <a href="/blog/2013/01/06/setting-up-lirc-on-the-raspberrypi/">Setting up LIRC on the RaspberryPi</a> and <a href="/blog/2013/02/23/controlling-lirc-from-the-web/">Controlling LIRC From the Web</a>.</p>
-
-<p><strong>Update:</strong> Thanks to Steve in the comments for pointing out a few errors I had in the schematic.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1483,6 +1505,10 @@ Path          /remotes/Yamaha/power
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/12/31/lirc-web-v0-2-0/">lirc_web v0.2.0</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/01/14/automatically-reconnecting-wifi-on-a-raspberrypi/">Automatically reconnecting WiFi on a RaspberryPi</a>
       </li>
     
@@ -1496,10 +1522,6 @@ Path          /remotes/Yamaha/power
     
       <li class="post">
         <a href="/blog/2013/11/02/lirc-web-nginx-and-upstart/">Running lirc_web with nginx and upstart</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/08/21/lirc-web-v0-0-5/">lirc_web v0.0.5</a>
       </li>
     
   </ul>

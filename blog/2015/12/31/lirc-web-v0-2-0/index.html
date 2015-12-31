@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Opening Chrome from the OSX terminal - alexba.in</title>
+  <title>lirc_web v0.2.0 - alexba.in</title>
   <meta name="author" content="Alex Bain">
 
   
-  <meta name="description" content="Have you ever wanted to open an HTML file in Chrome, directly from the OSX terminal? I have. Here&#8217;s how to do it: Open ~/.bash_profile in your &hellip;">
+  <meta name="description" content="The lirc_web project (available at https://github.com/alexbain/lirc_web) has been updated to v0.2.0, which contains some new features and bugfixes. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://alexba.in/blog/2012/03/23/open-chrome-from-terminal/">
+  <link rel="canonical" href="http://alexba.in/blog/2015/12/31/lirc-web-v0-2-0/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="http://feeds.feedburner.com/alexbain" rel="alternate" title="alexba.in" type="application/atom+xml">
@@ -62,7 +62,7 @@
   
   <header>
     
-      <h1 class="entry-title">Opening Chrome From the OSX Terminal</h1>
+      <h1 class="entry-title">Lirc_web v0.2.0</h1>
     
     
       <p class="meta">
@@ -78,7 +78,7 @@
   
 
 
-<time datetime="2012-03-23T11:15:00+00:00" pubdate data-updated="true">Mar 23<span>rd</span>, 2012</time>
+<time datetime="2015-12-31T04:56:00+00:00" pubdate data-updated="true">Dec 31<span>st</span>, 2015</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -87,29 +87,45 @@
   </header>
 
 
-<div class="entry-content"><p>Have you ever wanted to open an HTML file in Chrome, directly from the OSX terminal? I have. Here&#8217;s how to do it:</p>
+<div class="entry-content"><p>The <code>lirc_web</code> project (available at <a href="https://github.com/alexbain/lirc_web">https://github.com/alexbain/lirc_web</a>) has been updated to <code>v0.2.0</code>, which contains some new features and bugfixes. Here&#8217;s the summary of the new functionality now available in the project:</p>
 
-<ul>
-<li>Open <code>~/.bash_profile</code> in your editor of choice.</li>
-<li>Append this to the bottom of your <code>~/.bash_profile</code>:</li>
-</ul>
-
-
-<figure class='code'><figcaption><span>.bash_profile</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>  chrome <span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>    open -a <span class="s2">&quot;/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome&quot;</span> <span class="s2">&quot;$1&quot;</span>
-</span><span class='line'>  <span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[0.2.0] - 2015-12-30
+</span><span class='line'>
+</span><span class='line'>Adding blacklist configuration option to hide unused keys from UI (thanks @OvisMaximus)
+</span><span class='line'>Adding support for SSL (thanks @de-live-gdev)
+</span><span class='line'>Fixing example config in the README (thanks @de-live-gdev)
+</span><span class='line'>Fixes url escaping bug with macros and remotes (issue #23)
+</span><span class='line'>
+</span><span class='line'>[0.1.0] - 2015-12-30
+</span><span class='line'>
+</span><span class='line'>Locking npm versions to ensure future install work
+</span><span class='line'>Adding CHANGELOG.md
+</span><span class='line'>Adding /refresh link on bottom to reload UI after making changes to LIRC (thanks @f00f)
+</span><span class='line'>Adding ability to set custom labels on command and remote names (thanks @elysion)
+</span><span class='line'>Adding Apple mobile app capability, disabling zoom (thanks @elysion)
+</span><span class='line'>Moving Lato fonts locally to remove external network dependency</span></code></pre></td></tr></table></div></figure>
 
 
-<ul>
-<li>Save and close the file.</li>
-<li>Run <code>source ~/.bash_profile</code> from the terminal to reload it.</li>
-<li>Enjoy being able to type things like <code>chrome index.html</code> from the terminal.</li>
-</ul>
+<p>New features are documented in the <a href="https://github.com/alexbain/lirc_web/blob/master/README.md">README</a>.</p>
 
+<p>On a related note, <code>lirc_node</code> (available at <a href="https://github.com/alexbain/lirc_node">https://github.com/alexbain/lirc_node</a>) has been updated to <code>v0.0.4</code>. There&#8217;s no new functionality in this release, simply locked NPM dependency versions and the addition of a change log.</p>
+
+<p>If you run into any issues with either project, let me know in the comments or (ideally) via the <a href="https://github.com/alexbain/lirc_web/issues">issues page</a>.</p>
 </div>
 
 
@@ -132,12 +148,12 @@
   
 
 
-<time datetime="2012-03-23T11:15:00+00:00" pubdate data-updated="true">Mar 23<span>rd</span>, 2012</time>
+<time datetime="2015-12-31T04:56:00+00:00" pubdate data-updated="true">Dec 31<span>st</span>, 2015</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/osx/'>osx</a>
+    <a class='category' href='/blog/categories/lirc/'>lirc</a>, <a class='category' href='/blog/categories/nodejs/'>nodejs</a>, <a class='category' href='/blog/categories/opensourceuniversalremote/'>opensourceuniversalremote</a>, <a class='category' href='/blog/categories/raspberrypi/'>raspberrypi</a>
   
 </span>
 
@@ -146,7 +162,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://alexba.in/blog/2012/03/23/open-chrome-from-terminal/" data-via="alexsbain" data-counturl="http://alexba.in/blog/2012/03/23/open-chrome-from-terminal/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://alexba.in/blog/2015/12/31/lirc-web-v0-2-0/" data-via="alexsbain" data-counturl="http://alexba.in/blog/2015/12/31/lirc-web-v0-2-0/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -159,10 +175,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2012/03/16/time-to-information/" title="Previous Post: TTI: Time to Information">&laquo; TTI: Time to Information</a>
+        <a class="basic-alignment left" href="/blog/2015/01/14/automatically-reconnecting-wifi-on-a-raspberrypi/" title="Previous Post: Automatically reconnecting WiFi on a RaspberryPi">&laquo; Automatically reconnecting WiFi on a RaspberryPi</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2012/07/07/undefined-macro-ac-prog-libtool/" title="Next Post: Undefined macro: AC_PROG_LIBTOOL">Undefined macro: AC_PROG_LIBTOOL &raquo;</a>
       
     </p>
   </footer>
@@ -224,8 +238,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://alexba.in/blog/2012/03/23/open-chrome-from-terminal/';
-        var disqus_url = 'http://alexba.in/blog/2012/03/23/open-chrome-from-terminal/';
+        var disqus_identifier = 'http://alexba.in/blog/2015/12/31/lirc-web-v0-2-0/';
+        var disqus_url = 'http://alexba.in/blog/2015/12/31/lirc-web-v0-2-0/';
         var disqus_script = 'embed.js';
       
     (function () {
