@@ -1,0 +1,33 @@
+---
+layout: post
+title: "lirc_web v0.2.0"
+date: 2015-12-31 04:56
+comments: true
+categories: [raspberrypi, lirc, opensourceuniversalremote, nodejs]
+---
+
+The `lirc_web` project (available at [https://github.com/alexbain/lirc_web](https://github.com/alexbain/lirc_web)) has been updated to `v0.2.0`, which contains some new features and bugfixes. Here's the summary of the new functionality now available in the project:
+
+```
+[0.2.0] - 2015-12-30
+
+Adding blacklist configuration option to hide unused keys from UI (thanks @OvisMaximus)
+Adding support for SSL (thanks @de-live-gdev)
+Fixing example config in the README (thanks @de-live-gdev)
+Fixes url escaping bug with macros and remotes (issue #23)
+
+[0.1.0] - 2015-12-30
+
+Locking npm versions to ensure future install work
+Adding CHANGELOG.md
+Adding /refresh link on bottom to reload UI after making changes to LIRC (thanks @f00f)
+Adding ability to set custom labels on command and remote names (thanks @elysion)
+Adding Apple mobile app capability, disabling zoom (thanks @elysion)
+Moving Lato fonts locally to remove external network dependency
+```
+
+New features are documented in the [README](https://github.com/alexbain/lirc_web/blob/master/README.md).
+
+On a related note, `lirc_node` (available at [https://github.com/alexbain/lirc_node](https://github.com/alexbain/lirc_node)) has been updated to `v0.0.4`. There's no new functionality in this release, simply locked NPM dependency versions and the addition of a change log.
+
+If you run into any issues with either project, let me know in the comments or (ideally) via the [issues page](https://github.com/alexbain/lirc_web/issues).
