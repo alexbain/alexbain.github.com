@@ -1,0 +1,50 @@
+---
+layout: post
+title: "lirc_web v0.3.0"
+date: 2016-03-13 11:50
+comments: true
+categories: [raspberrypi, lirc, opensourceuniversalremote, nodejs]
+---
+
+`v0.3.0` of `lirc_web` has just been published to npm.
+
+This release targets mobile optimizations and performance. `lirc_web` now behaves more like a native app when added to the home screen of a mobile device. A favicon is now shown on the home screen, the URL bar will be hidden from view, and `lirc_web` will be selectable from the device's multitasking screen. Furthermore, CSS assets are bundled into a single request, small images are now base64 encoded, and an application cache has been introduced to cache all assets locally between requests.
+
+In my testing, with a warm cache, `lirc_web` now fires a `load` event within 300ms.
+
+Here's the relevant piece of `CHANGELOG.md` that describes all updates since `v0.2.0`:
+
+```
+## [0.3.0] - 2016-03-13
+
+* Adds `grunt-contrib-cssmin` task to combine all CSS requests into one
+* Adds ability to set lirc socket in `config.json` (thanks @pmgration)
+* Base64 `left-arrow.png` image to reduce a request
+* Adds application cache manifest file for offline caching
+
+## [0.2.4] - 2016-01-13
+
+* Extracts macros into a standalone lib/macros.js file
+* Adds Favicon (thanks @flochtililoch)
+* Adds npm run test:watch action (thanks @OvisMaximus)
+* Travis build will now run linter
+* Updated dependencies
+* Uses local version of jQuery for testing now
+
+## [0.2.3] - 2016-01-03
+
+* Fixing bug where labels were loaded before config (thanks @flochtililoch)
+
+## [0.2.2] - 2016-01-01
+
+* Removing `Makefile` for running tests. Only need `package.json`.
+* Fixing .gitignore error for the global lirc_web build
+
+## [0.2.1] - 2015-12-31
+
+* `lirc_web` can now be installed globally and called by `lirc_web` from CLI
+* Adding ESLint to the mix and ensuring all JS conforms to Airbnb ES5 standards
+
+```
+
+New features are documented in the [README](https://github.com/alexbain/lirc_web/blob/master/README.md) and the [CHANGELOG](https://github.com/alexbain/lirc_web/blob/master/CHANGELOG.md)
