@@ -5,12 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>ArduSat: Doing it. - alexba.in</title>
+  <title>lirc_web v0.3.0 - alexba.in</title>
   <meta name="author" content="Alex Bain">
 
   
-  <meta name="description" content="I&#8217;ve been enamored with space for as long as I can remember. The barrier of entry
-for space/satellites, however, has always been a bit outside &hellip;">
+  <meta name="description" content="v0.3.0 of lirc_web has just been published to npm. This release targets mobile optimizations and performance. lirc_web now behaves more like a native &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +18,7 @@ for space/satellites, however, has always been a bit outside &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://alexba.in/blog/2012/07/14/ardusat-doing-it/">
+  <link rel="canonical" href="http://alexba.in/blog/2016/03/13/lirc-web-v0-3-0/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="http://feeds.feedburner.com/alexbain" rel="alternate" title="alexba.in" type="application/atom+xml">
@@ -63,7 +62,7 @@ for space/satellites, however, has always been a bit outside &hellip;">
   
   <header>
     
-      <h1 class="entry-title">ArduSat: Doing It.</h1>
+      <h1 class="entry-title">Lirc_web v0.3.0</h1>
     
     
       <p class="meta">
@@ -79,7 +78,7 @@ for space/satellites, however, has always been a bit outside &hellip;">
   
 
 
-<time datetime="2012-07-14T11:26:00+00:00" pubdate data-updated="true">Jul 14<span>th</span>, 2012</time>
+<time datetime="2016-03-13T11:50:00+00:00" pubdate data-updated="true">Mar 13<span>th</span>, 2016</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -88,26 +87,76 @@ for space/satellites, however, has always been a bit outside &hellip;">
   </header>
 
 
-<div class="entry-content"><p>I&#8217;ve been enamored with space for as long as I can remember. The barrier of entry
-for space/satellites, however, has always been a bit outside of the individual&#8217;s grasp.</p>
+<div class="entry-content"><p><code>v0.3.0</code> of <code>lirc_web</code> has just been published to npm.</p>
 
-<p>Until now. The other day I stumbled across an amazing Kickstarter project -
-the <a href="http://www.kickstarter.com/projects/575960623/ardusat-your-arduino-experiment-in-space">ArduSat</a>. The goal of the project is to be the first open platform for
-individuals to design and run their own space experiments. Yup. That&#8217;s right.
-For $325 you can now run your own space experiments.</p>
+<p>This release targets mobile optimizations and performance. <code>lirc_web</code> now behaves more like a native app when added to the home screen of a mobile device. A favicon is now shown on the home screen, the URL bar will be hidden from view, and <code>lirc_web</code> will be selectable from the device&#8217;s multitasking screen. Furthermore, CSS assets are bundled into a single request, small images are now base64 encoded, and an application cache has been introduced to cache all assets locally between requests.</p>
 
-<p>For the first time you can get access to a satellite and execute whatever code
-you like to gather data, run experiments, or otherwise just take photos from space.
-It&#8217;s an amazing idea and one I&#8217;m proud to say I&#8217;m a backer of.</p>
+<p>In my testing, with a warm cache, <code>lirc_web</code> now fires a <code>load</code> event within 300ms.</p>
 
-<p>I haven&#8217;t decided what to do with the time yet. Since photography is such
-a passion of mine, however, I&#8217;d love to find some way to analyze the surroundings,
-determine if something interesting is happening, and start taking photographs. Given
-that the user has good control over the camera I was thinking that some HDR shots
-might end up being beautiful.</p>
+<p>Here&#8217;s the relevant piece of <code>CHANGELOG.md</code> that describes all updates since <code>v0.2.0</code>:</p>
 
-<p>Hopefully my output from this will be a beautiful print I can hang in my home
-to remember the first (of many, I can only hope) time I was able to run code in space.</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>## [0.3.0] - 2016-03-13
+</span><span class='line'>
+</span><span class='line'>* Adds `grunt-contrib-cssmin` task to combine all CSS requests into one
+</span><span class='line'>* Adds ability to set lirc socket in `config.json` (thanks @pmgration)
+</span><span class='line'>* Base64 `left-arrow.png` image to reduce a request
+</span><span class='line'>* Adds application cache manifest file for offline caching
+</span><span class='line'>
+</span><span class='line'>## [0.2.4] - 2016-01-13
+</span><span class='line'>
+</span><span class='line'>* Extracts macros into a standalone lib/macros.js file
+</span><span class='line'>* Adds Favicon (thanks @flochtililoch)
+</span><span class='line'>* Adds npm run test:watch action (thanks @OvisMaximus)
+</span><span class='line'>* Travis build will now run linter
+</span><span class='line'>* Updated dependencies
+</span><span class='line'>* Uses local version of jQuery for testing now
+</span><span class='line'>
+</span><span class='line'>## [0.2.3] - 2016-01-03
+</span><span class='line'>
+</span><span class='line'>* Fixing bug where labels were loaded before config (thanks @flochtililoch)
+</span><span class='line'>
+</span><span class='line'>## [0.2.2] - 2016-01-01
+</span><span class='line'>
+</span><span class='line'>* Removing `Makefile` for running tests. Only need `package.json`.
+</span><span class='line'>* Fixing .gitignore error for the global lirc_web build
+</span><span class='line'>
+</span><span class='line'>## [0.2.1] - 2015-12-31
+</span><span class='line'>
+</span><span class='line'>* `lirc_web` can now be installed globally and called by `lirc_web` from CLI
+</span><span class='line'>* Adding ESLint to the mix and ensuring all JS conforms to Airbnb ES5 standards
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>New features are documented in the <a href="https://github.com/alexbain/lirc_web/blob/master/README.md">README</a> and the <a href="https://github.com/alexbain/lirc_web/blob/master/CHANGELOG.md">CHANGELOG</a></p>
 </div>
 
 
@@ -130,12 +179,12 @@ to remember the first (of many, I can only hope) time I was able to run code in 
   
 
 
-<time datetime="2012-07-14T11:26:00+00:00" pubdate data-updated="true">Jul 14<span>th</span>, 2012</time>
+<time datetime="2016-03-13T11:50:00+00:00" pubdate data-updated="true">Mar 13<span>th</span>, 2016</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/arduino/'>arduino</a>, <a class='category' href='/blog/categories/space/'>space</a>
+    <a class='category' href='/blog/categories/lirc/'>lirc</a>, <a class='category' href='/blog/categories/nodejs/'>nodejs</a>, <a class='category' href='/blog/categories/opensourceuniversalremote/'>opensourceuniversalremote</a>, <a class='category' href='/blog/categories/raspberrypi/'>raspberrypi</a>
   
 </span>
 
@@ -144,7 +193,7 @@ to remember the first (of many, I can only hope) time I was able to run code in 
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://alexba.in/blog/2012/07/14/ardusat-doing-it/" data-via="alexsbain" data-counturl="http://alexba.in/blog/2012/07/14/ardusat-doing-it/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://alexba.in/blog/2016/03/13/lirc-web-v0-3-0/" data-via="alexsbain" data-counturl="http://alexba.in/blog/2016/03/13/lirc-web-v0-3-0/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -157,10 +206,8 @@ to remember the first (of many, I can only hope) time I was able to run code in 
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2012/07/08/universal-remote-experiments/" title="Previous Post: Universal remote experiments">&laquo; Universal remote experiments</a>
+        <a class="basic-alignment left" href="/blog/2015/12/31/lirc-web-v0-2-0/" title="Previous Post: lirc_web v0.2.0">&laquo; lirc_web v0.2.0</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2012/10/16/native-gem-extensions-failing-to-install/" title="Next Post: Native gem extensions failing to install">Native gem extensions failing to install &raquo;</a>
       
     </p>
   </footer>
@@ -222,8 +269,8 @@ to remember the first (of many, I can only hope) time I was able to run code in 
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://alexba.in/blog/2012/07/14/ardusat-doing-it/';
-        var disqus_url = 'http://alexba.in/blog/2012/07/14/ardusat-doing-it/';
+        var disqus_identifier = 'http://alexba.in/blog/2016/03/13/lirc-web-v0-3-0/';
+        var disqus_url = 'http://alexba.in/blog/2016/03/13/lirc-web-v0-3-0/';
         var disqus_script = 'embed.js';
       
     (function () {

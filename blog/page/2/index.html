@@ -9,7 +9,7 @@
   <meta name="author" content="Alex Bain">
 
   
-  <meta name="description" content="Here is a schematic I designed that demonstrates you how you could create an IR transceiver for your RaspberryPi. You can use this schematic with the &hellip;">
+  <meta name="description" content="August 10, 2014 Update: Latest version is now lirc_web v0.0.8 As part of the Open Source Universal Remote project I&#8217;ve been creating a simple &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -59,6 +59,58 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/04/14/lirc-web-v0-dot-0-3/">Lirc_web v0.0.3</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-14T13:00:00+00:00" pubdate data-updated="true">Apr 14<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/04/14/lirc-web-v0-dot-0-3/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><strong>August 10, 2014 Update:</strong> Latest version is now <a href="http://alexba.in/blog/2014/08/10/lirc-web-v0-0-8/">lirc_web v0.0.8</a></p>
+
+<p>As part of the <a href="http://opensourceuniversalremote.com">Open Source Universal Remote</a> project I&#8217;ve been creating a simple and touch friendly user interface for LIRC. In a previous post I covered <a href="/blog/2013/02/23/controlling-lirc-from-the-web/">Controlling LIRC From the Web</a>, where I introduced version 0.0.1 of <a href="http://github.com/alexbain/lirc_web">lirc_web</a>. Lirc_web is a simple NodeJS app I created for controlling LIRC from the web.</p>
+
+<p>Since then, I&#8217;ve created a set of UI styles and fixed a number of touch related bugs with the project. I&#8217;m excited to announce <a href="http://github.com/alexbain/lirc_web">v0.0.3 of lirc_web</a> which is now on GitHub.</p>
+
+<p>Here is a screen shot of the remote listing page:</p>
+
+<p><img src="/images/posts/universal-remote/lirc_web_v003_remotes.png" class="center" /></p>
+
+<p>Upon tapping on any remote, you&#8217;ll be taken to a page that shows all known commands for that remote:</p>
+
+<p><img src="/images/posts/universal-remote/lirc_web_v003_commands.png" class="center" /></p>
+
+<p>I have a long list of intended improvements, so if you&#8217;re interested in contributing to the project please let me know. As always, if you discover any bugs or have any feedback, please let me know in the comments.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -995,54 +1047,6 @@ to the correct HTML5 doctype (<code>&lt;!doctype html&gt;</code>) everything loa
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/10/16/native-gem-extensions-failing-to-install/">Native Gem Extensions Failing to Install</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-10-16T12:23:00+00:00" pubdate data-updated="true">Oct 16<span>th</span>, 2012</time>
-        
-         | <a href="/blog/2012/10/16/native-gem-extensions-failing-to-install/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Recently I&#8217;ve had trouble installing native gem extensions on my OSX 10.8.2 laptop.
-It appears that some gems are specifically looking for <code>/usr/bin/gcc-4.2</code> and
-fail to compile if that&#8217;s missing. When I checked <code>/usr/bin</code> I could only find
-<code>/usr/bin/gcc</code>.</p>
-
-<p>I tried creating a symlink to <code>gcc-4.2</code> and everything installed correctly:</p>
-
-<pre><code>sudo ln -s /usr/bin/gcc /usr/bin/gcc-4.2
-</code></pre>
-
-<p>Hope this helps someone!</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -1060,6 +1064,10 @@ fail to compile if that&#8217;s missing. When I checked <code>/usr/bin</code> I 
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/03/13/lirc-web-v0-3-0/">lirc_web v0.3.0</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/12/31/lirc-web-v0-2-0/">lirc_web v0.2.0</a>
       </li>
     
@@ -1075,10 +1083,6 @@ fail to compile if that&#8217;s missing. When I checked <code>/usr/bin</code> I 
         <a href="/blog/2014/01/06/receiving-sms-notifications-from-your-washer/">Receiving SMS notifications from your washer & dryer</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2013/11/02/lirc-web-nginx-and-upstart/">Running lirc_web with nginx and upstart</a>
-      </li>
-    
   </ul>
 </section>
 
@@ -1088,7 +1092,7 @@ fail to compile if that&#8217;s missing. When I checked <code>/usr/bin</code> I 
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2015 - Alex Bain -
+  Copyright &copy; 2016 - Alex Bain -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

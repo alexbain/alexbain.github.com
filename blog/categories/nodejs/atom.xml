@@ -4,7 +4,7 @@
   <title><![CDATA[Category: nodejs | alexba.in]]></title>
   <link href="http://alexba.in/blog/categories/nodejs/atom.xml" rel="self"/>
   <link href="http://alexba.in/"/>
-  <updated>2015-12-31T05:10:06+00:00</updated>
+  <updated>2016-03-13T18:33:54+00:00</updated>
   <id>http://alexba.in/</id>
   <author>
     <name><![CDATA[Alex Bain]]></name>
@@ -12,6 +12,54 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[lirc_web v0.3.0]]></title>
+    <link href="http://alexba.in/blog/2016/03/13/lirc-web-v0-3-0/"/>
+    <updated>2016-03-13T11:50:00+00:00</updated>
+    <id>http://alexba.in/blog/2016/03/13/lirc-web-v0-3-0</id>
+    <content type="html"><![CDATA[<p><code>v0.3.0</code> of <code>lirc_web</code> has just been published to npm.</p>
+
+<p>This release targets mobile optimizations and performance. <code>lirc_web</code> now behaves more like a native app when added to the home screen of a mobile device. A favicon is now shown on the home screen, the URL bar will be hidden from view, and <code>lirc_web</code> will be selectable from the device's multitasking screen. Furthermore, CSS assets are bundled into a single request, small images are now base64 encoded, and an application cache has been introduced to cache all assets locally between requests.</p>
+
+<p>In my testing, with a warm cache, <code>lirc_web</code> now fires a <code>load</code> event within 300ms.</p>
+
+<p>Here's the relevant piece of <code>CHANGELOG.md</code> that describes all updates since <code>v0.2.0</code>:</p>
+
+<pre><code>## [0.3.0] - 2016-03-13
+
+* Adds `grunt-contrib-cssmin` task to combine all CSS requests into one
+* Adds ability to set lirc socket in `config.json` (thanks @pmgration)
+* Base64 `left-arrow.png` image to reduce a request
+* Adds application cache manifest file for offline caching
+
+## [0.2.4] - 2016-01-13
+
+* Extracts macros into a standalone lib/macros.js file
+* Adds Favicon (thanks @flochtililoch)
+* Adds npm run test:watch action (thanks @OvisMaximus)
+* Travis build will now run linter
+* Updated dependencies
+* Uses local version of jQuery for testing now
+
+## [0.2.3] - 2016-01-03
+
+* Fixing bug where labels were loaded before config (thanks @flochtililoch)
+
+## [0.2.2] - 2016-01-01
+
+* Removing `Makefile` for running tests. Only need `package.json`.
+* Fixing .gitignore error for the global lirc_web build
+
+## [0.2.1] - 2015-12-31
+
+* `lirc_web` can now be installed globally and called by `lirc_web` from CLI
+* Adding ESLint to the mix and ensuring all JS conforms to Airbnb ES5 standards
+</code></pre>
+
+<p>New features are documented in the <a href="https://github.com/alexbain/lirc_web/blob/master/README.md">README</a> and the <a href="https://github.com/alexbain/lirc_web/blob/master/CHANGELOG.md">CHANGELOG</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[lirc_web v0.2.0]]></title>
